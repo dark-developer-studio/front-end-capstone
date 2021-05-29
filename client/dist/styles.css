@@ -1,0 +1,4 @@
+.item-inline {
+  display: flex;
+  flex-flow: row nowrap;
+}
