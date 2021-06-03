@@ -1,3 +1,4 @@
+
 const express = require('express');
 const bodyParser = require('body-parser');
 const helper = require('../helpers/github');
@@ -36,9 +37,8 @@ app.get('/repos', function (req, res) {
   });
 });
 
-let port = 1128;
+let port = 3000;
 
 app.listen(port, function() {
   console.log(`listening on port ${port}`);
 });
-

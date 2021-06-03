@@ -1,15 +1,13 @@
 {
-  "name": "github-fetcher-fullstack-v2",
+  "name": "front-end-capstone",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
   "scripts": {
     "react-dev": "webpack --mode development --watch",
-    "server-dev": "npx nodemon server/index.js",
-    "start": "node server/index.js"
+    "start": "live-server"
   },
-  "author": "Beth Johnson",
-  "license": "ISC",
+  "author": "Dark Dev Studios",
+  "license": "No License",
   "devDependencies": {
     "@babel/core": "^7.12.3",
     "@babel/preset-env": "^7.12.1",
@@ -20,10 +18,7 @@
   },
   "dependencies": {
     "axios": "^0.21.1",
-    "body-parser": "^1.19.0",
-    "express": "^4.15.0",
     "jquery": "^3.1.1",
-    "mongoose": "^5.12.12",
     "react": "^16.4",
     "react-dom": "^16.4"
   }
