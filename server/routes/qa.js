@@ -1,5 +1,5 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const router = express.Router();
 
 router.use(function(req, res, next) {
   console.log('Something is happening.');
@@ -15,7 +15,7 @@ router.route('/videos')
 
   .post(function(req, res) {
 
-    var video = new Video();
+    const video = new Video();
     video.title = req.body.title;
 
     video.save(function(err) {

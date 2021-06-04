@@ -11,7 +11,6 @@ class App extends React.Component {
       repos: [],
       count: 0
     }
-
   }
 
   componentDidMount() {

@@ -1,5 +1,4 @@
 var express = require('express');
-var
 var router = express.Router();
 
 router.get('/', function(req, res) {
