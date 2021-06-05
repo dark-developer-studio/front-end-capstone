@@ -1,15 +1,17 @@
 import React, { useState } from 'react';
 
+import Container from '@material-ui/core/Container';
+
 const QuestionsAndAnswers = () => {
   const [questions, setQuestions] = useState([]);
 
   return (
     <div className="app-toBeDeleted">
 
-      <div className="qaContainer" style={{ width: '98%', padding: '3px', border: '2px solid green' }}>
+      <Container className="qaContainer" style={{ padding: 3, border: '2px solid green' }}>
         <div className="searchbarContainer" style={{ width: '98%', border: '2px solid purple' }}>
           <div className="text" style={{ width: '98%', border: '2px solid red' }}>Questions &amp; Answers</div>
-          <input placeholder="HAVE A QUESTION? SEARCH FOR ANSWERS..." className="searchbar" style={{ width: '98%', border: '2px solid red' }} />
+          <input type="text" placeholder="HAVE A QUESTION? SEARCH FOR ANSWERS..." className="searchbar" style={{ width: '98%', border: '2px solid red' }} />
         </div>
         <div className="questionlist" style={{ width: '98%', border: '2px solid blue' }}>
           <div className="questionContainer" style={{ width: '98%', border: '2px solid yellow' }}>
@@ -34,9 +36,22 @@ const QuestionsAndAnswers = () => {
             <button type="button" className="addquestion" style={{ width: '50%', border: '2px solid red' }}>ADD A QUESTION</button>
           </div>
         </div>
-      </div>
+      </Container>
 
       <div className="answerModal" style={{ width: '98%', padding: '3px', border: '2px solid green' }}>
+        <div className="title" style={{ width: '98%', border: '2px solid red' }}>Submit your Answer</div>
+        <div className="subtitle" style={{ width: '98%', border: '2px solid red' }}>[Product Name]: [Question]</div>
+        <form className="formContainer" style={{ width: '98%', border: '2px solid purple' }}>
+          <span className="inputText" style={{ border: '2px solid red' }}>Answer:</span>
+          <input type="text" className="answer" style={{ width: '98%', border: '2px solid red' }} />
+          <span className="inputText" style={{ border: '2px solid red' }}>Nickname:</span>
+          <input type="text" className="nickname" style={{ width: '98%', border: '2px solid red' }} />
+          <span className="inputText" style={{ border: '2px solid red' }}>Email:</span>
+          <input type="email" className="email" style={{ width: '98%', border: '2px solid red' }} />
+          <span className="inputText" style={{ border: '2px solid red' }}>Upload Photos:</span>
+          <input type="file" className="upload" style={{ width: '98%', border: '2px solid red' }} />
+          <button type="button">Submit</button>
+        </form>
       </div>
 
     </div>
