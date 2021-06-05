@@ -2,9 +2,7 @@ import React from 'react';
 
 const QuestionsAndAnswers = () => {
   return (
-    <div>
-
-    </div>
+    <div></div>
   );
 };
 
