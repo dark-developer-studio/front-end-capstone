@@ -4,7 +4,8 @@
   "description": "",
   "scripts": {
     "react-dev": "webpack --mode development --watch",
-    "start": "live-server",
+    "server-dev": "npx nodemon server/index.js",
+    "start": "node server/index.js",
     "test": "jest"
   },
   "author": "Dark Dev Studios",
