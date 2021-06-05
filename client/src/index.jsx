@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import axios from 'axios';
+
+import Container from '@material-ui/core/Container';
 
 import Banner from './components/Banner.jsx';
 import ProductDisplay from './components/product-display/ProductDisplay.jsx';
@@ -12,13 +13,13 @@ const App = () => {
   function getSomething() { }
 
   return (
-    <div>
+    <Container maxWidth="lg">
       <Banner />
       <ProductDisplay />
       <RelatedProducts />
       <QuestionsAndAnswers />
       <RatingsAndReviews />
-    </div>
+    </Container>
   );
 };
 
