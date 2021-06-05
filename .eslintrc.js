@@ -26,6 +26,7 @@ module.exports = {
       exports: 'never',
       functions: 'never'
     }],
-    'import/extensions': ['error', { jsx: 'always' }]
+    'import/extensions': ['error', { jsx: 'always' }],
+    'no-console': ['warn']
   }
 };

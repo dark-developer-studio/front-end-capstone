@@ -1,35 +1,7 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
 
-router.get('/', function(req, res) {
-  axios.get('heroku.app/api/hr-bld/images');
-});
+const router = express.Router();
 
-
-router.route('/videos')
-
-  .post(function(req, res) {
-
-    var video = new Video();
-    video.title = req.body.title;
-
-    video.save(function(err) {
-  if (err)
-    res.send(err);
-
-  res.json({ message: 'Video criado!' });
-});
-
-
-  })
-
-  .get(function(req, res) {
-    Video.find(function(err, videos) {
-      if (err)
-        res.send(err);
-
-      res.json(videos);
-    });
-  });
+router.get('/', (req, res) => {});
 
 module.exports.router = router;
