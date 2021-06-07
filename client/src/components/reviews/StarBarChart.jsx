@@ -1,18 +1,22 @@
 import React from "react";
-import {Grid} from '@material-ui/core';
-import {makeStyles} from '@material-ui/core/styles';
+import { Typography } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
 import { Bar } from 'react-chartjs-2';
 
 const useStyles = makeStyles((theme) => ({
-  barDiagram: {
+  starBarChart: {
     display: "flex",
     flexDirection: "column",
     justifyContent: "space-evenly",
-    alignItems: "flex-start",
-    marginLeft: "10px",
+    alignItems: "center",
     border: "3px solid red"
   },
 }));
+
+//Bar Colors
+let emerald = 'rgba(63, 195, 128, 1)';
+let eucalyptus = 'rgba(38, 166, 91, 1)';
+let htmlGray = 'rgba(128,128,128, 1)'
 
 const data = {
   labels: ['5 Stars', '4 Stars', '3 Stars', '2 Stars', '1 Star'],
@@ -21,15 +25,10 @@ const data = {
       label: '',
       data: [20, 40, 10, 25, 5],
       backgroundColor: [
-        'rgba(35, 203, 167, 1)',
-        'rgba(35, 203, 167, 1)',
-        'rgba(35, 203, 167, 1)',
-        'rgba(35, 203, 167, 1)',
-        'rgba(35, 203, 167, 1)',
-        'rgba(35, 203, 167, 1)',
+        emerald
       ],
       borderColor: [
-        'rgba(38, 166, 91, 1)'
+        eucalyptus
       ],
       borderWidth: 2,
     },
@@ -42,22 +41,14 @@ const options = {
 
   // Elements options apply to all of the options unless overridden in a dataset
   elements: {
-    // bar: {
-    //   borderWidth: 2,
-    // },
+    //Empty for now
   },
   responsive: true,
-
   plugins: {
     legend: {
       display: false
     },
   },
-//   title: {
-//     display: true,
-//     text: 'This is a Horizontal Bar Chart',
-//   },
-// },
   scales: {
     xAxis: {
       display: false,
@@ -71,8 +62,17 @@ const options = {
   }
 };
 
-const StarBarChart = () => (
-    <Bar data={data} options={options} />
-);
+const StarBarChart = () => {
+  const classes = useStyles();
+  return  (
+    <div className={classes.starBarChart}>
+      <Typography gutterBottom>
+        Star Rating Chart
+      </Typography>
+
+      <Bar data={data} options={options} />
+    </div>
+  );
+}
 
 export default StarBarChart;
