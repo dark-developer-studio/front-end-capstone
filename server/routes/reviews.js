@@ -10,7 +10,7 @@ router.get('/revs', (req, res) => {
   .get('https://app-hrsei-api.herokuapp.com/api/fec2/hr-bld/reviews', {
     headers: {
       Authorization: GITHUB_API_KEY
-      //---------ADDITIONAL HEADERS INCASE NEEDED
+      //---------EXTRA HEADERS INCASE NEEDED
       // Accept: 'application/json',
       // 'User-Agent': 'request',
     },
