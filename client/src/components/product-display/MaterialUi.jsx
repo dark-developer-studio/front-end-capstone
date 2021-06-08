@@ -1,15 +1,44 @@
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
+  avatarSmall: {
+    width: theme.spacing(3),
+    height: theme.spacing(3),
+    '&:hover': {
+      cursor: 'pointer'
+    }
+  },
+  avatarLarge: {
+    width: theme.spacing(7),
+    height: theme.spacing(7),
+    '&:hover': {
+      cursor: 'pointer'
+    }
+  },
   button: {
-    background: 'linear-gradient(45deg, #32FF00, #AF049C)',
-    border: 1,
-    borderRadius: 20,
-    color: 'black',
-    padding: '0 30px '
+    padding: '7px',
+    border: '1px solid black',
+    width: '100%',
+    borderRadius: '0px'
   },
   form: {
     background: 'purple'
+  },
+  media: {
+    height: 0,
+    paddingTop: '56.25%' // 16:9
+  },
+  img: {
+    borderRadius: '50%',
+    border: '1px solid black'
+  },
+  icon: {
+    color: 'black'
+  },
+  selectTag: {
+    padding: '10px',
+    border: '1px solid black',
+    width: '100%'
   },
   grid: {
     padding: theme.spacing(2),
@@ -22,7 +51,6 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(2),
     textAlign: 'center',
     color: 'white',
-    backgroundColor: 'green',
     border: '2px solid black'
   },
   grid3: {
