@@ -45,7 +45,7 @@ const ProductDisplay = () => {
           </Grid>
         </Grid>
         <Grid item xs={5} container direction="column">
-          <Card>
+          <Card className={classes.card}>
             <CardContent>
               <Typography variant="body2" color="textSecondary" component="p" align="left">
                 *Stars*

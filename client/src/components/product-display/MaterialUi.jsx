@@ -6,14 +6,16 @@ const useStyles = makeStyles((theme) => ({
     height: theme.spacing(3),
     '&:hover': {
       cursor: 'pointer'
-    }
+    },
+    border: '1px solid black'
   },
   avatarLarge: {
     width: theme.spacing(7),
     height: theme.spacing(7),
     '&:hover': {
       cursor: 'pointer'
-    }
+    },
+    border: '1px solid black'
   },
   button: {
     padding: '7px',
@@ -38,7 +40,12 @@ const useStyles = makeStyles((theme) => ({
   selectTag: {
     padding: '10px',
     border: '1px solid black',
-    width: '100%'
+    width: '100%',
+    fontWeight: 'bold'
+  },
+  card: {
+    justifyContent: 'center',
+    flexWrap: 'wrap'
   },
   grid: {
     padding: theme.spacing(2),
