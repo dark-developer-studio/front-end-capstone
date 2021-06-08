@@ -13,7 +13,16 @@ import { getProduct } from './helpers/globalRequest';
 import { AppContext } from './helpers/context';
 
 function App() {
-  const [product, setProduct] = useState({});
+  const [product, setProduct] = useState({
+    id: -1,
+    campus: '',
+    name: '',
+    slogan: '',
+    description: '',
+    category: '',
+    default_price: '',
+    features: []
+  });
 
   useEffect(() => {
     getProduct()
