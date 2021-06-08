@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom';
 
 import Container from '@material-ui/core/Container';
@@ -9,17 +9,32 @@ import QuestionsAndAnswers from './components/qa/QuestionsAndAnswers.jsx';
 import RatingsAndReviews from './components/reviews/RatingsAndReviews.jsx';
 // import RelatedProducts from './components/related-products/RelatedProducts.jsx';
 
+import { getProduct } from './helpers/globalRequest';
+import { AppContext } from './helpers/context';
+
 function App() {
+  const [product, setProduct] = useState({});
+
+  useEffect(() => {
+    getProduct()
+      .then((productData) => {
+        setProduct(productData);
+      })
+      .catch((err) => console.log(err));
+  }, []);
+
   return (
-    <Container maxWidth="lg">
-      <Banner />
-      <ProductDisplay />
-      <Container maxWidth="md">
-        {/* <RelatedProducts /> */}
-        <QuestionsAndAnswers />
-        <RatingsAndReviews />
+    <AppContext.Provider value={{ product }}>
+      <Container maxWidth="lg">
+        <Banner />
+        <ProductDisplay />
+        <Container maxWidth="md">
+          {/* <RelatedProducts /> */}
+          <QuestionsAndAnswers />
+          <RatingsAndReviews />
+        </Container>
       </Container>
-    </Container>
+    </AppContext.Provider>
   );
 }
 

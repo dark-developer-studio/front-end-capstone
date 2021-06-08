@@ -1,3 +1,6 @@
-const GlobalContext = createContext('Global');
-const ProductsContext = createContext('Products');
-const QuestionsContext = createContext('Questions');
+import React from 'react';
+
+export const AppContext = React.createContext();
+export const QAContext = React.createContext();
+export const ReviewsContext = React.createContext();
+export const DisplayContext = React.createContext();
