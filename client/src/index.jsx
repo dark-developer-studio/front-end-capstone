@@ -6,21 +6,21 @@ import Container from '@material-ui/core/Container';
 import Banner from './components/Banner.jsx';
 import ProductDisplay from './components/product-display/ProductDisplay.jsx';
 import QuestionsAndAnswers from './components/qa/QuestionsAndAnswers.jsx';
-import RelatedProducts from './components/related-products/RelatedProducts.jsx';
 import RatingsAndReviews from './components/reviews/RatingsAndReviews.jsx';
+// import RelatedProducts from './components/related-products/RelatedProducts.jsx';
 
-const App = () => {
-  function getSomething() { }
-
+function App() {
   return (
     <Container maxWidth="lg">
       <Banner />
       <ProductDisplay />
-      <RelatedProducts />
-      <QuestionsAndAnswers />
-      <RatingsAndReviews />
+      <Container maxWidth="md">
+        {/* <RelatedProducts /> */}
+        <QuestionsAndAnswers />
+        <RatingsAndReviews />
+      </Container>
     </Container>
   );
-};
+}
 
 ReactDOM.render(<App />, document.getElementById('app'));
