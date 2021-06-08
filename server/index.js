@@ -13,7 +13,7 @@ app.use(bodyParser.json());
 app.use('/api/qa', routes.qa.router);
 app.use('/api/reviews', routes.reviews.router);
 app.use('/api/display', routes.productDetails.router);
-app.use('/api/related', routes.relatedProducts.router);
+// app.use('/api/related', routes.relatedProducts.router);
 
 const port = 3000;
 

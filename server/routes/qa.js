@@ -1,40 +1,27 @@
 const express = require('express');
+const axios = require('axios');
+const { GITHUB_API_KEY } = require('../../config');
+
 const router = express.Router();
 
-router.use(function(req, res, next) {
-  console.log('Something is happening.');
-  next();
-});
-
-router.get('/', function(req, res) {
-  res.json({ message: 'hooray! welcome to our rest video api!' });
-});
-
-
-router.route('/videos')
-
-  .post(function(req, res) {
-
-    const video = new Video();
-    video.title = req.body.title;
-
-    video.save(function(err) {
-  if (err)
-    res.send(err);
-
-  res.json({ message: 'Video criado!' });
-});
-
-
+router.get('/questions', (req, res) => {
+  axios.get('https://app-hrsei-api.herokuapp.com/api/fec2/hr-bld/qa/questions', {
+    headers: {
+      Authorization: GITHUB_API_KEY
+    },
+    params: {
+      product_id: req.query.product_id
+    }
   })
-
-  .get(function(req, res) {
-    Video.find(function(err, videos) {
-      if (err)
-        res.send(err);
-
-      res.json(videos);
+    .then((response) => response.data)
+    .then((questions) => {
+      res.send(questions);
+    })
+    .catch((err) => {
+      // eslint-disable-next-line no-console
+      console.log(err);
+      res.status(400).send();
     });
-  });
+});
 
 module.exports.router = router;

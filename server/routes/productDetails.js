@@ -1,35 +1,55 @@
-var express = require('express');
-var router = express.Router();
+const Axios = require('axios');
+const express = require('express');
+const { GITHUB_API_KEY } = require('../../config');
 
-router.get('/', function(req, res) {
-  axios.get('heroku.app/api/hr-bld/images');
-});
+const router = express.Router();
 
-
-router.route('/videos')
-
-  .post(function(req, res) {
-
-    var video = new Video();
-    video.title = req.body.title;
-
-    video.save(function(err) {
-  if (err)
-    res.send(err);
-
-  res.json({ message: 'Video criado!' });
-});
-
-
-  })
-
-  .get(function(req, res) {
-    Video.find(function(err, videos) {
-      if (err)
-        res.send(err);
-
-      res.json(videos);
+router.get('/products', (req, res) => {
+  Axios
+    .get('https://app-hrsei-api.herokuapp.com/api/fec2/hr-bld/products', {
+      headers: {
+        Authorization: GITHUB_API_KEY
+      }
+    })
+    .then((response) => response.data)
+    .then((data) => {
+      res.status(200).send(data);
+    })
+    .catch((err) => {
+      res.status(400).send(err);
     });
-  });
+});
+
+router.get('/products/:id', (req, res) => {
+  Axios
+    .get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-bld/products/${req.params.id}`, {
+      headers: {
+        Authorization: GITHUB_API_KEY
+      }
+    })
+    .then((response) => response.data)
+    .then((data) => {
+      res.status(200).send(data);
+    })
+    .catch((err) => {
+      res.status(400).send(err);
+    });
+});
+
+router.get('/products/:id/styles', (req, res) => {
+  Axios
+    .get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-bld/products/${req.params.id}/styles`, {
+      headers: {
+        Authorization: GITHUB_API_KEY
+      }
+    })
+    .then((response) => response.data)
+    .then((data) => {
+      res.status(200).send(data);
+    })
+    .catch((err) => {
+      res.status(400).send(err);
+    });
+});
 
 module.exports.router = router;

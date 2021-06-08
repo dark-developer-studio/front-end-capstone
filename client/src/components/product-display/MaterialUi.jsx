@@ -6,16 +6,24 @@ const useStyles = makeStyles((theme) => ({
     height: theme.spacing(3),
     '&:hover': {
       cursor: 'pointer'
+<<<<<<< HEAD
     },
     border: '1px solid black'
+=======
+    }
+>>>>>>> ee5e29d8ca6158a8c0f600e67b68d826fc44d767
   },
   avatarLarge: {
     width: theme.spacing(7),
     height: theme.spacing(7),
     '&:hover': {
       cursor: 'pointer'
+<<<<<<< HEAD
     },
     border: '1px solid black'
+=======
+    }
+>>>>>>> ee5e29d8ca6158a8c0f600e67b68d826fc44d767
   },
   button: {
     padding: '7px',
@@ -40,12 +48,16 @@ const useStyles = makeStyles((theme) => ({
   selectTag: {
     padding: '10px',
     border: '1px solid black',
+<<<<<<< HEAD
     width: '100%',
     fontWeight: 'bold'
   },
   card: {
     justifyContent: 'center',
     flexWrap: 'wrap'
+=======
+    width: '100%'
+>>>>>>> ee5e29d8ca6158a8c0f600e67b68d826fc44d767
   },
   grid: {
     padding: theme.spacing(2),
