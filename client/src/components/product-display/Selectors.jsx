@@ -28,6 +28,6 @@ const Selectors = (props) => {
       </Grid>
     </Grid>
   );
-}
+};
 
 export default Selectors;

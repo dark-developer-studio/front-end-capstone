@@ -37,42 +37,41 @@ const ProductDisplay = () => {
   }, []);
 
   return (
-    <div>
-      <Grid item xs={12} spacing={1} container>
-        <Grid className={classes.grid} item xs={7} container>
-          <Grid className={classes.grid3} item xs={12} container>
-            Image Gallery
-          </Grid>
+    <Grid item xs={12} spacing={1} container>
+      <Grid className={classes.grid} item xs={7} container>
+        <Grid className={classes.grid3} item xs={12} container>
+          Image Gallery
         </Grid>
-        <Grid item xs={5} container direction="column">
-          <Card>
-            <CardContent>
-              <Typography variant="body2" color="textSecondary" component="p" align="left">
-                *Stars*
-                <u>View All Reviews</u>
-              </Typography>
-              {/* {products.map((product, index) => (
+      </Grid>
+      <Grid item xs={5} container direction="column">
+        <Card>
+          <CardContent>
+            <Typography variant="body2" color="textSecondary" component="p" align="left">
+              *Stars*
+              <u>View All Reviews</u>
+            </Typography>
+            {/* {products.map((product, index) => (
                 // eslint-disable-next-line react/no-array-index-key
                 <CategoryPriceName product={product} key={index} />
               ))} */}
-              <Typography variant="h6" color="textSecondary" component="p" align="left">
-                *Category*
-              </Typography>
-              <Typography variant="h4" color="textSecondary" component="p" align="left">
-                *Product Name*
-              </Typography>
-              <Typography variant="body2" color="textSecondary" component="p" align="left">
-                *Price*
-              </Typography>
-              <Typography variant="body2" color="textSecondary" component="p" align="left">
-                <b>Style &gt; </b>
-                Select Style
-              </Typography>
-              <StyleThumbs products={products} />
-              <Selectors />
-            </CardContent>
-          </Card>
-          {/* <Grid className={classes.grid3} item xs={12} container direction="column">
+            <Typography variant="h6" color="textSecondary" component="p" align="left">
+              *Category*
+            </Typography>
+            <Typography variant="h4" color="textSecondary" component="p" align="left">
+              *Product Name*
+            </Typography>
+            <Typography variant="body2" color="textSecondary" component="p" align="left">
+              *Price*
+            </Typography>
+            <Typography variant="body2" color="textSecondary" component="p" align="left">
+              <b>Style &gt; </b>
+              Select Style
+            </Typography>
+            <StyleThumbs products={products} />
+            <Selectors />
+          </CardContent>
+        </Card>
+        {/* <Grid className={classes.grid3} item xs={12} container direction="column">
             <Grid className={classes.grid4} item xs={12}>
               Stars + Review Link
             </Grid>
@@ -125,14 +124,13 @@ const ProductDisplay = () => {
               </Grid>
             </Grid>
           </Grid> */}
-        </Grid>
-        <Grid className={classes.grid6} item xs={12} container>
-          <Grid className={classes.grid5} item xs={12} container>
-            Description
-          </Grid>
+      </Grid>
+      <Grid className={classes.grid6} item xs={12} container>
+        <Grid className={classes.grid5} item xs={12} container>
+          Description
         </Grid>
       </Grid>
-    </div>
+    </Grid>
   );
 };
 
