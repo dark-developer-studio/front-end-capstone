@@ -54,20 +54,27 @@ const ProductDisplay = () => {
           Image Gallery
         </Grid>
       </Grid>
+
       <Grid item xs={5} container direction="column">
         <Card>
           <CardContent>
+
             <Typography variant="body2" color="textSecondary" component="p" align="left">
               *Stars*
               <u>View All Reviews</u>
             </Typography>
+
             <CategoryPriceName />
+
             <Typography variant="body2" color="textSecondary" component="p" align="left">
               <b>Style &gt; </b>
               Select Style
             </Typography>
+
             <StyleThumbs productStyles={productStyles.results} />
+
             <Selectors />
+
           </CardContent>
         </Card>
         {/* <Grid className={classes.grid3} item xs={12} container direction="column">
