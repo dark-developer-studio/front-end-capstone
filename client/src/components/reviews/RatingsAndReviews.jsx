@@ -1,11 +1,11 @@
-import React, {useState, useEffect, useContext} from 'react';
-import axios from 'axios';
+import React, { useState, useEffect, useContext } from 'react';
+// import axios from 'axios';
 
-//Material UI imports
-import {Grid, Button, Paper} from '@material-ui/core';
+// Material UI imports
+import { Grid, Button, Paper } from '@material-ui/core';
 import useStyles from './Styles.jsx';
 
-//Component imports
+// Component imports
 import ReviewTile from './ReviewTile.jsx';
 import TotalReviewCount from './TotalReviewCount.jsx';
 import ReviewPercentageAndStars from './ReviewPercentageAndStars.jsx';
@@ -14,17 +14,16 @@ import ProductReviewChart from './ProductReviewChart.jsx';
 // import AddReviewDialog from './AddReviewModal.jsx'
 import CustomizedDialogs from './AddReviewModal.jsx'
 
-//Context import
-import { AppContext } from '../../helpers/context';
+// Context import
+// import { AppContext } from '../../helpers/context';
 
-//import '../../../dist/styles.css'; USE FOR FUTURE CSS STYLING
+// import '../../../dist/styles.css'; USE FOR FUTURE CSS STYLING
 
-const RatingsAndReviews = ( { product } ) => {
-  //onst { product } = useContext(AppContext);
-  const [reviews, setReviews] = useState ([]);
+const RatingsAndReviews = () => {
+  // const { product } = useContext(AppContext);
+  const [reviews, setReviews] = useState([]);
   // getModalStyle is not a pure function, we roll the style only on the first render
   const [open, setOpen] = useState(false);
-
 
   // const getAllReviews = () => {
   //   axios
@@ -46,11 +45,10 @@ const RatingsAndReviews = ( { product } ) => {
   //   })
   // };
 
-  console.log(product);
-  console.log(product.data);
+  // console.log(product);
+  // console.log(product.data);
   // let val = product.data
   // const arr = [val];
-
 
   const classes = useStyles();
 
@@ -64,11 +62,11 @@ const RatingsAndReviews = ( { product } ) => {
       {/* {Object.values(product).forEach( val => {
         <div>{val}</div>
       })} */}
-      <div>{product.id}</div>
-       <div>{product.campus}</div>
-       <div>{product.name}</div>
+      {/* <div>{product.id}</div>
+      <div>{product.campus}</div>
+      <div>{product.name}</div> */}
 
-      <Grid container direction="row" container alignItems="center" justify="space-around" className={classes.topGrid}>
+      <Grid container direction="row" alignItems="center" justify="space-around" className={classes.topGrid}>
 
         <Grid item className={classes.componentTitle}>
           Rating and Reviews
@@ -76,7 +74,7 @@ const RatingsAndReviews = ( { product } ) => {
         <Grid item className={classes.totalRev}>
           Total Reviews:
           <TotalReviewCount />
-          </Grid>
+        </Grid>
         <Grid item className={classes.sortby}>
           <span>Sort by: </span>
           <select>
@@ -86,7 +84,7 @@ const RatingsAndReviews = ( { product } ) => {
             <option value="">Relevant</option>
           </select>
         </Grid>
-      {/* End of topGrid */}
+        {/* End of topGrid */}
       </Grid>
 
       <Grid container direction="row" justify="space-evenly" className={classes.midGrid}>
@@ -99,7 +97,7 @@ const RatingsAndReviews = ( { product } ) => {
           <StarBarChart />
           <ProductReviewChart />
 
-        {/* End of left panel   */}
+          {/* End of left panel   */}
         </Grid>
 
         <Grid item className={classes.rightPanel}>
@@ -111,15 +109,15 @@ const RatingsAndReviews = ( { product } ) => {
 
           <div className={classes.buttonContainer}>
             <CustomizedDialogs />
-            <Button variant="outlined" color="secondary" className={classes.moreRevBtn}>More Reviews</Button >
+            <Button variant="outlined" color="secondary" className={classes.moreRevBtn}>More Reviews</Button>
             {/* <Button color="primary" className={classes.addRevBtn}>Add Review</Button> */}
 
           </div>
 
-        {/* End of right panel   */}
+          {/* End of right panel   */}
         </Grid>
 
-      {/* End of midGrid   */}
+        {/* End of midGrid   */}
       </Grid>
 
     </div>
