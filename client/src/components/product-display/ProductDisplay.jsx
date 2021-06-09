@@ -1,16 +1,21 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import {
   Grid, Typography, Card, CardContent, CardHeader, CardMedia
 } from '@material-ui/core';
 import Axios from 'axios';
+import { AppContext } from '../../helpers/context';
 import CategoryPriceName from './CategoryPriceName.jsx';
 import useStyles from './MaterialUi.jsx';
 import StyleThumbs from './StyleThumbs.jsx';
 import Selectors from './Selectors.jsx';
+import ProductDescription from './ProductDescription.jsx';
 
 const ProductDisplay = () => {
   const [products, setProducts] = useState([]);
-  const [productStyles, setProductStyles] = useState([]);
+  const [productStyles, setProductStyles] = useState({
+    product_id: '',
+    results: []
+  });
 
   const classes = useStyles();
 
@@ -24,18 +29,24 @@ const ProductDisplay = () => {
   };
 
   const getProductStyles = (productId) => {
-    Axios
-      .get(`/api/display/products/:${productId}/styles`)
-      .then((response) => {
-        setProductStyles(response.data);
-      })
-      .catch();
+    if (productId > 0) {
+      Axios
+        .get(`/api/display/products/${productId}/styles`)
+        .then((response) => {
+          setProductStyles(response.data);
+        })
+        .catch();
+    }
   };
 
+  const { product } = useContext(AppContext);
+  // console.log('global context');
+  // console.log(product);
   useEffect(() => {
-    getProducts();
-  }, []);
+    getProductStyles(product.id);
+  }, [product]);
 
+  console.log(productStyles.results);
   return (
     <Grid item xs={12} spacing={1} container>
       <Grid className={classes.grid} item xs={7} container>
@@ -50,24 +61,12 @@ const ProductDisplay = () => {
               *Stars*
               <u>View All Reviews</u>
             </Typography>
-            {/* {products.map((product, index) => (
-                // eslint-disable-next-line react/no-array-index-key
-                <CategoryPriceName product={product} key={index} />
-              ))} */}
-            <Typography variant="h6" color="textSecondary" component="p" align="left">
-              *Category*
-            </Typography>
-            <Typography variant="h4" color="textSecondary" component="p" align="left">
-              *Product Name*
-            </Typography>
-            <Typography variant="body2" color="textSecondary" component="p" align="left">
-              *Price*
-            </Typography>
+            <CategoryPriceName />
             <Typography variant="body2" color="textSecondary" component="p" align="left">
               <b>Style &gt; </b>
               Select Style
             </Typography>
-            <StyleThumbs products={products} />
+            <StyleThumbs productStyles={productStyles.results} />
             <Selectors />
           </CardContent>
         </Card>
@@ -126,9 +125,7 @@ const ProductDisplay = () => {
           </Grid> */}
       </Grid>
       <Grid className={classes.grid6} item xs={12} container>
-        <Grid className={classes.grid5} item xs={12} container>
-          Description
-        </Grid>
+        <ProductDescription />
       </Grid>
     </Grid>
   );
