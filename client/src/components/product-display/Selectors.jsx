@@ -19,15 +19,17 @@ const Selectors = (props) => {
         </select>
       </Grid>
       <Grid item xs={9}>
-        <Button className={classes.button} variant="outlined">Add To Bag</Button>
+        <Button className={classes.button} variant="outlined">
+          Add To Bag
+        </Button>
       </Grid>
       <Grid item xs={3}>
-        <IconButton className={classes.button} variant="outlined">
+        <Button className={classes.button} variant="outlined">
           <FavoriteBorderIcon className={classes.icon} />
-        </IconButton>
+        </Button>
       </Grid>
     </Grid>
   );
-}
+};
 
 export default Selectors;
