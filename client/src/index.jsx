@@ -14,7 +14,16 @@ import { AppContext } from './helpers/context';
 
 import axios from 'axios';
 function App() {
-  const [product, setProduct] = useState({});
+  const [product, setProduct] = useState({
+    id: -1,
+    campus: '',
+    name: '',
+    slogan: '',
+    description: '',
+    category: '',
+    default_price: '',
+    features: []
+  });
 
   // function getProduct(id = 18078) {
   //   axios.get(`/product/${id}`)
