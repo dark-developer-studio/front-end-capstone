@@ -16,26 +16,26 @@ import axios from 'axios';
 function App() {
   const [product, setProduct] = useState({});
 
-  function getProduct(id = 18078) {
-    axios.get(`/product/${id}`)
-    .then(productData => productData)
-    .then(setProduct)
-    .catch((err) => console.log(err));
-  }
-
-
-  useEffect(() => {
-    getProduct()
-  }, []);
+  // function getProduct(id = 18078) {
+  //   axios.get(`/product/${id}`)
+  //   .then(productData => productData)
+  //   .then(setProduct)
+  //   .catch((err) => console.log(err));
+  // }
 
 
   // useEffect(() => {
   //   getProduct()
-  //     .then((productData) => {
-  //       setProduct(productData);
-  //     })
-  //     .catch((err) => console.log(err));
   // }, []);
+
+
+  useEffect(() => {
+    getProduct()
+      .then((productData) => {
+        setProduct(productData);
+      })
+      .catch((err) => console.log(err));
+  }, []);
 
   return (
     <AppContext.Provider value={{ product }}>
