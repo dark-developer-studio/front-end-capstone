@@ -9,7 +9,7 @@ const useStyles = makeStyles((theme) => ({
     alignContent: "center"
   },
   topGrid: {
-    border: "3px solid red",
+    // border: "3px solid red",
     marginTop: "10px"
 
     // alignContent: "center"
@@ -17,67 +17,69 @@ const useStyles = makeStyles((theme) => ({
     // alignContent:"center"
   },
   componentTitle: {
+    // border: "3px solid blue",
     display: "flex",
-    border: "3px solid blue",
-    padding: "10px"
+    padding: "10px",
+    fontSize: "30px"
   },
   totalRev: {
-    display: "flex",
-    border: "3px solid blue",
-    padding: "10px"
+     // border: "3px solid blue",
+     display: "flex",
+     padding: "10px"
   },
   sortby: {
-    display: "flex",
-    border: "3px solid blue",
-    padding: "10px"
+     // border: "3px solid blue",
+     display: "flex",
+     padding: "10px"
   },
   midGrid: {
+    // border: "3px solid red",
     display: "flex",
-    border: "3px solid red",
     margin: "10px 0 10px 0"
   },
   leftPanel: {
+    // border: "3px solid green",
     display: "flex",
     flexDirection: "column",
     justifyContent: "flex-start",
     alignContent: "center",
-    border: "3px solid green",
   },
   recommendPercentage: {
     margin: "10px"
   },
 
   rightPanel: {
+    // border: "3px solid green",
     display: "flex",
     flexDirection: "column",
     justifyContent: "flex-start",
     alignContent: "center",
-    border: "3px solid green",
   },
   reviewTile: {
     display: "flex",
     flexDirection: "column",
-    justifyContent: "center",
-    border: "3px solid orange",
+    justifyContent: "space-around",
+    border: "1px solid black",
     marginTop: "10px",
-    marginBottom: "10px"
+    marginBottom: "10px",
+    padding: "10px"
   },
   revTileTopRow: {
+    // border: "2px solid rebeccaPurple",
     display: "flex",
     flexDirection: "row",
     justifyContent: "space-evenly",
-    border: "2px solid rebeccaPurple"
   },
   revTileTopRowStars: {
-    border: "1px solid red",
+    // border: "1px solid red",
     padding: " 5px"
   },
   revTileTopRowUser: {
-    border: "1px solid red",
+    // border: "1px solid red",
     padding: " 5px"
   },
   revTileTopRowTimestamp: {
-    border: "1px solid red",
+    // border: "1px solid red",
     padding: " 5px"
   },
   reviewSummary: {
@@ -98,16 +100,16 @@ const useStyles = makeStyles((theme) => ({
   },
 
   buttonContainer: {
+    // border: "3px solid orange",
     display: "flex",
     flexDirection: "row",
     justifyContent: "space-around",
-    border: "3px solid orange",
   },
   moreRevBtn: {
-    border: "3px solid red"
+    // border: "3px solid red"
   },
   addRevBtn: {
-    border: "3px solid blue"
+    // border: "3px solid blue"
   }
 
 }));

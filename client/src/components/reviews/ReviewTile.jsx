@@ -8,7 +8,9 @@ const ReviewTile = () => {
   const classes = useStyles();
   return (
     <Grid item className={classes.reviewTile}>
-      <div>Review Tile</div>
+      <div>
+        {/* Review Tile */}
+      </div>
 
       <Grid item className={classes.revTileTopRow}>
 

@@ -5,11 +5,11 @@ import { Bar } from 'react-chartjs-2';
 
 const useStyles = makeStyles((theme) => ({
   starBarChart: {
+    // border: "3px solid red",
     display: "flex",
     flexDirection: "column",
     justifyContent: "space-evenly",
     alignItems: "center",
-    border: "3px solid red"
   },
 }));
 
