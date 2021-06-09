@@ -34,7 +34,7 @@ const StyleThumbs = (props) => {
               alt="Styles"
               src="https://via.placeholder.com/50"
               onClick={() => {
-                alert(`This is style ${index}`)
+                alert(`This is style ${index}`);
               }}
               hover="pointer"
             />
@@ -44,25 +44,26 @@ const StyleThumbs = (props) => {
     );
   } else {
     thumbs = (
-      <div>Thumbs not found</div>
+      <div>Thumbnails not found</div>
     );
   }
   return (
-    <GridList cellHeight={60} className={classes.gridList} cols={4}>
-      {props.productStyles.map((tile, index) => (
-        <GridListTile key={index} cols={tile.cols || 1}>
-          <Avatar
-            className={classes.avatarLarge}
-            alt="Styles"
-            src="https://via.placeholder.com/50"
-            onClick={() => {
-              alert(`This is style ${index}`)
-            }}
-            hover="pointer"
-          />
-        </GridListTile>
-      ))}
-    </GridList>
+    thumbs
+    // <GridList cellHeight={60} className={classes.gridList} cols={4}>
+    //   {props.productStyles.map((tile, index) => (
+    //     <GridListTile key={index} cols={tile.cols || 1}>
+    //       <Avatar
+    //         className={classes.avatarLarge}
+    //         alt="Styles"
+    //         src="https://images.unsplash.com/photo-1501088430049-71c79fa3283e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=300&q=80"
+    //         onClick={() => {
+    //           alert(`This is style ${index}`)
+    //         }}
+    //         hover="pointer"
+    //       />
+    //     </GridListTile>
+    //   ))}
+    // </GridList>
   );
 };
 
