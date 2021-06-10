@@ -1,11 +1,11 @@
-import React, {useState, useEffect, useContext} from 'react';
-import axios from 'axios';
+import React, { useState, useEffect, useContext } from 'react';
+// import axios from 'axios';
 
-//Material UI imports
-import {Grid, Button, Paper} from '@material-ui/core';
+// Material UI imports
+import { Grid, Button, Paper } from '@material-ui/core';
 import useStyles from './Styles.jsx';
 
-//Component imports
+// Component imports
 import ReviewTile from './ReviewTile.jsx';
 import TotalReviewCount from './TotalReviewCount.jsx';
 import ReviewPercentageAndStars from './ReviewPercentageAndStars.jsx';
@@ -14,8 +14,8 @@ import ProductReviewChart from './ProductReviewChart.jsx';
 // import AddReviewDialog from './AddReviewModal.jsx'
 import ReviewDialog from './AddReviewModal.jsx'
 
-//Context import
-import { AppContext } from '../../helpers/context';
+// Context import
+// import { AppContext } from '../../helpers/context';
 
 const { GITHUB_API_KEY } = require('../../../../config.js');
 
@@ -29,7 +29,6 @@ const RatingsAndReviews = () => {
 
   // getModalStyle is not a pure function, we roll the style only on the first render
   const [open, setOpen] = useState(false);
-
 
   // const getAllReviews = () => {
   //   axios
@@ -81,7 +80,6 @@ const RatingsAndReviews = () => {
   }
 }
 
-
   const classes = useStyles();
 
   const { product } = useContext(AppContext);
@@ -101,7 +99,7 @@ const RatingsAndReviews = () => {
        <div>{product.campus}</div>
        <div>{product.name}</div>
 
-      <Grid container direction="row" container alignItems="center" justify="space-around" className={classes.topGrid}>
+      <Grid container direction="row" alignItems="center" justify="space-around" className={classes.topGrid}>
 
         <Grid item className={classes.componentTitle}>
           Rating and Reviews
@@ -109,7 +107,7 @@ const RatingsAndReviews = () => {
         <Grid item className={classes.totalRev}>
           Total Reviews:
           <TotalReviewCount />
-          </Grid>
+        </Grid>
         <Grid item className={classes.sortby}>
           <span>Sort by: </span>
           <select>
@@ -119,7 +117,7 @@ const RatingsAndReviews = () => {
             <option value="">Relevant</option>
           </select>
         </Grid>
-      {/* End of topGrid */}
+        {/* End of topGrid */}
       </Grid>
 
       <Grid container direction="row" justify="space-evenly" className={classes.midGrid}>
@@ -132,7 +130,7 @@ const RatingsAndReviews = () => {
           <StarBarChart />
           <ProductReviewChart />
 
-        {/* End of left panel   */}
+          {/* End of left panel   */}
         </Grid>
 
         <Grid item className={classes.rightPanel}>
@@ -149,10 +147,10 @@ const RatingsAndReviews = () => {
 
           </div>
 
-        {/* End of right panel   */}
+          {/* End of right panel   */}
         </Grid>
 
-      {/* End of midGrid   */}
+        {/* End of midGrid   */}
       </Grid>
 
     </div>
