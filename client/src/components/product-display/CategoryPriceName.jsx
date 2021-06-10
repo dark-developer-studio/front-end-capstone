@@ -31,19 +31,8 @@ const CategoryPriceName = (props) => {
           <CircularProgress />
         </div>
       )}
-      {/* <>
-        <Typography variant="h6" color="textSecondary" component="p" align="left">
-          {product.category}
-        </Typography>
-        <Typography variant="h4" color="textSecondary" component="p" align="left">
-          {product.name}
-        </Typography>
-        <Typography variant="body2" color="textSecondary" component="p" align="left">
-          {product.default_price}
-        </Typography>
-      </> */}
     </div>
-  )
+  );
 };
 
 export default CategoryPriceName;
