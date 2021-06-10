@@ -12,16 +12,21 @@ import ReviewPercentageAndStars from './ReviewPercentageAndStars.jsx';
 import StarBarChart from './StarBarChart.jsx';
 import ProductReviewChart from './ProductReviewChart.jsx';
 // import AddReviewDialog from './AddReviewModal.jsx'
-import CustomizedDialogs from './AddReviewModal.jsx'
+import ReviewDialog from './AddReviewModal.jsx'
 
 //Context import
 import { AppContext } from '../../helpers/context';
 
+const { GITHUB_API_KEY } = require('../../../../config.js');
+
 //import '../../../dist/styles.css'; USE FOR FUTURE CSS STYLING
 
-const RatingsAndReviews = ( { product } ) => {
+const RatingsAndReviews = () => {
   //onst { product } = useContext(AppContext);
   const [reviews, setReviews] = useState ([]);
+
+
+
   // getModalStyle is not a pure function, we roll the style only on the first render
   const [open, setOpen] = useState(false);
 
@@ -30,7 +35,7 @@ const RatingsAndReviews = ( { product } ) => {
   //   axios
   //   .get('/api/reviews/revs', {
   //     params: {
-  //       product_id: 18080,
+  //       product_id: 18078,
   //       //count:
   //       // page : req.params.page
   //     }
@@ -38,7 +43,8 @@ const RatingsAndReviews = ( { product } ) => {
   //   .then( (response) => response.data)
   //   .then( (data) => {
   //     response.send(data);
-  //     console.log(response.data);
+  //     console.log('This is reviews data', response.data);
+  //     setReviews(response.data);
   //   })
   //   .catch( (err) => {
   //     console.log(err);
@@ -46,17 +52,44 @@ const RatingsAndReviews = ( { product } ) => {
   //   })
   // };
 
-  console.log(product);
-  console.log(product.data);
-  // let val = product.data
-  // const arr = [val];
+  const getAllReviews = (productID) => {
+    axios
+      .get(`/api/reviews/revs`, {
+        headers: {
+          Authorization: GITHUB_API_KEY
+        },
+        params: {
+          product_id: productID
+          // count:
+          // page:
+        }
+      })
+      .then((response) => {
+        setReviews(response.data);
+      })
+      .catch( (err) => {
+        console.log(err);
+        res.send(err);
+      })
+  };
+
+  console.log('this is reviews in ranr',reviews);
+  console.log('this is results in ranr', reviews.results);
+  if(reviews.results) {
+  if (reviews.results.length !== 0) {
+  console.log('this is results[0] in ranr', reviews.results[0]);
+  }
+}
 
 
   const classes = useStyles();
 
-  // useEffect(() => {
-  //   getAllReviews();
-  // }, []);
+  const { product } = useContext(AppContext);
+
+  useEffect(() => {
+    getAllReviews(product.id);
+    console.log('this is product id in useEffect', product.id)
+  }, [product]);
 
   return (
     <div className={classes.parentGrid}>
@@ -64,7 +97,7 @@ const RatingsAndReviews = ( { product } ) => {
       {/* {Object.values(product).forEach( val => {
         <div>{val}</div>
       })} */}
-      <div>{product.id}</div>
+      {/* <div>{reviews.results[0].summary}</div> */}
        <div>{product.campus}</div>
        <div>{product.name}</div>
 
@@ -110,7 +143,7 @@ const RatingsAndReviews = ( { product } ) => {
           <ReviewTile />
 
           <div className={classes.buttonContainer}>
-            <CustomizedDialogs />
+            <ReviewDialog />
             <Button variant="outlined" color="secondary" className={classes.moreRevBtn}>More Reviews</Button >
             {/* <Button color="primary" className={classes.addRevBtn}>Add Review</Button> */}
 
