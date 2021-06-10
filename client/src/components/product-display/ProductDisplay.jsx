@@ -70,7 +70,6 @@ const ProductDisplay = () => {
               <b>Style &gt; </b>
               Select Style
             </Typography>
-
             <StyleThumbs productStyles={productStyles.results} />
 
             <Selectors />
