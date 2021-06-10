@@ -62,13 +62,13 @@ const ProductDisplay = () => {
               <u>View All Reviews</u>
             </Typography>
 
-            <CategoryPriceName />
+            <CategoryPriceName productDetails={productStyles.results} />
 
             <Typography variant="body2" color="textSecondary" component="p" align="left">
               <b>Style &gt; </b>
               Select Style
             </Typography>
-            <StyleThumbs productStyles={productStyles.results} />
+            <StyleThumbs productDetails={productStyles.results} />
 
             <Selectors />
 

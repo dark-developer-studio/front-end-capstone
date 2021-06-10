@@ -12,6 +12,8 @@ const CategoryPriceName = (props) => {
       setDataIn(true);
     }
   }, [product]);
+
+  console.log(props.productDetails);
   return (
     <div>
       {dataIn ? (

@@ -10,9 +10,9 @@ const StyleThumbs = (props) => {
   const [thumbsCollected, setThumbsCollected] = useState(false);
 
   const getThumbs = () => {
-    if (props.productStyles.length > 0) {
+    if (props.productDetails.length > 0) {
       const thumbs = [];
-      props.productStyles.forEach((style) => {
+      props.productDetails.forEach((style) => {
         if (style.photos[0] !== undefined) {
           thumbs.push(style.photos[0].thumbnail_url);
         }
@@ -24,7 +24,7 @@ const StyleThumbs = (props) => {
 
   useEffect(() => {
     getThumbs();
-  }, [props.productStyles]);
+  }, [props.productDetails]);
 
   return (
     <div>
