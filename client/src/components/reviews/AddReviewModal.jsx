@@ -60,7 +60,7 @@ const DialogActions = withStyles((theme) => ({
   },
 }))(MuiDialogActions);
 
-export default function CustomizedDialogs() {
+export default function ReviewDialog() {
   const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
