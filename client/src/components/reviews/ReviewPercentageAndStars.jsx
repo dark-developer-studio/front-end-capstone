@@ -8,19 +8,19 @@ import Rating from '@material-ui/lab/Rating';
 
 const useStyles = makeStyles((theme) => ({
   parentContainer: {
+    // border: "3px solid red",
     display: "flex",
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
-    border: "3px solid red"
   },
   avgRating: {
-    border: "3px solid green",
+    // border: "3px solid green",
     fontSize: "xxx-large",
     padding: "10px"
   },
   reviewStarRating: {
-    border: "3px solid green",
+    // border: "3px solid green",
     padding: "10px"
   }
 }));
