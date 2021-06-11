@@ -47,6 +47,12 @@ const useStyles = makeStyles((theme) => ({
   card: {
     width: '100%'
   },
+  loadingSpinner: {
+    display: 'flex',
+    '& > * + *': {
+      marginLeft: theme.spacing(2)
+    }
+  },
   grid: {
     textAlign: 'center',
     color: 'white',
