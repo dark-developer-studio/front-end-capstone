@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 
 import { makeStyles } from '@material-ui/core/styles';
 import {
@@ -7,6 +7,8 @@ import {
   TextField,
   Button
 } from '@material-ui/core';
+
+import { AppContext } from '../../../helpers/context';
 
 function getModalStyle() {
   const top = 25;
@@ -29,7 +31,9 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-export default function AnswerModalBody() {
+export default function QuestionModalBody() {
+  const { product } = useContext(AppContext);
+
   const classes = useStyles();
   // getModalStyle is not a pure function, we roll the style only on the first render
   const [modalStyle] = React.useState(getModalStyle);
@@ -37,18 +41,32 @@ export default function AnswerModalBody() {
   return (
     <Container style={modalStyle} className={classes.paper}>
       <Typography className="title">Ask Your Question</Typography>
-      <Typography className="subtitle">About the [Product Name]</Typography>
+      <Typography className="subtitle">{`About the ${product.name}`}</Typography>
       <form className="formContainer">
-        <Typography className="inputText">Question:</Typography>
-        <TextField multiline rows={6} variant="outlined" className="question" />
+        <TextField
+          multiline
+          rows={6}
+          label="Question"
+          variant="outlined"
+          className="question"
+        />
 
-        <Typography className="inputText">Nickname:</Typography>
-        <TextField variant="outlined" placeholder="Example: jackson11!" className="nickname" />
-        <Typography className="inputText" variant="body2">For privacy reasons, do not use your full name or email address</Typography>
+        <TextField
+          variant="outlined"
+          label="Nickname"
+          placeholder="Example: jackson11!"
+          helperText="For privacy reasons, do not use your full name or email address"
+          className="nickname"
+        />
 
-        <Typography className="inputText">Email:</Typography>
-        <TextField variant="outlined" placeholder="Example: jackson@email.com" type="email" className="email" />
-        <Typography className="inputText" variant="body2">For authentication reasons, you will not be emailed</Typography>
+        <TextField
+          variant="outlined"
+          label="Email"
+          placeholder="Example: jackson@email.com"
+          helperText="For authentication reasons, you will not be emailed"
+          type="email"
+          className="email"
+        />
 
         <Button type="button">Submit</Button>
       </form>
