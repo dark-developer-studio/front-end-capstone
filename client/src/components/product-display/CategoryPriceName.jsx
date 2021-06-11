@@ -13,7 +13,6 @@ const CategoryPriceName = (props) => {
     }
   }, [product]);
 
-  console.log(props.productDetails);
   return (
     <div>
       {dataIn ? (

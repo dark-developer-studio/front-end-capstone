@@ -31,8 +31,8 @@ const useStyles = makeStyles((theme) => ({
     paddingTop: '56.25%' // 16:9
   },
   img: {
-    borderRadius: '50%',
-    border: '1px solid black'
+    height: 410,
+    maxWidth: '100%'
   },
   icon: {
     color: 'black'
@@ -45,7 +45,7 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: 'bold'
   },
   card: {
-    width: '100%'
+    maxWidth: '100%'
   },
   loadingSpinner: {
     display: 'flex',
@@ -53,35 +53,40 @@ const useStyles = makeStyles((theme) => ({
       marginLeft: theme.spacing(2)
     }
   },
+  formControl: {
+
+  },
+  carousel: {
+    width: '100%',
+    objectFit: 'contain'
+  },
   grid: {
     textAlign: 'center',
     color: 'white',
-    backgroundColor: 'purple',
-    border: '2px solid black'
-  },
-  grid2: {
-    textAlign: 'center',
-    color: 'white',
-    border: '2px solid black'
-  },
-  grid3: {
-    textAlign: 'center',
-    color: 'white',
-    backgroundColor: 'blue',
-    border: '2px solid black'
-  },
-  grid4: {
-    textAlign: 'center',
-    color: 'white',
-    backgroundColor: 'red',
-    border: '2px solid black'
-  },
-  grid5: {
-    textAlign: 'center',
-    color: 'white',
-    backgroundColor: 'gray',
-    border: '2px solid black'
+    maxWidth: '100%'
   }
+  // grid2: {
+  //   textAlign: 'center',
+  //   color: 'white',
+  //   border: '2px solid black'
+  // },
+  // grid3: {
+  //   textAlign: 'center',
+  //   color: 'white',
+  //   border: '2px solid black'
+  // },
+  // grid4: {
+  //   textAlign: 'center',
+  //   color: 'white',
+  //   backgroundColor: 'red',
+  //   border: '2px solid black'
+  // },
+  // grid5: {
+  //   textAlign: 'center',
+  //   color: 'white',
+  //   backgroundColor: 'gray',
+  //   border: '2px solid black'
+  // }
 }));
 
 export default useStyles;

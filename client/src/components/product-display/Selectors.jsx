@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Grid, Button, IconButton, Select, MenuItem, FormControl, FormHelperText, InputLabel
 } from '@material-ui/core';
@@ -7,6 +7,18 @@ import useStyles from './MaterialUi.jsx';
 
 const Selectors = (props) => {
   const classes = useStyles();
+  const [sizeAndQuantity, setSizeAndQuantity] = useState([]);
+  const getSkus = () => {
+    if (props.productDetails.length > 0) {
+      props.productDetails.forEach((style) => {
+        sizeAndQuantity.push({ [style.name]: style.skus });
+      });
+    }
+  };
+
+  useEffect(() => {
+    getSkus();
+  }, [props.productDetails]);
 
   return (
     <Grid item xs={12} spacing={1} container>
@@ -17,7 +29,7 @@ const Selectors = (props) => {
             labelId="Select-Size-DD"
             id="SelectSize"
             value=""
-            // onChange={}
+          // onChange={}
           >
             <MenuItem value="">
               <em>Select Size</em>
@@ -27,16 +39,13 @@ const Selectors = (props) => {
         </FormControl>
       </Grid>
       <Grid item xs={6}>
-        {/* <select className={classes.selectTag}>
-          <option default>1</option>
-        </select> */}
         <FormControl className={classes.formControl}>
           <InputLabel id="Select-Quantity-DD">Quantity</InputLabel>
           <Select
             labelId="Select-Quantity-DD"
             id="SelectQuantity"
             value=""
-            // onChange={}
+          // onChange={}
           >
             <MenuItem value="">
               <em>Select Quantity</em>
