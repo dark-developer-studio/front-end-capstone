@@ -14,7 +14,7 @@ export default function QuestionModal() {
   };
 
   return (
-    <div>
+    <>
       <Button variant="outlined" onClick={handleOpen}>
         ADD A QUESTION
       </Button>
@@ -27,6 +27,6 @@ export default function QuestionModal() {
       >
         <QuestionModalBody />
       </Modal>
-    </div>
+    </>
   );
 }

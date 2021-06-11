@@ -1,13 +1,15 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import PropTypes from 'prop-types';
 
 import { makeStyles } from '@material-ui/core/styles';
 import {
   Container,
   Typography,
   TextField,
-  Input,
   Button
 } from '@material-ui/core';
+
+import { AppContext } from '../../../helpers/context';
 
 function getModalStyle() {
   const top = 25;
@@ -30,7 +32,9 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-export default function AnswerModalBody() {
+export default function AnswerModalBody({ question }) {
+  const { product } = useContext(AppContext);
+
   const classes = useStyles();
   // getModalStyle is not a pure function, we roll the style only on the first render
   const [modalStyle] = React.useState(getModalStyle);
@@ -38,24 +42,59 @@ export default function AnswerModalBody() {
   return (
     <Container style={modalStyle} className={classes.paper}>
       <Typography className="title">Submit your Answer</Typography>
-      <Typography className="subtitle">[Product Name]: [Question]</Typography>
+      <Typography className="subtitle">{`${product.name}: ${question.question_body}`}</Typography>
       <form className="formContainer">
-        <Typography className="inputText">Answer:</Typography>
-        <TextField multiline rows={6} variant="outlined" className="answer" />
+        <TextField
+          multiline
+          rows={6}
+          variant="outlined"
+          label="Answer"
+          className="answer"
+        />
 
-        <Typography className="inputText">Nickname:</Typography>
-        <TextField variant="outlined" placeholder="Example: jack543!" className="nickname" />
-        <Typography className="inputText" variant="body2">For privacy reasons, do not use your full name or email address</Typography>
+        <TextField
+          variant="outlined"
+          label="Nickname"
+          placeholder="Example: jack543!"
+          helperText="For privacy reasons, do not use your full name or email address"
+          className="nickname"
+        />
 
-        <Typography className="inputText">Email:</Typography>
-        <TextField variant="outlined" placeholder="Example: jack@email.com" type="email" className="email" />
-        <Typography className="inputText" variant="body2">For authentication reasons, you will not be emailed</Typography>
+        <TextField
+          variant="outlined"
+          label="Nickname"
+          placeholder="Example: jack@email.com"
+          helperText="For authentication reasons, you will not be emailed"
+          type="email"
+          className="email"
+        />
 
-        <Typography className="inputText">Upload Photos:</Typography>
-        <Input type="file" className="upload" />
+        <Button
+          variant="contained"
+          component="label"
+        >
+          Upload Photo
+          <input
+            type="file"
+            hidden
+          />
+        </Button>
 
-        <Button type="button">Submit</Button>
+        <Button variant="contained" type="button">Submit</Button>
       </form>
     </Container>
   );
 }
+
+AnswerModalBody.propTypes = {
+  question: PropTypes.shape({
+    question_id: PropTypes.number,
+    question_body: PropTypes.string,
+    question_helpfulness: PropTypes.number,
+    asker_name: PropTypes.string
+  })
+};
+
+AnswerModalBody.defaultProps = {
+  question: {}
+};

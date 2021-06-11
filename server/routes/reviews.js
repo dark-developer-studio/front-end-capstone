@@ -31,4 +31,27 @@ router.get('/revs', (req, res) => {
   })
 });
 
+router.get('/meta', (req, res) => {
+  axios
+  .get('https://app-hrsei-api.herokuapp.com/api/fec2/hr-bld/reviews/meta', {
+    headers: {
+      Authorization: GITHUB_API_KEY
+      //---------EXTRA HEADERS INCASE NEEDED
+      // Accept: 'application/json',
+      // 'User-Agent': 'request',
+    },
+    params: {
+      product_id: req.query.product_id,
+    }
+  })
+  .then( (response) => response.data)
+  .then( (data) => {
+    res.send(data);
+  })
+  .catch( (err) => {
+    console.log(err);
+    res.send(err);
+  })
+});
+
 module.exports.router = router;

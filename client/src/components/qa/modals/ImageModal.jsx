@@ -1,9 +1,11 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+
 import { Modal, Button } from '@material-ui/core/';
 
 import ImageModalBody from './ImageModalBody.jsx';
 
-export default function AnswerModal() {
+export default function ImageModal({ url }) {
   const [open, setOpen] = React.useState(false);
 
   const handleOpen = () => {
@@ -23,9 +25,9 @@ export default function AnswerModal() {
   };
 
   return (
-    <div>
+    <>
       <Button onClick={handleOpen} onKeyDown={handleKey}>
-        <img src="https://cdn.britannica.com/55/174255-050-526314B6/brown-Guernsey-cow.jpg" alt="thumbnail" width="auto" height="120" />
+        <img src={url} alt="thumbnail" width="auto" height="120" />
       </Button>
       <Modal
         open={open}
@@ -34,8 +36,16 @@ export default function AnswerModal() {
         aria-describedby="simple-modal-description"
         style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}
       >
-        <ImageModalBody />
+        <ImageModalBody url={url} />
       </Modal>
-    </div>
+    </>
   );
 }
+
+ImageModal.propTypes = {
+  url: PropTypes.string
+};
+
+ImageModal.defaultProps = {
+  url: ''
+};
