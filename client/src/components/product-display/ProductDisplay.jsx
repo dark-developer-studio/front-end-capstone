@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import {
-  Grid, Typography, Card, CardContent, CardHeader, CardMedia
+  Grid, Typography, Card, CardContent
 } from '@material-ui/core';
 import Axios from 'axios';
 import { AppContext } from '../../helpers/context';
@@ -9,23 +9,30 @@ import useStyles from './MaterialUi.jsx';
 import StyleThumbs from './StyleThumbs.jsx';
 import Selectors from './Selectors.jsx';
 import ProductDescription from './ProductDescription.jsx';
+import ImageGallery from './ImageGallery.jsx';
 
 const ProductDisplay = () => {
-  const [products, setProducts] = useState([]);
   const [productStyles, setProductStyles] = useState({
     product_id: '',
     results: []
   });
+  const [photosArr, setPhotos] = useState([]);
+  const [thumbnails, setThumbnails] = useState([]);
 
   const classes = useStyles();
 
-  const getProducts = () => {
-    Axios
-      .get('/api/display/products')
-      .then((response) => {
-        setProducts(response.data);
-      })
-      .catch();
+  const getStylePhotos = (styleId) => {
+    if (productStyles.results.length > 0) {
+      const allStylePhotos = [];
+      productStyles.results.forEach((style) => {
+        if (style.style_id === styleId) {
+          style.photos.forEach((photos) => {
+            allStylePhotos.push(photos.url);
+          });
+        }
+      });
+      setPhotos(allStylePhotos);
+    }
   };
 
   const getProductStyles = (productId) => {
@@ -44,16 +51,22 @@ const ProductDisplay = () => {
     getProductStyles(product.id);
   }, [product]);
 
-  console.log(productStyles.results);
+  useEffect(() => {
+    if (productStyles.results.length > 0) {
+      getStylePhotos(productStyles.results[0].style_id);
+    }
+  }, [productStyles]);
+
   return (
-    <Grid item xs={12} container>
-      <Grid className={classes.grid} item xs={7} container>
-        <Grid className={classes.grid3} item xs={12} container>
-          Image Gallery
-        </Grid>
+    <Grid className={classes.grid} item xs={12} container>
+
+      <Grid className={classes.grid} item xs={6} container>
+
+        <ImageGallery photosArr={photosArr} />
+
       </Grid>
 
-      <Grid item xs={5} container direction="column">
+      <Grid className={classes.grid} item xs={6} container direction="column">
         <Card>
           <CardContent>
 
@@ -66,16 +79,24 @@ const ProductDisplay = () => {
 
             <Typography variant="body2" color="textSecondary" component="p" align="left">
               <b>Style &gt; </b>
-              Select Style
+              *Select Style*
             </Typography>
-            <StyleThumbs productStyles={productStyles.results} />
+            <StyleThumbs
+              productDetails={productStyles.results}
+              thumbnails={thumbnails}
+              setThumbnails={setThumbnails}
+              getStylePhotos={getStylePhotos}
+            />
 
-            <Selectors />
+            <Selectors
+              productDetails={productStyles.results}
+              thumbnails={thumbnails}
+            />
 
           </CardContent>
         </Card>
       </Grid>
-      <Grid className={classes.grid6} item xs={12} container>
+      <Grid className={classes.grid} item xs={12} container>
         <ProductDescription />
       </Grid>
     </Grid>
