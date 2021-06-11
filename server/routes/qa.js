@@ -22,64 +22,63 @@ router.get('/questions', (req, res) => {
     .catch((err) => {
       // eslint-disable-next-line no-console
       console.log(err);
-      res.status(400).send();
+      res.send(err);
     });
 });
 
 // Post request for a new question
 router.post('/questions', (req, res) => {
   axios.post('https://app-hrsei-api.herokuapp.com/api/fec2/hr-bld/qa/questions', {
+    body: req.body.body,
+    name: req.body.name,
+    email: req.body.email,
+    product_id: req.body.product_id
+  }, {
     headers: {
       Authorization: GITHUB_API_KEY
-    },
-    data: {
-      body: req.body.body,
-      name: req.body.name,
-      email: req.body.email,
-      product_id: req.body.product_id
     }
   })
     .then((response) => {
-      res.send();
+      res.status(201).send(response.data);
     })
     .catch((err) => {
       // eslint-disable-next-line no-console
       console.log(err);
-      res.status(400).send();
+      res.send(err);
     });
 });
 
 // Update the helpfulness of a question
 router.put('/questions/helpful', (req, res) => {
-  axios.put(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-bld/qa/questions/${req.query.question_id}/helpful`, {
+  axios.put(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-bld/qa/questions/${req.query.question_id}/helpful`, {}, {
     headers: {
       Authorization: GITHUB_API_KEY
     }
   })
-    .then((response) => {
-      res.send();
+    .then(() => {
+      res.status(204).send();
     })
     .catch((err) => {
       // eslint-disable-next-line no-console
       console.log(err);
-      res.status(400).send();
+      res.send(err);
     });
 });
 
 // Report a question
 router.put('/questions/report', (req, res) => {
-  axios.put(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-bld/qa/questions/${req.query.question_id}/report`, {
+  axios.put(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-bld/qa/questions/${req.query.question_id}/report`, {}, {
     headers: {
       Authorization: GITHUB_API_KEY
     }
   })
-    .then((response) => {
-      res.send();
+    .then(() => {
+      res.status(204).send();
     })
     .catch((err) => {
       // eslint-disable-next-line no-console
       console.log(err);
-      res.status(400).send();
+      res.send(err);
     });
 });
 
@@ -100,64 +99,63 @@ router.get('/answers', (req, res) => {
     .catch((err) => {
       // eslint-disable-next-line no-console
       console.log(err);
-      res.status(400).send();
+      res.send(err);
     });
 });
 
 // Post a new answer to a question
 router.post('/answers', (req, res) => {
   axios.post(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-bld/qa/questions/${req.query.question_id}/answers`, {
+    body: req.body.body,
+    name: req.body.name,
+    email: req.body.email,
+    product_id: req.body.product_id
+  }, {
     headers: {
       Authorization: GITHUB_API_KEY
-    },
-    data: {
-      body: req.body.body,
-      name: req.body.name,
-      email: req.body.email,
-      product_id: req.body.product_id
     }
   })
     .then((response) => {
-      res.send();
+      res.status(201).send(response.data);
     })
     .catch((err) => {
       // eslint-disable-next-line no-console
       console.log(err);
-      res.status(400).send();
+      res.send();
     });
 });
 
 // Update the helpfulness of an answer
 router.put('/answers/helpful', (req, res) => {
-  axios.put(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-bld/qa/answers/${req.query.answer_id}/helpful`, {
+  axios.put(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-bld/qa/answers/${req.query.answer_id}/helpful`, {}, {
     headers: {
       Authorization: GITHUB_API_KEY
     }
   })
-    .then((response) => {
-      res.send();
+    .then(() => {
+      res.status(204).send();
     })
     .catch((err) => {
       // eslint-disable-next-line no-console
       console.log(err);
-      res.status(400).send();
+      res.send(err);
     });
 });
 
 // Report an answer
 router.put('/answers/report', (req, res) => {
-  axios.put(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-bld/qa/answers/${req.query.answer_id}/report`, {
+  axios.put(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-bld/qa/answers/${req.query.answer_id}/report`, {}, {
     headers: {
       Authorization: GITHUB_API_KEY
     }
   })
-    .then((response) => {
-      res.send();
+    .then(() => {
+      res.status(204).send();
     })
     .catch((err) => {
       // eslint-disable-next-line no-console
       console.log(err);
-      res.status(400).send();
+      res.send(err);
     });
 });
 
