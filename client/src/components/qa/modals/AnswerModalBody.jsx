@@ -5,7 +5,6 @@ import {
   Container,
   Typography,
   TextField,
-  Input,
   Button
 } from '@material-ui/core';
 
@@ -40,21 +39,45 @@ export default function AnswerModalBody() {
       <Typography className="title">Submit your Answer</Typography>
       <Typography className="subtitle">[Product Name]: [Question]</Typography>
       <form className="formContainer">
-        <Typography className="inputText">Answer:</Typography>
-        <TextField multiline rows={6} variant="outlined" className="answer" />
+        <TextField
+          multiline
+          rows={6}
+          variant="outlined"
+          label="Answer"
+          placeholder="Example: jackson11!"
+          helperText="For privacy reasons, do not use your full name or email address"
+          className="answer"
+        />
 
-        <Typography className="inputText">Nickname:</Typography>
-        <TextField variant="outlined" placeholder="Example: jack543!" className="nickname" />
-        <Typography className="inputText" variant="body2">For privacy reasons, do not use your full name or email address</Typography>
+        <TextField
+          variant="outlined"
+          label="Nickname"
+          placeholder="Example: jack543!"
+          helperText="For privacy reasons, do not use your full name or email address"
+          className="nickname"
+        />
 
-        <Typography className="inputText">Email:</Typography>
-        <TextField variant="outlined" placeholder="Example: jack@email.com" type="email" className="email" />
-        <Typography className="inputText" variant="body2">For authentication reasons, you will not be emailed</Typography>
+        <TextField
+          variant="outlined"
+          label="Nickname"
+          placeholder="Example: jack@email.com"
+          helperText="For authentication reasons, you will not be emailed"
+          type="email"
+          className="email"
+        />
 
-        <Typography className="inputText">Upload Photos:</Typography>
-        <Input type="file" className="upload" />
+        <Button
+          variant="contained"
+          component="label"
+        >
+          Upload File
+          <input
+            type="file"
+            hidden
+          />
+        </Button>
 
-        <Button type="button">Submit</Button>
+        <Button variant="contained" type="button">Submit</Button>
       </form>
     </Container>
   );

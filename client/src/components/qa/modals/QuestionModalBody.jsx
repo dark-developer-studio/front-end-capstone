@@ -39,16 +39,30 @@ export default function AnswerModalBody() {
       <Typography className="title">Ask Your Question</Typography>
       <Typography className="subtitle">About the [Product Name]</Typography>
       <form className="formContainer">
-        <Typography className="inputText">Question:</Typography>
-        <TextField multiline rows={6} variant="outlined" className="question" />
+        <TextField
+          multiline
+          rows={6}
+          label="Question"
+          variant="outlined"
+          className="question"
+        />
 
-        <Typography className="inputText">Nickname:</Typography>
-        <TextField variant="outlined" placeholder="Example: jackson11!" className="nickname" />
-        <Typography className="inputText" variant="body2">For privacy reasons, do not use your full name or email address</Typography>
+        <TextField
+          variant="outlined"
+          label="Nickname"
+          placeholder="Example: jackson11!"
+          helperText="For privacy reasons, do not use your full name or email address"
+          className="nickname"
+        />
 
-        <Typography className="inputText">Email:</Typography>
-        <TextField variant="outlined" placeholder="Example: jackson@email.com" type="email" className="email" />
-        <Typography className="inputText" variant="body2">For authentication reasons, you will not be emailed</Typography>
+        <TextField
+          variant="outlined"
+          label="Email"
+          placeholder="Example: jackson@email.com"
+          helperText="For authentication reasons, you will not be emailed"
+          type="email"
+          className="email"
+        />
 
         <Button type="button">Submit</Button>
       </form>
