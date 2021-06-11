@@ -11,6 +11,7 @@ const ImageGallery = (props) => {
     <Carousel
       className={classes.carousel}
       animation="slide"
+      navButtonsAlwaysVisible={true}
       value="true"
       indicators={false}
     >
