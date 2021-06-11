@@ -31,8 +31,9 @@ const useStyles = makeStyles((theme) => ({
     paddingTop: '56.25%' // 16:9
   },
   img: {
-    height: 410,
-    maxWidth: '100%'
+    height: 550,
+    maxWidth: '100%',
+    padding: '10px'
   },
   icon: {
     color: 'black'
@@ -57,13 +58,16 @@ const useStyles = makeStyles((theme) => ({
 
   },
   carousel: {
+    height: '100%',
     width: '100%',
     objectFit: 'contain'
   },
   grid: {
     textAlign: 'center',
     color: 'white',
-    maxWidth: '100%'
+    maxWidth: '100%',
+    alignContent: 'center',
+    justifyContent: 'center'
   }
   // grid2: {
   //   textAlign: 'center',

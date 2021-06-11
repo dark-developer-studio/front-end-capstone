@@ -39,7 +39,7 @@ const ProductDisplay = () => {
 
   console.log(productStyles.results);
   return (
-    <Grid item xs={12} container>
+    <Grid className={classes.grid} item xs={12} container>
 
       <Grid className={classes.grid} item xs={7} container>
 
