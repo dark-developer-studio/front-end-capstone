@@ -12,14 +12,28 @@ import ProductDescription from './ProductDescription.jsx';
 import ImageGallery from './ImageGallery.jsx';
 
 const ProductDisplay = () => {
-  const [products, setProducts] = useState([]);
   const [productStyles, setProductStyles] = useState({
     product_id: '',
     results: []
   });
+  const [photosArr, setPhotos] = useState([]);
   const [thumbnails, setThumbnails] = useState([]);
 
   const classes = useStyles();
+
+  const getStylePhotos = (styleId) => {
+    if (productStyles.results.length > 0) {
+      const allStylePhotos = [];
+      productStyles.results.forEach((style) => {
+        if (style.style_id === styleId) {
+          style.photos.forEach((photos) => {
+            allStylePhotos.push(photos.url);
+          });
+        }
+      });
+      setPhotos(allStylePhotos);
+    }
+  };
 
   const getProductStyles = (productId) => {
     if (productId > 0) {
@@ -37,17 +51,22 @@ const ProductDisplay = () => {
     getProductStyles(product.id);
   }, [product]);
 
-  console.log(productStyles.results);
+  useEffect(() => {
+    if (productStyles.results.length > 0) {
+      getStylePhotos(productStyles.results[0].style_id);
+    }
+  }, [productStyles]);
+
   return (
     <Grid className={classes.grid} item xs={12} container>
 
-      <Grid className={classes.grid} item xs={7} container>
+      <Grid className={classes.grid} item xs={6} container>
 
-        <ImageGallery />
+        <ImageGallery photosArr={photosArr} />
 
       </Grid>
 
-      <Grid className={classes.grid} item xs={5} container direction="column">
+      <Grid className={classes.grid} item xs={6} container direction="column">
         <Card>
           <CardContent>
 
@@ -66,6 +85,7 @@ const ProductDisplay = () => {
               productDetails={productStyles.results}
               thumbnails={thumbnails}
               setThumbnails={setThumbnails}
+              getStylePhotos={getStylePhotos}
             />
 
             <Selectors
