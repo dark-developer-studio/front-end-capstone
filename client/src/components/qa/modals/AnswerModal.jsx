@@ -14,7 +14,7 @@ export default function AnswerModal() {
   };
 
   return (
-    <div>
+    <>
       <Button onClick={handleOpen}>
         Add Answer
       </Button>
@@ -27,6 +27,6 @@ export default function AnswerModal() {
       >
         <AnswerModalBody />
       </Modal>
-    </div>
+    </>
   );
 }
