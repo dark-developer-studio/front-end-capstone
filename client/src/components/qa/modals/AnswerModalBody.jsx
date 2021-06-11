@@ -49,8 +49,6 @@ export default function AnswerModalBody({ question }) {
           rows={6}
           variant="outlined"
           label="Answer"
-          placeholder="Example: jackson11!"
-          helperText="For privacy reasons, do not use your full name or email address"
           className="answer"
         />
 

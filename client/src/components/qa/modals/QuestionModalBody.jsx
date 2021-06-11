@@ -31,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-export default function AnswerModalBody() {
+export default function QuestionModalBody() {
   const { product } = useContext(AppContext);
 
   const classes = useStyles();
