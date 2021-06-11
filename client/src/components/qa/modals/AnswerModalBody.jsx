@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import PropTypes from 'prop-types';
 
 import { makeStyles } from '@material-ui/core/styles';
 import {
@@ -7,6 +8,8 @@ import {
   TextField,
   Button
 } from '@material-ui/core';
+
+import { AppContext } from '../../../helpers/context';
 
 function getModalStyle() {
   const top = 25;
@@ -29,7 +32,9 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-export default function AnswerModalBody() {
+export default function AnswerModalBody({ question }) {
+  const { product } = useContext(AppContext);
+
   const classes = useStyles();
   // getModalStyle is not a pure function, we roll the style only on the first render
   const [modalStyle] = React.useState(getModalStyle);
@@ -37,7 +42,7 @@ export default function AnswerModalBody() {
   return (
     <Container style={modalStyle} className={classes.paper}>
       <Typography className="title">Submit your Answer</Typography>
-      <Typography className="subtitle">[Product Name]: [Question]</Typography>
+      <Typography className="subtitle">{`${product.name}: ${question.question_body}`}</Typography>
       <form className="formContainer">
         <TextField
           multiline
@@ -70,7 +75,7 @@ export default function AnswerModalBody() {
           variant="contained"
           component="label"
         >
-          Upload File
+          Upload Photo
           <input
             type="file"
             hidden
@@ -82,3 +87,16 @@ export default function AnswerModalBody() {
     </Container>
   );
 }
+
+AnswerModalBody.propTypes = {
+  question: PropTypes.shape({
+    question_id: PropTypes.number,
+    question_body: PropTypes.string,
+    question_helpfulness: PropTypes.number,
+    asker_name: PropTypes.string
+  })
+};
+
+AnswerModalBody.defaultProps = {
+  question: {}
+};

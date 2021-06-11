@@ -38,7 +38,7 @@ export default function QuestionItem({ question }) {
             <Typography variant="body2" style={{ borderRight: '1px solid #555' }}>
               {`(${question.question_helpfulness})`}
             </Typography>
-            <AnswerModal />
+            <AnswerModal question={question} />
           </Grid>
         </Grid>
       </Grid>

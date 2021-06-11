@@ -1,5 +1,5 @@
 import React from 'react';
-import { Modal, Button, Container } from '@material-ui/core/';
+import { Modal, Button } from '@material-ui/core/';
 import QuestionModalBody from './QuestionModalBody.jsx';
 
 export default function QuestionModal() {

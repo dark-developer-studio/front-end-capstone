@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 
 import { makeStyles } from '@material-ui/core/styles';
 import {
@@ -7,6 +7,8 @@ import {
   TextField,
   Button
 } from '@material-ui/core';
+
+import { AppContext } from '../../../helpers/context';
 
 function getModalStyle() {
   const top = 25;
@@ -30,6 +32,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function AnswerModalBody() {
+  const { product } = useContext(AppContext);
+
   const classes = useStyles();
   // getModalStyle is not a pure function, we roll the style only on the first render
   const [modalStyle] = React.useState(getModalStyle);
@@ -37,7 +41,7 @@ export default function AnswerModalBody() {
   return (
     <Container style={modalStyle} className={classes.paper}>
       <Typography className="title">Ask Your Question</Typography>
-      <Typography className="subtitle">About the [Product Name]</Typography>
+      <Typography className="subtitle">{`About the ${product.name}`}</Typography>
       <form className="formContainer">
         <TextField
           multiline
