@@ -12,6 +12,7 @@ const CategoryPriceName = (props) => {
       setDataIn(true);
     }
   }, [product]);
+
   return (
     <div>
       {dataIn ? (
@@ -23,6 +24,7 @@ const CategoryPriceName = (props) => {
             {product.name}
           </Typography>
           <Typography variant="body2" color="textSecondary" component="p" align="left">
+            $
             {product.default_price}
           </Typography>
         </>

@@ -6,42 +6,46 @@ import useStyles from './MaterialUi.jsx';
 
 const StyleThumbs = (props) => {
   const classes = useStyles();
-  const [thumbnails, setThumbnails] = useState([]);
+  // const [thumbnails, setThumbnails] = useState([]);
   const [thumbsCollected, setThumbsCollected] = useState(false);
 
   const getThumbs = () => {
-    if (props.productStyles.length > 0) {
+    if (props.productDetails.length > 0) {
       const thumbs = [];
-      props.productStyles.forEach((style) => {
+      props.productDetails.forEach((style) => {
         if (style.photos[0] !== undefined) {
-          thumbs.push(style.photos[0].thumbnail_url);
+          thumbs.push({
+            styleId: style.style_id,
+            thumbNail: style.photos[0].thumbnail_url,
+            name: style.name
+          });
         }
       });
-      setThumbnails(thumbs);
+      props.setThumbnails(thumbs);
       setThumbsCollected(true);
     }
   };
 
   useEffect(() => {
     getThumbs();
-  }, [props.productStyles]);
+  }, [props.productDetails]);
 
   return (
     <div>
-      {thumbnails.length === 0 ? (
+      {props.thumbnails.length === 0 ? (
         <div className={classes.loadingSpinner}>
           <CircularProgress />
         </div>
       ) : (
         <GridList cellHeight={60} className={classes.gridList} cols={4}>
-          {thumbnails.map((tile, index) => (
+          {props.thumbnails.map((tile, index) => (
             <GridListTile key={index} cols={tile.cols || 1}>
               <Avatar
                 className={classes.avatarLarge}
                 alt="Styles"
-                src={tile}
+                src={tile.thumbNail}
                 onClick={() => {
-                  alert(`This is style ${index}`);
+                  props.getStylePhotos(tile.styleId);
                 }}
                 hover="pointer"
               />
