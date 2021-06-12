@@ -3,10 +3,11 @@ const axios = require('axios');
 const { GITHUB_API_KEY } = require('../../config');
 
 const router = express.Router();
+const url = 'https://app-hrsei-api.herokuapp.com/api/fec2/hr-bld';
 
 // Get request for a question with a default page of 1
 router.get('/questions', (req, res) => {
-  axios.get('https://app-hrsei-api.herokuapp.com/api/fec2/hr-bld/qa/questions', {
+  axios.get(`${url}/qa/questions`, {
     headers: {
       Authorization: GITHUB_API_KEY
     },
@@ -22,13 +23,13 @@ router.get('/questions', (req, res) => {
     .catch((err) => {
       // eslint-disable-next-line no-console
       console.log(err);
-      res.send(err);
+      res.send();
     });
 });
 
 // Post request for a new question
 router.post('/questions', (req, res) => {
-  axios.post('https://app-hrsei-api.herokuapp.com/api/fec2/hr-bld/qa/questions', {
+  axios.post(`${url}/qa/questions`, {
     body: req.body.body,
     name: req.body.name,
     email: req.body.email,
@@ -44,13 +45,13 @@ router.post('/questions', (req, res) => {
     .catch((err) => {
       // eslint-disable-next-line no-console
       console.log(err);
-      res.send(err);
+      res.send();
     });
 });
 
 // Update the helpfulness of a question
 router.put('/questions/helpful', (req, res) => {
-  axios.put(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-bld/qa/questions/${req.query.question_id}/helpful`, {}, {
+  axios.put(`${url}/qa/questions/${req.query.question_id}/helpful`, {}, {
     headers: {
       Authorization: GITHUB_API_KEY
     }
@@ -61,13 +62,13 @@ router.put('/questions/helpful', (req, res) => {
     .catch((err) => {
       // eslint-disable-next-line no-console
       console.log(err);
-      res.send(err);
+      res.send();
     });
 });
 
 // Report a question
 router.put('/questions/report', (req, res) => {
-  axios.put(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-bld/qa/questions/${req.query.question_id}/report`, {}, {
+  axios.put(`${url}/qa/questions/${req.query.question_id}/report`, {}, {
     headers: {
       Authorization: GITHUB_API_KEY
     }
@@ -78,13 +79,13 @@ router.put('/questions/report', (req, res) => {
     .catch((err) => {
       // eslint-disable-next-line no-console
       console.log(err);
-      res.send(err);
+      res.send();
     });
 });
 
 // Get answers to a question
 router.get('/answers', (req, res) => {
-  axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-bld/qa/questions/${req.query.question_id}/answers`, {
+  axios.get(`${url}/qa/questions/${req.query.question_id}/answers`, {
     headers: {
       Authorization: GITHUB_API_KEY
     },
@@ -99,13 +100,13 @@ router.get('/answers', (req, res) => {
     .catch((err) => {
       // eslint-disable-next-line no-console
       console.log(err);
-      res.send(err);
+      res.send();
     });
 });
 
 // Post a new answer to a question
 router.post('/answers', (req, res) => {
-  axios.post(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-bld/qa/questions/${req.query.question_id}/answers`, {
+  axios.post(`${url}/qa/questions/${req.query.question_id}/answers`, {
     body: req.body.body,
     name: req.body.name,
     email: req.body.email,
@@ -127,7 +128,7 @@ router.post('/answers', (req, res) => {
 
 // Update the helpfulness of an answer
 router.put('/answers/helpful', (req, res) => {
-  axios.put(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-bld/qa/answers/${req.query.answer_id}/helpful`, {}, {
+  axios.put(`${url}/qa/answers/${req.query.answer_id}/helpful`, {}, {
     headers: {
       Authorization: GITHUB_API_KEY
     }
@@ -138,13 +139,13 @@ router.put('/answers/helpful', (req, res) => {
     .catch((err) => {
       // eslint-disable-next-line no-console
       console.log(err);
-      res.send(err);
+      res.send();
     });
 });
 
 // Report an answer
 router.put('/answers/report', (req, res) => {
-  axios.put(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-bld/qa/answers/${req.query.answer_id}/report`, {}, {
+  axios.put(`${url}/qa/answers/${req.query.answer_id}/report`, {}, {
     headers: {
       Authorization: GITHUB_API_KEY
     }
@@ -155,8 +156,9 @@ router.put('/answers/report', (req, res) => {
     .catch((err) => {
       // eslint-disable-next-line no-console
       console.log(err);
-      res.send(err);
+      res.send();
     });
 });
 
 module.exports.router = router;
+module.exports.url = url;
