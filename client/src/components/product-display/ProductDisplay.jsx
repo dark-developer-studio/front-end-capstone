@@ -42,15 +42,20 @@ const ProductDisplay = () => {
         .then((response) => {
           setProductStyles(response.data);
         })
-        .catch();
+        .catch(() => {
+          console.log('Id not found');
+        });
     }
   };
 
   const { product } = useContext(AppContext);
+
+  // Gets data for individual products
   useEffect(() => {
     getProductStyles(product.id);
   }, [product]);
 
+  // For Carousel to render photos on load
   useEffect(() => {
     if (productStyles.results.length > 0) {
       getStylePhotos(productStyles.results[0].style_id);
