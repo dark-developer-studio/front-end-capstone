@@ -1,6 +1,12 @@
 const express = require('express');
 const axios = require('axios');
-const { GITHUB_API_KEY } = require('../../config');
+
+if (process.env.NODE_ENV !== 'production' && process.env.NODE_ENV !== 'testing') {
+  // eslint-disable-next-line global-require
+  require('dotenv').config();
+}
+
+const { GITHUB_API_KEY } = process.env;
 
 const router = express.Router();
 const url = 'https://app-hrsei-api.herokuapp.com/api/fec2/hr-bld';

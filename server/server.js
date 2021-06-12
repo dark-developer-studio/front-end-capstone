@@ -3,7 +3,13 @@ const bodyParser = require('body-parser');
 const path = require('path');
 const axios = require('axios');
 const routes = require('./routes');
-const { GITHUB_API_KEY } = require('../config');
+
+if (process.env.NODE_ENV !== 'production' && process.env.NODE_ENV !== 'testing') {
+  // eslint-disable-next-line global-require
+  require('dotenv').config();
+}
+
+const { GITHUB_API_KEY } = process.env;
 
 const app = express();
 

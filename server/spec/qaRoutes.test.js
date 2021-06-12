@@ -2,7 +2,13 @@ const supertest = require('supertest');
 const axios = require('axios');
 const app = require('../server');
 const { url } = require('../routes/qa');
-const { GITHUB_API_KEY } = require('../../config');
+
+if (process.env.NODE_ENV !== 'production' && process.env.NODE_ENV !== 'testing') {
+  // eslint-disable-next-line global-require
+  require('dotenv').config();
+}
+
+const { GITHUB_API_KEY } = process.env;
 
 jest.mock('axios');
 const request = supertest(app);
