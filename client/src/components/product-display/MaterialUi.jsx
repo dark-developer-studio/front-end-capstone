@@ -58,39 +58,28 @@ const useStyles = makeStyles((theme) => ({
 
   },
   carousel: {
-    height: '100%',
+    height: '90%',
     width: '100%',
-    objectFit: 'contain'
+    objectFit: 'contain',
+    boxShadow: '0px 1px 2px 1px rgba(0, 0, 0, .3)',
+    margin: '20px',
+    padding: '10px',
+    backgroundColor: 'white',
+    borderRadius: '6px'
   },
   grid: {
     textAlign: 'center',
     color: 'white',
     maxWidth: '100%',
     alignContent: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    backgroundColor: '#ADD8E6',
+    borderRadius: '6px',
+    padding: '2px'
+  },
+  imgBackground: {
+    paddingRight: '17px'
   }
-  // grid2: {
-  //   textAlign: 'center',
-  //   color: 'white',
-  //   border: '2px solid black'
-  // },
-  // grid3: {
-  //   textAlign: 'center',
-  //   color: 'white',
-  //   border: '2px solid black'
-  // },
-  // grid4: {
-  //   textAlign: 'center',
-  //   color: 'white',
-  //   backgroundColor: 'red',
-  //   border: '2px solid black'
-  // },
-  // grid5: {
-  //   textAlign: 'center',
-  //   color: 'white',
-  //   backgroundColor: 'gray',
-  //   border: '2px solid black'
-  // }
 }));
 
 export default useStyles;

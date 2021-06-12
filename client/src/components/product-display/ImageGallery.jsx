@@ -25,7 +25,10 @@ const ImageGallery = (props) => {
 const Item = (props) => {
   const classes = useStyles();
   return (
-    <Paper>
+    <Paper
+      className={classes.imgBackground}
+      elevation={0}
+    >
       <img
         src={props.src}
         alt="Product Style"

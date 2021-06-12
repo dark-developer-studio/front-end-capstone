@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import {
   Grid, Button, IconButton, Select, MenuItem, FormControl, FormHelperText, InputLabel
 } from '@material-ui/core';
@@ -7,19 +7,18 @@ import useStyles from './MaterialUi.jsx';
 
 const Selectors = (props) => {
   const classes = useStyles();
-  const [sizeAndQuantity, setSizeAndQuantity] = useState([]);
-  const getSkus = () => {
-    if (props.productDetails.length > 0) {
-      props.productDetails.forEach((style) => {
-        sizeAndQuantity.push({ [style.name]: style.skus });
-      });
-    }
+  const [selectSizeValue, setSelectSizeValue] = useState('');
+  const [selectQuantityValue, setSelectQuantityValue] = useState('');
+  const [sizeForQuantity, setSizeForQuantity] = useState('');
+
+  const handleSizeChange = (event) => {
+    setSelectSizeValue(event.target.value);
   };
 
-  useEffect(() => {
-    getSkus();
-  }, [props.productDetails]);
-
+  const handleQuantityChange = (event) => {
+    setSelectQuantityValue(event.target.value);
+  };
+  console.log(sizeForQuantity);
   return (
     <Grid item xs={12} spacing={1} container>
       <Grid item xs={6}>
@@ -28,12 +27,23 @@ const Selectors = (props) => {
           <Select
             labelId="Select-Size-DD"
             id="SelectSize"
-            value=""
-          // onChange={}
+            value={selectSizeValue}
+            onChange={(event) => {
+              handleSizeChange(event);
+            }}
+            onClick={(event) => {
+              event.preventDefault();
+              setSizeForQuantity(event.target.value);
+            }}
           >
             <MenuItem value="">
               <em>Select Size</em>
             </MenuItem>
+            {props.skus.map((size, index) => (
+              <MenuItem value={size.size} key={index}>
+                {size.size}
+              </MenuItem>
+            ))}
           </Select>
           <FormHelperText>Select Size</FormHelperText>
         </FormControl>
@@ -44,12 +54,20 @@ const Selectors = (props) => {
           <Select
             labelId="Select-Quantity-DD"
             id="SelectQuantity"
-            value=""
-          // onChange={}
+            value={selectQuantityValue}
+            onChange={(event) => {
+              handleQuantityChange(event);
+            }}
+            disabled={selectSizeValue === ''}
           >
             <MenuItem value="">
               <em>Select Quantity</em>
             </MenuItem>
+            {props.skus.map((quantity) => (
+              <MenuItem value={quantity.quantity} key={quantity.quantity}>
+                {quantity.quantity}
+              </MenuItem>
+            ))}
           </Select>
           <FormHelperText>Select Quantity</FormHelperText>
         </FormControl>

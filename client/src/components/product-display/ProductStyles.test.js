@@ -1,5 +1,12 @@
 import Axios from 'axios';
 
+if (process.env.NODE_ENV !== 'production') {
+  // eslint-disable-next-line global-require
+  require('dotenv').config();
+}
+
+const { GITHUB_API_KEY } = process.env;
+
 const getProductStyles = (productId) => {
   if (productId > 0) {
     Axios

@@ -19,36 +19,50 @@ const ProductDisplay = () => {
   const [photosArr, setPhotos] = useState([]);
   const [thumbnails, setThumbnails] = useState([]);
   const [stylePrice, setStylePrice] = useState('');
+  const [styleName, setStyleName] = useState('');
+  const [skus, setSkus] = useState([]);
 
   const classes = useStyles();
 
-  const getStylePhotosAndPrice = (styleId) => {
+  const getSkus = (styleId) => {
+    if (productStyles.results.length > 0) {
+      const sizeAndQuantity = [];
+      productStyles.results.forEach((style) => {
+        if (styleId === style.style_id) {
+          const styleSkus = style.skus;
+          for (const key in styleSkus) {
+            sizeAndQuantity.push(styleSkus[key]);
+          }
+        }
+      });
+      console.log(sizeAndQuantity);
+      setSkus(sizeAndQuantity);
+    }
+  };
+
+  const getStyleDetails = (styleId) => {
     if (productStyles.results.length > 0) {
       const allStylePhotos = [];
       let price = '';
+      let name = '';
       productStyles.results.forEach((style) => {
         if (style.style_id === styleId) {
           if (price === '') {
             price = style.original_price;
+          }
+          if (name === '') {
+            name = style.name;
           }
           style.photos.forEach((photos) => {
             allStylePhotos.push(photos.url);
           });
         }
       });
+      setStyleName(name);
       setStylePrice(price);
       setPhotos(allStylePhotos);
     }
   };
-
-  // const getPricePerStyle = (styleId) => {
-  //   if (productStyles.results.length > 0) {
-  //     const price = '';
-  //     productStyles.results.forEach((style) => {
-  //       if
-  //     })
-  //   }
-  // }
 
   const getProductStyles = (productId) => {
     if (productId > 0) {
@@ -73,11 +87,12 @@ const ProductDisplay = () => {
   // For Carousel to render photos on load
   useEffect(() => {
     if (productStyles.results.length > 0) {
-      getStylePhotosAndPrice(productStyles.results[0].style_id);
+      getStyleDetails(productStyles.results[0].style_id);
+      getSkus(productStyles.results[0].style_id);
     }
   }, [productStyles]);
 
-  console.log(productStyles.results);
+  // console.log(productStyles.results);
   return (
     <Grid className={classes.grid} item xs={12} container>
 
@@ -100,18 +115,20 @@ const ProductDisplay = () => {
 
             <Typography variant="body2" color="textSecondary" component="p" align="left">
               <b>Style &gt; </b>
-              *Select Style*
+              {styleName}
             </Typography>
             <StyleThumbs
               productDetails={productStyles.results}
               thumbnails={thumbnails}
               setThumbnails={setThumbnails}
-              getStylePhotosAndPrice={getStylePhotosAndPrice}
+              getStyleDetails={getStyleDetails}
+              getSkus={getSkus}
             />
 
             <Selectors
               productDetails={productStyles.results}
               thumbnails={thumbnails}
+              skus={skus}
             />
 
           </CardContent>
