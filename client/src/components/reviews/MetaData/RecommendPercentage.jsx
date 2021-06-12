@@ -44,14 +44,14 @@ const recommendPercentage = () => {
 
  useEffect( () => {
   getRecommendPercent();
-  calcRecommendPercent();
+  //calcRecommendPercent();
   }, [revsMetaData]);
 
   const classes = useStyles();
 
   return (
     <div className={classes.recommendPercentage}>
-      <span>{calcRecommendPercent(recommendTotals.totalFalse, recommendTotals.totalTrue)}</span>
+      <span>{ (calcRecommendPercent(recommendTotals.totalFalse, recommendTotals.totalTrue)).toString() }</span>
       <span>% Recommended</span>
     </div>
   );

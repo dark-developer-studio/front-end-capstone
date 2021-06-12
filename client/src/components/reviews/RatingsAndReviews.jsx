@@ -18,7 +18,9 @@ const { GITHUB_API_KEY } = require('../../../../config.js');
 
 const RatingsAndReviews = () => {
   const { product } = useContext(AppContext);
-  const [reviews, setReviews] = useState ([]);
+  const [reviews, setReviews] = useState([]);
+  const [pageState, setPageState] = useState(0);
+  const [reviewResults, setReviewResults] = useState([]);
 
   //getModalStyle is not a pure function, roll the style only on the first render
   const [open, setOpen] = useState(false);
@@ -30,19 +32,60 @@ const RatingsAndReviews = () => {
           Authorization: GITHUB_API_KEY
         },
         params: {
-          product_id: productID
+          // product_id: productID,
+          product_id: productID,
           //count:
-          // page:
+          //page: pageState
         }
       })
       .then((response) => {
+        //let newReviews = [...reviews, ...response.data.results]
+        let newReviews = response.data.results
+        // setReviews(newReviews);
         setReviews(response.data);
+        setReviewResults(newReviews);
       })
+      // .then((response) => {
+      //   let newReviews = [ ...response.data]
+      //   //setReviews(newReviews);
+      //   //setReviews(response.data);
+      //   setReviewResults(newReviews);
+      //   console.log('response results!!!!', reviewResults);
+      // })
       .catch( (err) => {
         console.log(err);
         res.send(err);
       })
   };
+
+  const getAllResults = (productID) => {
+    axios
+      .get(`/api/reviews/revs`, {
+        headers: {
+          Authorization: GITHUB_API_KEY
+        },
+        params: {
+          // product_id: productID,
+          product_id: productID,
+          //count:
+          page: pageState
+        }
+      })
+      .then((response) => {
+        let newReviewResults = [...reviewResults, ...response.data.results]
+        //let newReviews = response.data.results
+        setReviewResults(newReviewsResults);
+      })
+      .catch( (err) => {
+        console.log(err);
+        res.send(err);
+      })
+    setReviewResults(reviews.results);
+    console.log('response results in getAllResults', reviewResults);
+    var num = pageState;
+    num++;
+    setPageState(num);
+  }
 
 //   console.log('this is reviews in ranr',reviews);
 //   console.log('this is results in ranr', reviews.results);
@@ -53,8 +96,28 @@ const RatingsAndReviews = () => {
 // }
 
   useEffect(() => {
-    getAllReviews(product.id);
+    if (product.id > 0) {
+      getAllReviews(product.id);
+    }
   }, [product]);
+
+  //console.log('response reviews???', reviews);
+
+  useEffect(() => {
+    if (reviews.results) {
+      getAllResults();
+    }
+  }, [reviews]);
+
+  useEffect(() => {
+    if (reviews.results) {
+      if (reviews.results.length > 0) {
+        getAllResults();
+      }
+    }
+  }, [pageState]);
+
+  //console.log('response results!!!!', reviewResults);
 
   const classes = useStyles();
 
@@ -116,4 +179,5 @@ const RatingsAndReviews = () => {
     </AppContext.Provider>
   );
 };
+
 export default RatingsAndReviews;

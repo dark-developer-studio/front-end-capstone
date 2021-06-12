@@ -1,7 +1,9 @@
-import React from "react";
-import {Slider, Typography} from '@material-ui/core';
-import {makeStyles, withStyles} from '@material-ui/core/styles';
+import React, { useContext, useState, useEffect } from "react";
+import { Slider, Typography } from '@material-ui/core';
+import { makeStyles, withStyles } from '@material-ui/core/styles';
 import { Bar } from 'react-chartjs-2';
+
+import { ReviewsContext } from '../../../helpers/context';
 
 const useStyles = makeStyles((theme) => ({
   parentContainer: {
@@ -10,7 +12,7 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "space-evenly",
     alignItems: "center",
   },
-  innerContainer: {
+  sliderCharts: {
     width: '100%'
   }
 }));
@@ -84,109 +86,60 @@ function valuetext(value) {
 }
 
 const ProductReviewChart = () => {
+  const { revsMetaData } = useContext(ReviewsContext);
+  const [charValPairs, setCharValPairs] = useState([]);
+
+  const getChar = () => {
+  //console.log('data in meta data char', revsMetaData.characteristics);
+
+    let resultArr = [];
+    const charKeys = Object.keys(revsMetaData.characteristics);
+    charKeys.forEach( (key, index) => {
+      let charNumVal =  revsMetaData.characteristics[key]['value'];
+      let charArr = [key, Math.round(Number(charNumVal))];
+      resultArr.unshift(charArr);
+    })
+    setCharValPairs(resultArr);
+
+    //console.log('data in char state', charValPairs);
+  }
+
+  useEffect( () => {
+    if (revsMetaData) {
+      if (revsMetaData.characteristics) {
+        getChar();
+      }
+    }
+  }, [revsMetaData])
+
   const classes = useStyles();
+
   return (
     <div className={classes.parentContainer}>
       <Typography id="discrete-slider" gutterBottom>
         Product Review Chart
       </Typography>
 
-      <div className={classes.innerContainer}>
-        <Typography className={classes.chartTitles} gutterBottom>
-          Comfort
+      <div className={classes.sliderCharts}>
+        {charValPairs.map( (item, index) => (
+          <div key={index}>
+          <Typography className={classes.chartTitles} gutterBottom >
+          {item[0]}
         </Typography>
 
         <ProductReviewSlider
-        defaultValue={3}
+        defaultValue={item[1]}
         getAriaValueText={valuetext}
         aria-labelledby="discrete-slider"
         valueLabelDisplay="auto"
         step={1}
         marks
-        min={0}
+        min={1}
         max={5}
         disabled
         />
-
-        <Typography className={classes.chartTitles} gutterBottom>
-          Fit
-        </Typography>
-
-        <ProductReviewSlider
-        defaultValue={4}
-        getAriaValueText={valuetext}
-        aria-labelledby="discrete-slider"
-        valueLabelDisplay="auto"
-        step={1}
-        marks
-        min={0}
-        max={5}
-        disabled
-        />
-
-        <Typography className={classes.chartTitles} gutterBottom>
-          Size
-        </Typography>
-
-        <ProductReviewSlider
-        defaultValue={2}
-        getAriaValueText={valuetext}
-        aria-labelledby="discrete-slider"
-        valueLabelDisplay="auto"
-        step={1}
-        marks
-        min={0}
-        max={5}
-        disabled
-        />
-
-        <Typography className={classes.chartTitles} gutterBottom>
-          Width
-        </Typography>
-
-        <ProductReviewSlider
-        defaultValue={3}
-        getAriaValueText={valuetext}
-        aria-labelledby="discrete-slider"
-        valueLabelDisplay="auto"
-        step={1}
-        marks
-        min={0}
-        max={5}
-        disabled
-        />
-
-        <Typography className={classes.chartTitles} gutterBottom>
-          Length
-        </Typography>
-
-        <ProductReviewSlider
-        defaultValue={1}
-        getAriaValueText={valuetext}
-        aria-labelledby="discrete-slider"
-        valueLabelDisplay="auto"
-        step={1}
-        marks
-        min={0}
-        max={5}
-        disabled
-        />
-
-        <Typography className={classes.chartTitles} gutterBottom>
-          Quality
-        </Typography>
-
-        <ProductReviewSlider
-        defaultValue={5}
-        getAriaValueText={valuetext}
-        aria-labelledby="discrete-slider"
-        valueLabelDisplay="auto"
-        step={1}
-        marks
-        min={0}
-        max={5}
-        disabled
-        />
+        </div>
+        ))}
 
       {/* End of innerContainer */}
       </div>

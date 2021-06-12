@@ -29,6 +29,7 @@ const MetaData = () => {
         },
         params: {
           product_id: productID
+          //product_id: 18079
         }
       })
       .then((response) => {
