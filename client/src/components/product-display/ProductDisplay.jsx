@@ -18,22 +18,37 @@ const ProductDisplay = () => {
   });
   const [photosArr, setPhotos] = useState([]);
   const [thumbnails, setThumbnails] = useState([]);
+  const [stylePrice, setStylePrice] = useState('');
 
   const classes = useStyles();
 
-  const getStylePhotos = (styleId) => {
+  const getStylePhotosAndPrice = (styleId) => {
     if (productStyles.results.length > 0) {
       const allStylePhotos = [];
+      let price = '';
       productStyles.results.forEach((style) => {
         if (style.style_id === styleId) {
+          if (price === '') {
+            price = style.original_price;
+          }
           style.photos.forEach((photos) => {
             allStylePhotos.push(photos.url);
           });
         }
       });
+      setStylePrice(price);
       setPhotos(allStylePhotos);
     }
   };
+
+  // const getPricePerStyle = (styleId) => {
+  //   if (productStyles.results.length > 0) {
+  //     const price = '';
+  //     productStyles.results.forEach((style) => {
+  //       if
+  //     })
+  //   }
+  // }
 
   const getProductStyles = (productId) => {
     if (productId > 0) {
@@ -58,10 +73,11 @@ const ProductDisplay = () => {
   // For Carousel to render photos on load
   useEffect(() => {
     if (productStyles.results.length > 0) {
-      getStylePhotos(productStyles.results[0].style_id);
+      getStylePhotosAndPrice(productStyles.results[0].style_id);
     }
   }, [productStyles]);
 
+  console.log(productStyles.results);
   return (
     <Grid className={classes.grid} item xs={12} container>
 
@@ -80,7 +96,7 @@ const ProductDisplay = () => {
               <u>View All Reviews</u>
             </Typography>
 
-            <CategoryPriceName />
+            <CategoryPriceName stylePrice={stylePrice} />
 
             <Typography variant="body2" color="textSecondary" component="p" align="left">
               <b>Style &gt; </b>
@@ -90,7 +106,7 @@ const ProductDisplay = () => {
               productDetails={productStyles.results}
               thumbnails={thumbnails}
               setThumbnails={setThumbnails}
-              getStylePhotos={getStylePhotos}
+              getStylePhotosAndPrice={getStylePhotosAndPrice}
             />
 
             <Selectors

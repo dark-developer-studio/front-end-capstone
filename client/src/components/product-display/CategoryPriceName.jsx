@@ -25,7 +25,7 @@ const CategoryPriceName = (props) => {
           </Typography>
           <Typography variant="body2" color="textSecondary" component="p" align="left">
             $
-            {product.default_price}
+            {props.stylePrice}
           </Typography>
         </>
       ) : (
