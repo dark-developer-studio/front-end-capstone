@@ -10,10 +10,12 @@ import { calcAvgRating, calcStarRating, getCharLowHighVals } from '../helperFunc
 
 const useStyles = makeStyles((theme) => ({
   parentContainer: {
+    // border: "3px solid red",
     display: "flex",
     flexDirection: "column",
     justifyContent: "space-evenly",
     alignItems: "center",
+    margin: '10%'
   },
   sliderCharts: {
     width: '100%'

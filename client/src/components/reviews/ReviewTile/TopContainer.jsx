@@ -2,6 +2,7 @@ import React, { useContext, useState, useEffect } from 'react';
 import { Grid, Paper, Card } from '@material-ui/core';
 import CheckIcon from '@material-ui/icons/Check';
 import Rating from '@material-ui/lab/Rating';
+import StarBorderIcon from '@material-ui/icons/StarBorder';
 import { makeStyles } from '@material-ui/core/styles';
 
 //helper functions
@@ -48,12 +49,9 @@ const TopContainer = () => {
   const getRevDate = () => {
     if (reviews.results) {
       if (reviews.results.length > 0) {
-
         if (reviews.results[0].date) {
-          console.log('this is date', reviews.results[0].date)
           const date = dateFormatter(reviews.results[0].date);
           setRevDate(date);
-         //setRevDate(reviews.results[0].date);
         }
       }
     }
@@ -61,7 +59,7 @@ const TopContainer = () => {
   const getRating = () => {
     if (reviews.results) {
       if (reviews.results.length !== 0) {
-          setRating(reviews.results[0].rating)
+        setRating(reviews.results[0].rating)
       }
     }
   }
@@ -84,6 +82,7 @@ const TopContainer = () => {
         defaultValue={0}
         precision={0.25}
         value={rating}
+        emptyIcon={<StarBorderIcon fontSize="inherit" />}
         />
       </Grid>
 

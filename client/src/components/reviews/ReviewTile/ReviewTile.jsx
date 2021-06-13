@@ -12,6 +12,19 @@ import ReviewBody from './ReviewBody.jsx';
 const ReviewTile = () => {
   const { reviews } = useContext(ReviewsContext);
   const classes = useStyles();
+  const [helpfulnessCount, setHelpfulnessCount] = useState(0)
+
+  useEffect( () => {
+
+    if (reviews){
+      if (reviews.results) {
+        if (reviews.results.length > 0) {
+          setHelpfulnessCount(reviews.results[0].helpfulness)
+        }
+      }
+    }
+  }, [reviews])
+  console.log('helpfulness from api', reviews)
 
   return (
     <Grid item className={classes.reviewTile}>
@@ -22,9 +35,9 @@ const ReviewTile = () => {
 
       <div className="bottomRowReviewTile" style={{display: "flex", flexDirection: "row", justifyContent: "space-around"}}>
         <div className="helpful" style={{display: "flex", flexDirection: "row"}}>
-          Helpful?
+          <span>Helpful?&nbsp;&nbsp;</span>
           <div href="#" style={{cursor: "pointer"}}>Yes</div>
-          <div className="count">(20)</div>
+          <div className="count">({helpfulnessCount})</div>
         </div>
         <div href="#" style={{cursor: "pointer"}}>Report</div>
       </div>

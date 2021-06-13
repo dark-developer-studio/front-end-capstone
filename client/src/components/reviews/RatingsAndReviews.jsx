@@ -19,7 +19,7 @@ const { GITHUB_API_KEY } = require('../../../../config.js');
 const RatingsAndReviews = () => {
   const { product } = useContext(AppContext);
   const [reviews, setReviews] = useState([]);
-  const [pageState, setPageState] = useState(0);
+  const [pageState, setPageState] = useState(1);
   const [reviewResults, setReviewResults] = useState([]);
 
   //getModalStyle is not a pure function, roll the style only on the first render
@@ -32,7 +32,6 @@ const RatingsAndReviews = () => {
           Authorization: GITHUB_API_KEY
         },
         params: {
-          // product_id: productID,
           product_id: productID,
           //count:
           //page: pageState
@@ -40,10 +39,10 @@ const RatingsAndReviews = () => {
       })
       .then((response) => {
         //let newReviews = [...reviews, ...response.data.results]
-        let newReviews = response.data.results
+        //let newReviews = response.data.results
         // setReviews(newReviews);
         setReviews(response.data);
-        setReviewResults(newReviews);
+        //setReviewResults(newReviews);
       })
       // .then((response) => {
       //   let newReviews = [ ...response.data]
@@ -65,26 +64,37 @@ const RatingsAndReviews = () => {
           Authorization: GITHUB_API_KEY
         },
         params: {
-          // product_id: productID,
           product_id: productID,
           //count:
           page: pageState
         }
       })
       .then((response) => {
-        let newReviewResults = [...reviewResults, ...response.data.results]
-        //let newReviews = response.data.results
-        setReviewResults(newReviewsResults);
+        if(response.data) {
+          if (response.data.results) {
+            if (response.data.results.length < 1) {
+              setPageState(null);
+            } else {
+              let newReviews = response.data.results
+              //let newReviewsResults = [...reviewResults, ...newReviews]
+              let newReviewsResults = [...reviewResults, ...newReviews]
+              setReviewResults(newReviewsResults);
+              var num = pageState;
+              num++;
+              setPageState(num);
+            }
+          }
+        }
       })
       .catch( (err) => {
         console.log(err);
         res.send(err);
       })
-    setReviewResults(reviews.results);
+    //setReviewResults(reviews.results);
     console.log('response results in getAllResults', reviewResults);
-    var num = pageState;
-    num++;
-    setPageState(num);
+    // var num = pageState;
+    // num++;
+    // setPageState(num);
   }
 
 //   console.log('this is reviews in ranr',reviews);
@@ -117,7 +127,8 @@ const RatingsAndReviews = () => {
     }
   }, [pageState]);
 
-  //console.log('response results!!!!', reviewResults);
+  console.log('review results!!!!', reviewResults);
+  console.log('just reviews!!!!', reviews);
 
   const classes = useStyles();
 

@@ -121,3 +121,17 @@ export function dateFormatter(timeStamp) {
 
   return month + ' ' + day + ', ' + year;
 }
+
+export function convertToPercentages(starValsArr) {
+  let resultArr = [];
+  let total = 0;
+  //This for loop adds all values in array in order to use resulting total as denominator for calculating percentages.
+  for (var i = 0; i < starValsArr.length; i += 1) {
+      total += starValsArr[i];
+  }
+
+  for (var i = 0; i < starValsArr.length; i += 1) {
+    resultArr.push(starValsArr[i] / total * 100);
+  }
+  return resultArr;
+}

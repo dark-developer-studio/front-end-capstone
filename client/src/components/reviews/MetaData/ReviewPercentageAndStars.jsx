@@ -3,8 +3,11 @@ import { makeStyles } from '@material-ui/core/styles';
 import yellow from '@material-ui/core/colors/yellow';
 import StarIcon from '@material-ui/icons/Star';
 import Rating from '@material-ui/lab/Rating';
+//import Rating from '@material-ui/core/Rating';
 
-//helper function
+import StarBorderIcon from '@material-ui/icons/StarBorder';
+
+//helper functions
 import { calcAvgRating, calcStarRating } from '../helperFunctions.jsx';
 
 import { ReviewsContext } from '../../../helpers/context';
@@ -64,6 +67,7 @@ const ReviewPercentageAndStars = () => {
       defaultValue={0}
       precision={0.1}
       value={revStarRating}
+      emptyIcon={<StarBorderIcon fontSize="inherit" />}
       />
     </div>
   );

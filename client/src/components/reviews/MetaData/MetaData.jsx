@@ -48,7 +48,7 @@ const MetaData = () => {
   const classes = useStyles();
 
   return (
-    <ReviewsContext.Provider value={ { revsMetaData }}>
+    <ReviewsContext.Provider value={ { revsMetaData } }>
       <div>
         <ReviewPercentageAndStars />
         <RecommendPercentage />

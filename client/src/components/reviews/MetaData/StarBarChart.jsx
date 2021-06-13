@@ -5,6 +5,9 @@ import { Bar } from 'react-chartjs-2';
 
 import { ReviewsContext } from '../../../helpers/context';
 
+//helper functions
+import { convertToPercentages } from '../helperFunctions.jsx';
+
 const useStyles = makeStyles((theme) => ({
   starBarChart: {
     // border: "3px solid red",
@@ -20,6 +23,7 @@ const StarBarChart = () => {
   const[ratingStars, setRatingStars] = useState([]);
   const[ratingStarsTotals, setRatingStarsTotals] = useState([]);
   const[starData, setStarData] = useState([]);
+  const [starDataPercentages, setStarDataPercentages] = useState([]);
 
   //Bar Colors
   let emerald = 'rgba(63, 195, 128, 1)';
@@ -56,8 +60,37 @@ const options = {
     legend: {
       display: false
     },
+    tooltip: {
+      backgroundColor: 'rgba(8, 9, 8, 0.8)',
+      borderColor: eucalyptus,
+      borderWidth: 2,
+      xAlign: 'left',
+      yAlign: 'center',
+      caretPadding: 100,
+      caretSize: 10,
+      padding: 8,
+      //USE CALLBACK TO CREATE CUSTOM TEXT IN TOOLTIP WINDOW!
+      callbacks: {
+        //   label: function(context) {
+        //       var label = context.dataset.label || '';
+
+        //       if (label) {
+        //           label += ': ';
+        //       }
+        //       if (context.parsed.y !== null) {
+        //           //label += `${starData[0].toString()} reviews`;
+        //           //label += `%`;
+        //       }
+        //       return label;
+        //   }
+      }
+    }
   },
   scales: {
+    x: {
+      max: 100,
+      min: 0,
+    },
     xAxis: {
       display: false,
     },
@@ -65,24 +98,22 @@ const options = {
       display: true,
       grid: {
         display: false
-      }
+      },
     }
   }
 };
 
-
   const getRatingStars = () => {
-    //console.log('star data in chart', data.datasets[0].data);
-    const resultArr = [0, 0, 0, 0, 0];
+    let resultArr = [0, 0, 0, 0, 0];
     const ratingKeys = Object.keys(revsMetaData.ratings);
     ratingKeys.forEach( (key, index) => {
       if (Number(key) > 0 && Number(key) < 6) {
         resultArr[Number(key) - 1] = Number(revsMetaData.ratings[key]);
       }
     })
-    setStarData(resultArr);
-    // console.log('star data in chart', data.datasets[0].data);
-    // console.log('star data', starData);
+    resultArr = resultArr.reverse();
+    setStarData(convertToPercentages(resultArr));
+    //setStarDataPercentages(convertToPercentages(resultArr));
   }
 
   useEffect( () => {
