@@ -94,51 +94,57 @@ const ProductDisplay = () => {
 
   // console.log(productStyles.results);
   return (
-    <Grid className={classes.grid} item xs={12} container>
-
-      <Grid className={classes.grid} item xs={6} container>
-
-        <ImageGallery photosArr={photosArr} />
-
-      </Grid>
-
-      <Grid className={classes.grid} item xs={6} container direction="column">
-        <Card>
-          <CardContent>
-
-            <Typography variant="body2" color="textSecondary" component="p" align="left">
-              *Stars*
-              <u>View All Reviews</u>
-            </Typography>
-
-            <CategoryPriceName stylePrice={stylePrice} />
-
-            <Typography variant="body2" color="textSecondary" component="p" align="left">
-              <b>Style &gt; </b>
-              {styleName}
-            </Typography>
-            <StyleThumbs
-              productDetails={productStyles.results}
-              thumbnails={thumbnails}
-              setThumbnails={setThumbnails}
-              getStyleDetails={getStyleDetails}
-              getSkus={getSkus}
-            />
-
-            <Selectors
-              productDetails={productStyles.results}
-              thumbnails={thumbnails}
-              skus={skus}
-            />
-
-          </CardContent>
-        </Card>
-      </Grid>
+    <SkusContext.Provider value={{
+      skusState: skus
+    }}
+    >
       <Grid className={classes.grid} item xs={12} container>
-        <ProductDescription />
+
+        <Grid className={classes.grid} item xs={6} container>
+
+          <ImageGallery photosArr={photosArr} />
+
+        </Grid>
+
+        <Grid className={classes.grid} item xs={6} container direction="column">
+          <Card>
+            <CardContent>
+
+              <Typography variant="body2" color="textSecondary" component="p" align="left">
+                *Stars*
+                <u>View All Reviews</u>
+              </Typography>
+
+              <CategoryPriceName stylePrice={stylePrice} />
+
+              <Typography variant="body2" color="textSecondary" component="p" align="left">
+                <b>Style &gt; </b>
+                {styleName}
+              </Typography>
+              <StyleThumbs
+                productDetails={productStyles.results}
+                thumbnails={thumbnails}
+                setThumbnails={setThumbnails}
+                getStyleDetails={getStyleDetails}
+                getSkus={getSkus}
+              />
+
+              <Selectors
+                productDetails={productStyles.results}
+                thumbnails={thumbnails}
+                skus={skus}
+              />
+
+            </CardContent>
+          </Card>
+        </Grid>
+        <Grid className={classes.grid} item xs={12} container>
+          <ProductDescription />
+        </Grid>
       </Grid>
-    </Grid>
+    </SkusContext.Provider>
   );
 };
 
+export const SkusContext = React.createContext();
 export default ProductDisplay;
