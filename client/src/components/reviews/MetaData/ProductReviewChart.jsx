@@ -5,6 +5,9 @@ import { Bar } from 'react-chartjs-2';
 
 import { ReviewsContext } from '../../../helpers/context';
 
+//helper function
+import { calcAvgRating, calcStarRating, getCharLowHighVals } from '../helperFunctions.jsx';
+
 const useStyles = makeStyles((theme) => ({
   parentContainer: {
     display: "flex",
@@ -56,6 +59,7 @@ const ProductReviewSlider= withStyles({
     width: 5,
     marginTop: 0,
 
+
   },
   markActive: {
     opacity: 1,
@@ -90,18 +94,14 @@ const ProductReviewChart = () => {
   const [charValPairs, setCharValPairs] = useState([]);
 
   const getChar = () => {
-  //console.log('data in meta data char', revsMetaData.characteristics);
-
     let resultArr = [];
     const charKeys = Object.keys(revsMetaData.characteristics);
     charKeys.forEach( (key, index) => {
       let charNumVal =  revsMetaData.characteristics[key]['value'];
-      let charArr = [key, Math.round(Number(charNumVal))];
+      let charArr = [key, Math.round(Number(charNumVal)), getCharLowHighVals(key)];
       resultArr.unshift(charArr);
     })
     setCharValPairs(resultArr);
-
-    //console.log('data in char state', charValPairs);
   }
 
   useEffect( () => {
@@ -133,7 +133,7 @@ const ProductReviewChart = () => {
         aria-labelledby="discrete-slider"
         valueLabelDisplay="auto"
         step={1}
-        marks
+        marks={item[2]}
         min={1}
         max={5}
         disabled
