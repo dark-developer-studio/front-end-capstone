@@ -4,6 +4,9 @@ import CheckIcon from '@material-ui/icons/Check';
 import Rating from '@material-ui/lab/Rating';
 import { makeStyles } from '@material-ui/core/styles';
 
+//helper functions
+import { dateFormatter } from '../helperFunctions.jsx';
+
 import { ReviewsContext } from '../../../helpers/context';
 
 const useStyles = makeStyles((theme) => ({
@@ -19,6 +22,8 @@ const useStyles = makeStyles((theme) => ({
   },
   revNameStyle: {
     //border: "1px solid red",
+    display: "flex",
+    flexDirection: "row",
     padding: " 5px"
     },
   revDateStyle: {
@@ -42,8 +47,14 @@ const TopContainer = () => {
   }
   const getRevDate = () => {
     if (reviews.results) {
-      if (reviews.results.length !== 0) {
-          setRevDate(reviews.results[0].date)
+      if (reviews.results.length > 0) {
+
+        if (reviews.results[0].date) {
+          console.log('this is date', reviews.results[0].date)
+          const date = dateFormatter(reviews.results[0].date);
+          setRevDate(date);
+         //setRevDate(reviews.results[0].date);
+        }
       }
     }
   }
@@ -77,6 +88,7 @@ const TopContainer = () => {
       </Grid>
 
       <div className={classes.revNameStyle}>
+        <span><b>Username:&nbsp;&nbsp;</b></span>
         {revName}
       </div>
 
