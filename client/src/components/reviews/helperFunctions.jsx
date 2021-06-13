@@ -120,6 +120,4 @@ export function dateFormatter(timeStamp) {
   let year = date.getFullYear();
 
   return month + ' ' + day + ', ' + year;
-  //return date;
-  return timeStamp;
 }
