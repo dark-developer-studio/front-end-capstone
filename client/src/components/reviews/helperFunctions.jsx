@@ -108,4 +108,18 @@ export function getCharLowHighVals(char) {
   marksArr[0].label = charLowHighValsObj[char].low;
   marksArr[1].label = charLowHighValsObj[char].high;
   return marksArr;
-};
+}
+
+export function dateFormatter(timeStamp) {
+  let date = new Date(timeStamp.toString());
+  let monthsArr = ['Jan', 'Feb', 'Mar', 'Apr',
+    'May', 'Jun', 'Jul', 'Aug',
+    'Sep', 'Oct', 'Nov', 'Dec'];
+  let month = monthsArr[date.getMonth()];
+  let day = date.getDate();
+  let year = date.getFullYear();
+
+  return month + ' ' + day + ', ' + year;
+  //return date;
+  return timeStamp;
+}
