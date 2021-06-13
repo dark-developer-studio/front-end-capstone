@@ -53,4 +53,59 @@ export function calcStarRating(avgRate) {
   }
   // console.log('avg rate after calc', (wholeNum + decimal));
   return wholeNum + decimal;
+}
+
+export function getCharLowHighVals(char) {
+  const marksArr = [
+    {
+      value: 1,
+      label: '',
+    },
+    {
+      value: 5,
+      label: '',
+    },
+    {
+      value: 2,
+      label: '',
+    },
+    {
+      value: 3,
+      label: '',
+    },
+    {
+      value: 4,
+      label: '',
+    },
+  ]
+
+  const charLowHighValsObj = {
+    Size: {
+      low: 'Too small',
+      high: 'Too Big'
+    },
+    Width: {
+      low: 'Too Narrow',
+      high: 'Too Wide'
+    },
+    Comfort: {
+      low: 'Uncomfortable',
+      high: 'Perfect'
+    },
+    Quality: {
+      low: 'Poor',
+      high: 'Perfect'
+    },
+    Length: {
+      low: 'Runs Short',
+      high: 'Runs Long'
+    },
+    Fit: {
+      low: 'Runs Tight',
+      high: 'Runs Long'
+    }
+  }
+  marksArr[0].label = charLowHighValsObj[char].low;
+  marksArr[1].label = charLowHighValsObj[char].high;
+  return marksArr;
 };
