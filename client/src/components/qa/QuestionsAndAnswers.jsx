@@ -25,7 +25,16 @@ const QuestionsAndAnswers = () => {
   }, [product]);
 
   return (
-    <Container className="qaContainer" style={{ margin: '10px 0px 10px 0px', padding: 3, border: '1px solid #ddd' }}>
+    <Container
+      className="qaContainer"
+      style={{
+        margin: '10px 0px 10px 0px',
+        padding: 3,
+        border: '1px solid #ddd',
+        maxHeight: window.innerHeight,
+        overflow: 'auto'
+      }}
+    >
       <QuestionSearchBar setSearchValue={setSearchValue} />
       <QuestionList questions={questions} searchValue={searchValue} />
     </Container>
