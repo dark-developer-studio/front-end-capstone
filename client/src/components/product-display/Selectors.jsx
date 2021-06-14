@@ -1,13 +1,14 @@
 import React, { useState, useEffect, useContext } from 'react';
 import {
-  Grid, Button, Select, MenuItem, FormControl, FormHelperText, InputLabel
+  Grid, Button, Select, MenuItem, FormControl, FormHelperText, InputLabel, ClickAwayListener
 } from '@material-ui/core';
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import useStyles from './MaterialUi.jsx';
 import { SkusContext } from './ProductDisplay.jsx';
-import SizeDD from './SizeDD.jsx';
+import SizeDD from './DropDowns/SizeDD.jsx';
+import QuantityDD from './DropDowns/QuantityDD.jsx';
 
-const Selectors = (props) => {
+const Selectors = () => {
   const classes = useStyles();
   const { skusState } = useContext(SkusContext);
   const [selectSizeValue, setSelectSizeValue] = useState('');
@@ -15,6 +16,11 @@ const Selectors = (props) => {
   const [sizeForQuantity, setSizeForQuantity] = useState('');
   const [sizeQuantity, setSizeQuantity] = useState(0);
   const [quantityArr, setQuantityArr] = useState([]);
+  const [open, setOpen] = useState(false);
+
+  const handleClickAway = () => {
+    setOpen(false);
+  };
 
   const handleSizeChange = (event) => {
     setSelectSizeValue(event.target.value);
@@ -31,13 +37,15 @@ const Selectors = (props) => {
       resultArr.push('ph');
       count += 1;
     }
-    console.log(resultArr);
     setQuantityArr(resultArr);
   };
 
   const getQuantityForSize = (size) => {
     let resultNum;
     if (sizeForQuantity !== '') {
+      if (sizeForQuantity === undefined) {
+        return;
+      }
       skusState.forEach((styleSkus) => {
         if (size === styleSkus.size) {
           resultNum = styleSkus.quantity;
@@ -61,32 +69,20 @@ const Selectors = (props) => {
           handleSizeChange={handleSizeChange}
           setSizeForQuantity={setSizeForQuantity}
           selectSizeValue={selectSizeValue}
+          open={open}
+          handleClickAway={handleClickAway}
         />
 
       </Grid>
       <Grid item xs={6}>
-        <FormControl className={classes.formControl}>
-          <InputLabel id="Select-Quantity-DD">Quantity</InputLabel>
-          <Select
-            labelId="Select-Quantity-DD"
-            id="SelectQuantity"
-            value={selectQuantityValue}
-            onChange={(event) => {
-              handleQuantityChange(event);
-            }}
-            disabled={selectSizeValue === ''}
-          >
-            <MenuItem value="">
-              <em>Select Quantity</em>
-            </MenuItem>
-            {quantityArr.map((quantity, i) => (
-              <MenuItem value={i} key={quantity.quantity}>
-                {i + 1}
-              </MenuItem>
-            ))}
-          </Select>
-          <FormHelperText>Select Quantity</FormHelperText>
-        </FormControl>
+
+        <QuantityDD
+          selectQuantityValue={selectQuantityValue}
+          handleQuantityChange={handleQuantityChange}
+          selectSizeValue={selectSizeValue}
+          quantityArr={quantityArr}
+        />
+
       </Grid>
       <Grid item xs={9}>
         <Button className={classes.button} variant="outlined">
