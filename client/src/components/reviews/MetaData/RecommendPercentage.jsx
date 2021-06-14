@@ -6,8 +6,8 @@ import { ReviewsContext } from '../../../helpers/context';
 
 const useStyles = makeStyles((theme) => ({
   recommendPercentage: {
-    margin: "10px"
-  },
+    margin: '10px'
+  }
 }));
 
 const recommendPercentage = () => {
@@ -30,31 +30,31 @@ const recommendPercentage = () => {
         );
       }
     }
-  }
+  };
 
   const calcRecommendPercent = function(totFalse, totTrue) {
     if (totTrue !== NaN && totFalse !== NaN && totTrue !== undefined && totFalse !== undefined) {
-      let total = Number(totTrue) + Number(totFalse);
-      let truePercent = totTrue / total * 100;
+      const total = Number(totTrue) + Number(totFalse);
+      const truePercent = (totTrue / total) * 100;
       return Math.round(truePercent);
-    } else {
-      return 0;
     }
-  }
+    return 0;
+  };
 
- useEffect( () => {
-  getRecommendPercent();
-  //calcRecommendPercent();
+  useEffect(() => {
+    getRecommendPercent();
   }, [revsMetaData]);
 
   const classes = useStyles();
 
   return (
     <div className={classes.recommendPercentage}>
-      <span>{ (calcRecommendPercent(recommendTotals.totalFalse, recommendTotals.totalTrue)).toString() }</span>
+      <span>
+        {(calcRecommendPercent(recommendTotals.totalFalse, recommendTotals.totalTrue)).toString()}
+      </span>
       <span>% Recommended</span>
     </div>
   );
-}
+};
 
 export default recommendPercentage;

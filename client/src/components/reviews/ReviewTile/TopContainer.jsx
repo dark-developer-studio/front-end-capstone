@@ -1,101 +1,62 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React from 'react';
 import { Grid, Paper, Card } from '@material-ui/core';
-import CheckIcon from '@material-ui/icons/Check';
 import Rating from '@material-ui/lab/Rating';
 import StarBorderIcon from '@material-ui/icons/StarBorder';
 import { makeStyles } from '@material-ui/core/styles';
 
-//helper functions
+// helper functions
 import { dateFormatter } from '../helperFunctions.jsx';
-
-import { ReviewsContext } from '../../../helpers/context';
 
 const useStyles = makeStyles((theme) => ({
   parentContainer: {
-    //border: "2px solid rebeccaPurple",
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: "space-evenly",
+    // border: "2px solid rebeccaPurple",
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-evenly'
   },
   revStarsStyle: {
-    //border: "1px solid red",
-    padding: " 5px"
+    // border: "1px solid red",
+    padding: '5px'
   },
   revNameStyle: {
-    //border: "1px solid red",
-    display: "flex",
-    flexDirection: "row",
-    padding: " 5px"
-    },
-  revDateStyle: {
-    //border: "1px solid red",
-    padding: " 5px"
+    // border: "1px solid red",
+    display: 'flex',
+    flexDirection: 'row',
+    padding: '5px'
   },
+  revDateStyle: {
+    // border: "1px solid red",
+    padding: '5px'
+  }
 }));
 
-const TopContainer = () => {
-  const { reviews } = useContext(ReviewsContext);
-  const [revName, setRevName] = useState('');
-  const [revDate, setRevDate] = useState('');
-  const [rating, setRating] = useState(0);
-
-  const getRevName = () => {
-    if (reviews.results) {
-      if (reviews.results.length !== 0) {
-          setRevName(reviews.results[0].reviewer_name)
-      }
-    }
-  }
-  const getRevDate = () => {
-    if (reviews.results) {
-      if (reviews.results.length > 0) {
-        if (reviews.results[0].date) {
-          const date = dateFormatter(reviews.results[0].date);
-          setRevDate(date);
-        }
-      }
-    }
-  }
-  const getRating = () => {
-    if (reviews.results) {
-      if (reviews.results.length !== 0) {
-        setRating(reviews.results[0].rating)
-      }
-    }
-  }
-
-  useEffect( () => {
-    getRevName();
-    getRevDate();
-    getRating();
-  }, [reviews]);
-
+const TopContainer = (props) => {
   const classes = useStyles();
 
   return (
     <div className={classes.parentContainer}>
       <Grid item className={classes.revStarsStyle}>
         <Rating
-        name="reviewStarRating"
-        size="small"
-        readOnly={true}
-        defaultValue={0}
-        precision={0.25}
-        value={rating}
-        emptyIcon={<StarBorderIcon fontSize="inherit" />}
+          name="reviewStarRating"
+          size="small"
+          readOnly={true}
+          defaultValue={0}
+          precision={0.25}
+          value={props.rating}
+          emptyIcon={<StarBorderIcon fontSize="inherit" />}
         />
       </Grid>
 
       <div className={classes.revNameStyle}>
         <span><b>Username:&nbsp;&nbsp;</b></span>
-        {revName}
+        {props.revName}
       </div>
 
       <div className={classes.revDateStyle}>
-        {revDate}
+        {dateFormatter(props.revDate)}
       </div>
     </div>
   );
-}
+};
 
 export default TopContainer;
