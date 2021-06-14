@@ -1,18 +1,11 @@
 export function getTotalReviews(revData) {
   let count = 0;
-  if (revData) {
-    if (revData.results) {
-      let reviewArr = revData.results;
-
-      if (reviewArr.length !== 0 ) {
-        reviewArr.forEach (item => {
-          count++;
-        })
-        //Next increment page;
-      }
-      return count;
-    }
+  if (revData.length !== 0) {
+    revData.forEach(() => {
+      count += 1;
+    });
   }
+  return count;
 }
 
 export function calcAvgRating(ratingObj) {
@@ -21,37 +14,35 @@ export function calcAvgRating(ratingObj) {
   let starValue = 1;
 
   while (starValue < 6) {
-    let stringStarValue = starValue.toString();
+    const stringStarValue = starValue.toString();
     if (ratingObj[stringStarValue]) {
       ratingEntriesTotal += Number(ratingObj[stringStarValue]);
       starRatingTotal += (Number(ratingObj[stringStarValue]) * starValue);
     }
     starValue += 1;
   }
-  let avg = (starRatingTotal / ratingEntriesTotal);
+  const avg = (starRatingTotal / ratingEntriesTotal);
   return avg;
 }
 
 export function calcStarRating(avgRate) {
-  // console.log('avg rate before calc', (avgRate));
   let wholeNum = Math.floor(avgRate);
   let decimal = (avgRate - Math.floor(avgRate)).toFixed(3);
 
-  if (decimal < .125) {
-    decimal = .00;
-  } else if (decimal >= .125 && decimal < .375) {
-    //Because .25 on the Rating star icon does not look correct.
-    decimal = .40
-  } else if (decimal >= .375 && decimal < .625) {
-    decimal = .50
-  } else if (decimal >= .625 && decimal < .875) {
-    //Because .75 on the Rating star icon does not look correct.
-    decimal = .60
+  if (decimal < 0.125) {
+    decimal = 0.00;
+  } else if (decimal >= 0.125 && decimal < 0.375) {
+    // Because .25 on the Rating star icon does not look correct.
+    decimal = 0.4066;
+  } else if (decimal >= 0.375 && decimal < 0.625) {
+    decimal = 0.50;
+  } else if (decimal >= 0.625 && decimal < 0.875) {
+    // Because .75 on the Rating star icon does not look correct.
+    decimal = 0.60;
   } else {
-    decimal = .00;
+    decimal = 0.00;
     wholeNum += 1;
   }
-  // console.log('avg rate after calc', (wholeNum + decimal));
   return wholeNum + decimal;
 }
 
@@ -59,25 +50,25 @@ export function getCharLowHighVals(char) {
   const marksArr = [
     {
       value: 1,
-      label: '',
+      label: ''
     },
     {
       value: 5,
-      label: '',
+      label: ''
     },
     {
       value: 2,
-      label: '',
+      label: ''
     },
     {
       value: 3,
-      label: '',
+      label: ''
     },
     {
       value: 4,
-      label: '',
-    },
-  ]
+      label: ''
+    }
+  ];
 
   const charLowHighValsObj = {
     Size: {
@@ -104,34 +95,40 @@ export function getCharLowHighVals(char) {
       low: 'Runs Tight',
       high: 'Runs Long'
     }
-  }
+  };
+
   marksArr[0].label = charLowHighValsObj[char].low;
   marksArr[1].label = charLowHighValsObj[char].high;
   return marksArr;
 }
 
 export function dateFormatter(timeStamp) {
-  let date = new Date(timeStamp.toString());
-  let monthsArr = ['Jan', 'Feb', 'Mar', 'Apr',
+  const date = new Date(timeStamp.toString());
+  const monthsArr = ['Jan', 'Feb', 'Mar', 'Apr',
     'May', 'Jun', 'Jul', 'Aug',
     'Sep', 'Oct', 'Nov', 'Dec'];
-  let month = monthsArr[date.getMonth()];
-  let day = date.getDate();
-  let year = date.getFullYear();
+  const month = monthsArr[date.getMonth()];
+  const day = date.getDate();
+  const year = date.getFullYear();
 
-  return month + ' ' + day + ', ' + year;
+  return `${month} ${day} ${year}`;
 }
 
 export function convertToPercentages(starValsArr) {
-  let resultArr = [];
+  const resultArr = [];
   let total = 0;
-  //This for loop adds all values in array in order to use resulting total as denominator for calculating percentages.
-  for (var i = 0; i < starValsArr.length; i += 1) {
-      total += starValsArr[i];
+  // This for loop adds all values in array in order to use
+  // resulting total as denominator for calculating percentages.
+  for (let i = 0; i < starValsArr.length; i += 1) {
+    total += starValsArr[i];
   }
 
-  for (var i = 0; i < starValsArr.length; i += 1) {
-    resultArr.push(starValsArr[i] / total * 100);
+  for (let i = 0; i < starValsArr.length; i += 1) {
+    if (starValsArr[i] === 0) {
+      resultArr.push(starValsArr[i]);
+    } else {
+      resultArr.push(((starValsArr[i] / total) * 100).toFixed(2));
+    }
   }
   return resultArr;
 }

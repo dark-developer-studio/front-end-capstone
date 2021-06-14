@@ -1,20 +1,18 @@
 import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 
-//Material UI imports
-import { Grid, Button, Paper } from '@material-ui/core';
+// Material UI imports
+import { Grid, Button } from '@material-ui/core';
 import useStyles from './Styles.jsx';
-//Component imports
+// Component imports
 import ReviewTile from './ReviewTile/ReviewTile.jsx';
 import TotalReviewCount from './TotalReviewCount.jsx';
-import ReviewDialog from './AddReviewModal/AddReviewModal.jsx'
+import ReviewDialog from './AddReviewModal/AddReviewModal.jsx';
 import MetaData from './MetaData/MetaData.jsx';
-//Context import
+// Context import
 import { AppContext, ReviewsContext } from '../../helpers/context';
-//import helper functions
-import { getTotalReviews } from './helperFunctions.jsx';
 
-const { GITHUB_API_KEY } = require('../../../../config.js');
+const { GITHUB_API_KEY } = require('../../../../config');
 
 const RatingsAndReviews = () => {
   const { product } = useContext(AppContext);
@@ -22,88 +20,47 @@ const RatingsAndReviews = () => {
   const [pageState, setPageState] = useState(1);
   const [reviewResults, setReviewResults] = useState([]);
 
-  //getModalStyle is not a pure function, roll the style only on the first render
-  const [open, setOpen] = useState(false);
+  // getModalStyle is not a pure function, roll the style only on the first render
+  // const [open, setOpen] = useState(false);
 
-   const getAllReviews = (productID) => {
+  const getAllReviews = (productID) => {
     axios
-      .get(`/api/reviews/revs`, {
+      .get('/api/reviews/revs', {
         headers: {
           Authorization: GITHUB_API_KEY
         },
         params: {
           product_id: productID,
-          //count:
-          //page: pageState
+          page: pageState,
+          count: 5
         }
       })
       .then((response) => {
-        //let newReviews = [...reviews, ...response.data.results]
-        //let newReviews = response.data.results
-        // setReviews(newReviews);
         setReviews(response.data);
-        //setReviewResults(newReviews);
-      })
-      // .then((response) => {
-      //   let newReviews = [ ...response.data]
-      //   //setReviews(newReviews);
-      //   //setReviews(response.data);
-      //   setReviewResults(newReviews);
-      //   console.log('response results!!!!', reviewResults);
-      // })
-      .catch( (err) => {
-        console.log(err);
-        res.send(err);
-      })
-  };
-
-  const getAllResults = (productID) => {
-    axios
-      .get(`/api/reviews/revs`, {
-        headers: {
-          Authorization: GITHUB_API_KEY
-        },
-        params: {
-          product_id: productID,
-          //count:
-          page: pageState
-        }
-      })
-      .then((response) => {
-        if(response.data) {
+        if (response.data) {
           if (response.data.results) {
-            if (response.data.results.length < 1) {
+            if (response.data.results.length === 0 && pageState > 1) {
               setPageState(null);
-            } else {
-              let newReviews = response.data.results
-              //let newReviewsResults = [...reviewResults, ...newReviews]
-              let newReviewsResults = [...reviewResults, ...newReviews]
+            } else if (response.data.results.length > 0) {
+              const newReviewsResults = [...reviewResults, ...response.data.results];
               setReviewResults(newReviewsResults);
-              var num = pageState;
-              num++;
+              let num = pageState;
+              num += 1;
               setPageState(num);
             }
           }
         }
-      })
-      .catch( (err) => {
-        console.log(err);
-        res.send(err);
-      })
-    //setReviewResults(reviews.results);
-    console.log('response results in getAllResults', reviewResults);
-    // var num = pageState;
-    // num++;
-    // setPageState(num);
-  }
+      });
+  };
 
-//   console.log('this is reviews in ranr',reviews);
-//   console.log('this is results in ranr', reviews.results);
-//   if(reviews.results) {
-//   if (reviews.results.length !== 0) {
-//   console.log('this is results[0] in ranr', reviews.results[0]);
-//   }
-// }
+  // -------------CONSOLE LOGS
+  //   console.log('this is reviews in ranr',reviews);
+  //   console.log('this is results in ranr', reviews.results);
+  //   if(reviews.results) {
+  //   if (reviews.results.length !== 0) {
+  //   console.log('this is results[0] in ranr', reviews.results[0]);
+  //   }
+  // }
 
   useEffect(() => {
     if (product.id > 0) {
@@ -111,82 +68,69 @@ const RatingsAndReviews = () => {
     }
   }, [product]);
 
-  //console.log('response reviews???', reviews);
-
   useEffect(() => {
-    if (reviews.results) {
-      getAllResults();
-    }
-  }, [reviews]);
-
-  useEffect(() => {
-    if (reviews.results) {
-      if (reviews.results.length > 0) {
-        getAllResults();
-      }
+    if (pageState !== null) {
+      getAllReviews(product.id);
     }
   }, [pageState]);
-
-  console.log('review results!!!!', reviewResults);
-  console.log('just reviews!!!!', reviews);
 
   const classes = useStyles();
 
   return (
     <AppContext.Provider value={{ product }}>
-    <ReviewsContext.Provider value={ { reviews } }>
-      <div className={classes.parentGrid}>
-        <Grid
-          container
-          direction="row"
-          alignItems="center"
-          justify="space-around"
-          className={classes.topGrid}>
+      <ReviewsContext.Provider value={{ reviews, reviewResults }}>
+        <div className={classes.parentGrid}>
+          <Grid
+            container
+            direction="row"
+            alignItems="center"
+            justify="space-around"
+            className={classes.topGrid}>
 
-          <Grid item className={classes.componentTitle}>
-            Rating and Reviews
+            <Grid item className={classes.componentTitle}>
+              Rating and Reviews
+            </Grid>
+
+            <Grid item className={classes.totalRev}>
+              <span>Total Reviews:</span>
+              <div>
+                <TotalReviewCount />
+              </div>
+            </Grid>
+
+            <Grid item className={classes.sortby}>
+              <span>Sort by: </span>
+              <select>
+                <option value="">choose a category</option>
+                <option value="">Helpful</option>
+                <option value="">Newest</option>
+                <option value="">Relevant</option>
+              </select>
+            </Grid>
+
+            {/* End of topGrid */}
           </Grid>
 
-          <Grid item className={classes.totalRev}>
-            <span>Total Reviews:</span>
-            <div>
-              <TotalReviewCount />
-            </div>
+          <Grid container direction="row" justify="space-evenly" className={classes.midGrid}>
+            <Grid item className={classes.leftPanel}>
+              <MetaData />
+            </Grid>
+
+            <Grid item className={classes.rightPanel}>
+              <ReviewTile />
+
+              <div className={classes.buttonContainer}>
+                <ReviewDialog />
+                <Button variant="outlined" color="secondary" className={classes.moreRevBtn}>More Reviews</Button>
+              </div>
+
+              {/* End of right panel   */}
+            </Grid>
+
+            {/* End of midGrid   */}
           </Grid>
-
-          <Grid item className={classes.sortby}>
-            <span>Sort by: </span>
-            <select>
-              <option value="">choose a category</option>
-              <option value="">Helpful</option>
-              <option value="">Newest</option>
-              <option value="">Relevant</option>
-            </select>
-          </Grid>
-
-          {/* End of topGrid */}
-        </Grid>
-
-        <Grid container direction="row" justify="space-evenly" className={classes.midGrid}>
-          <Grid item className={classes.leftPanel}>
-            <MetaData />
-          </Grid>
-
-          <Grid item className={classes.rightPanel}>
-            <ReviewTile />
-
-            <div className={classes.buttonContainer}>
-              <ReviewDialog />
-              <Button variant="outlined" color="secondary" className={classes.moreRevBtn}>More Reviews</Button >
-            </div>
-
-            {/* End of right panel   */}
-          </Grid>
-
-          {/* End of midGrid   */}
-        </Grid>
-      </div>
-    </ReviewsContext.Provider>
+        </div>
+      </ReviewsContext.Provider>
     </AppContext.Provider>
   );
 };
