@@ -168,7 +168,7 @@ export default function QuestionDialog() {
 
         <DialogActions>
           <Button autoFocus onClick={validateQuestion} color="primary">
-            Submit Answer
+            Submit Question
           </Button>
         </DialogActions>
       </Dialog>
