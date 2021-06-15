@@ -85,7 +85,6 @@ const RatingsAndReviews = () => {
       <ReviewsContext.Provider value={{ reviews, reviewResults }}>
         <Grid
           container
-          xs={12}
           className={classes.parentGrid}
         >
           <Grid
@@ -136,7 +135,7 @@ const RatingsAndReviews = () => {
                   variant="outlined"
                   color="secondary"
                   className={classes.moreRevBtn}
-                  onClick={{ showMoreReviews }}
+                  // onClick={{ showMoreReviews }}
                 >
                   More Reviews
                 </Button>
