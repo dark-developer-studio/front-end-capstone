@@ -37,7 +37,7 @@ router.get('/revs', (req, res) => {
     });
 });
 
-router.post('/reviews', (req, res) => {
+router.post('/revs', (req, res) => {
   axios.post('https://app-hrsei-api.herokuapp.com/api/fec2/hr-bld/reviews', {
     product_id: req.body.product_id,
     rating: req.body.rating,
@@ -83,6 +83,38 @@ router.get('/meta', (req, res) => {
     .catch((err) => {
       console.log(err);
       res.send(err);
+    });
+});
+
+router.put('/helpful', (req, res) => {
+  axios.put(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-bld/reviews/${req.query.review_id}/helpful`, {}, {
+    headers: {
+      Authorization: GITHUB_API_KEY
+    }
+  })
+    .then(() => {
+      res.status(204);
+      res.send();
+    })
+    .catch((err) => {
+      console.log(err);
+      res.send();
+    });
+});
+
+router.put('/report', (req, res) => {
+  axios.put(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-bld/reviews/${req.query.review_id}/report`, {}, {
+    headers: {
+      Authorization: GITHUB_API_KEY
+    }
+  })
+    .then(() => {
+      res.status(204);
+      res.send();
+    })
+    .catch((err) => {
+      console.log(err);
+      res.send();
     });
 });
 

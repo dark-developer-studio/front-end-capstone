@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+import axios from 'axios';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
 import { Button, Radio, TextField, Input } from '@material-ui/core';
 import Dialog from '@material-ui/core/Dialog';
@@ -71,11 +72,26 @@ const DialogActions = withStyles((theme) => ({
 }))(MuiDialogActions);
 
 
-
-
 export default function ReviewDialog() {
   const { product } = useContext(AppContext);
   const [open, setOpen] = React.useState(false);
+
+  const postReview = (rev) => {
+    axios.post('/api/reviews/revs', {
+      rating: rev.rating,
+      summary: rev.summary,
+      body: rev.body,
+      recommend: rev.recommend,
+      name: rev.name,
+      email: rev.email,
+      photos: rev.photos,
+      characteristics: rev.characteristics
+    }, {
+      params: {
+        review_id: rev.id
+      }
+    }).then((response) => response.data);
+  };
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -154,6 +170,7 @@ export default function ReviewDialog() {
               className="nickname"
               onChange={(e) => setNickname(e.target.value)}
             />
+            <Typography className="inputText">For privacy reasons, do not use your full name or email address</Typography>
 
             <Typography className="inputText">Your email:</Typography>
             <TextField
@@ -164,7 +181,9 @@ export default function ReviewDialog() {
               className="email"
               onChange={(e) => setEmail(e.target.value)}
             />
+            <Typography className="inputText">For authentication reasons, you will not be emailed</Typography>
           </form>
+
         </DialogContent>
 
         <DialogActions>
