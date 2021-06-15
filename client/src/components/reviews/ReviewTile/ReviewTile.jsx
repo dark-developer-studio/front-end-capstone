@@ -18,7 +18,7 @@ const ReviewTile = () => {
   return (
     <Grid item className={classes.reviewTile}>
       { reviewResults.map((revItem) => (
-        <div key={revItem.review_id}>
+        <div key={revItem.review_id} className={classes.reviewTile}>
           <TopContainer
             rating={revItem.rating}
             revName={revItem.reviewer_name}
@@ -32,7 +32,7 @@ const ReviewTile = () => {
           <div className="bottomRowReviewTile" style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-around' }}>
             <div className="helpful" style={{ display: 'flex', flexDirection: 'row' }}>
               <span>Helpful?&nbsp;&nbsp;</span>
-              <div href="#" style={{ cursor: 'pointer' }}>Yes</div>
+              <div href="#" style={{ cursor: 'pointer' }}>Yes&nbsp;</div>
               <div>
                 (
                 {revItem.helpfulness}
