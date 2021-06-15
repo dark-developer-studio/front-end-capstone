@@ -1,6 +1,6 @@
 import Axios from 'axios';
 
-if (process.env.NODE_ENV !== 'production') {
+if (process.env.NODE_ENV !== 'production' && process.env.NODE_ENV !== 'testing') {
   // eslint-disable-next-line global-require
   require('dotenv').config();
 }
