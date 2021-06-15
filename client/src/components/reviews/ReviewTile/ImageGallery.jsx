@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect } from 'react';
-import { Card, GridList } from '@material-ui/core';
+import { Card, GridList, Grid, Button } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
 import { ReviewsContext } from '../../../helpers/context';
@@ -19,7 +19,10 @@ const useStyles = makeStyles((theme) => ({
   gridList: {
     flexWrap: 'nowrap',
     // Promote the list into his own layer on Chrome. This cost memory but helps keeping high FPS.
-    transform: 'translateZ(0)'
+    transform: 'translateZ(0)',
+    overflow: 'auto'
+  },
+  image: {
   }
 }));
 
@@ -38,11 +41,13 @@ const ImageGallery = (props) => {
   if (photosArr.length > 0) {
     return (
       <Card className={classes.parentContainer}>
-        <GridList className={classes.gridList} cols={2.5}>
+        <Grid className={classes.gridList}>
           {photosArr.map((photo) => (
-            <img key={photo.id} src={photo.url} alt="Broken-thumbnail" width="auto" height="100" />
+            <Button key={photo.id}>
+              <img src={photo.url} alt="Broken-thumbnail" width="auto" height="100" className={classes.image} />
+            </Button>
           ))}
-        </GridList>
+        </Grid>
       </Card>
     );
   }
