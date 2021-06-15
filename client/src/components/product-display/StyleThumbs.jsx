@@ -45,7 +45,8 @@ const StyleThumbs = (props) => {
                 alt="Styles"
                 src={tile.thumbNail}
                 onClick={() => {
-                  props.getStylePhotos(tile.styleId);
+                  props.getStyleDetails(tile.styleId);
+                  props.getSkus(tile.styleId);
                 }}
                 hover="pointer"
               />

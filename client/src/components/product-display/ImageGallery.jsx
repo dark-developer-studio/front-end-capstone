@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Carousel from 'react-material-ui-carousel';
-import { Card, CardMedia, Button, Paper } from '@material-ui/core';
+import { Paper, Grid } from '@material-ui/core';
 import useStyles from './MaterialUi.jsx';
 
 const ImageGallery = (props) => {
@@ -25,12 +25,27 @@ const ImageGallery = (props) => {
 const Item = (props) => {
   const classes = useStyles();
   return (
-    <Paper>
-      <img
-        src={props.src}
-        alt="Product Style"
-        className={classes.img}
-      />
+    <Paper
+      className={classes.imgBackground}
+      elevation={0}
+    >
+      <Grid item container direction="column" xs={12} className={classes.imgGrid}>
+        <img
+          src={props.src}
+          alt="Product Style"
+          className={classes.mainImg}
+        />
+        <img
+          src={props.src}
+          alt="Product Side Img"
+          className={classes.sideImg}
+        />
+        <img
+          src={props.src}
+          alt="Product Side Img"
+          className={classes.sideImg2}
+        />
+      </Grid>
     </Paper>
   );
 };

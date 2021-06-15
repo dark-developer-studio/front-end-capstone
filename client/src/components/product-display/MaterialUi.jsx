@@ -54,43 +54,66 @@ const useStyles = makeStyles((theme) => ({
       marginLeft: theme.spacing(2)
     }
   },
-  formControl: {
-
-  },
   carousel: {
-    height: '100%',
+    height: '90%',
     width: '100%',
-    objectFit: 'contain'
+    objectFit: 'contain',
+    boxShadow: '0px 1px 2px 1px rgba(0, 0, 0, .3)',
+    margin: '20px',
+    padding: '10px',
+    backgroundColor: 'white',
+    borderRadius: '6px'
   },
   grid: {
     textAlign: 'center',
     color: 'white',
     maxWidth: '100%',
     alignContent: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    backgroundColor: '#ADD8E6',
+    borderRadius: '6px',
+    padding: '2px'
+  },
+  imgBackground: {
+    paddingRight: '17px'
+  },
+  mainImg: {
+    height: 550,
+    maxWidth: '100%',
+    padding: '10px',
+    position: 'relative',
+    top: 0,
+    left: 0
+  },
+  sideImg: {
+    height: '50px',
+    width: '50px',
+    position: 'absolute',
+    top: '60px',
+    left: '20px',
+    marginLeft: 'auto',
+    marginRight: 'auto',
+    border: '2px solid black'
+  },
+  sideImg2: {
+    height: '50px',
+    width: '50px',
+    position: 'absolute',
+    top: '120px',
+    left: '20px',
+    border: '2px solid black'
+  },
+  imgGrid: {
+    position: 'relative',
+    left: 0,
+    top: 0
+  },
+  discountPrice: {
+    color: 'red'
+  },
+  orignalPrice: {
+    textDecoration: 'line-through'
   }
-  // grid2: {
-  //   textAlign: 'center',
-  //   color: 'white',
-  //   border: '2px solid black'
-  // },
-  // grid3: {
-  //   textAlign: 'center',
-  //   color: 'white',
-  //   border: '2px solid black'
-  // },
-  // grid4: {
-  //   textAlign: 'center',
-  //   color: 'white',
-  //   backgroundColor: 'red',
-  //   border: '2px solid black'
-  // },
-  // grid5: {
-  //   textAlign: 'center',
-  //   color: 'white',
-  //   backgroundColor: 'gray',
-  //   border: '2px solid black'
-  // }
 }));
 
 export default useStyles;

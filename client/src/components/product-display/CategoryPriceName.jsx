@@ -24,8 +24,19 @@ const CategoryPriceName = (props) => {
             {product.name}
           </Typography>
           <Typography variant="body2" color="textSecondary" component="p" align="left">
-            $
-            {product.default_price}
+            {props.stylePrice.salePrice ? (
+              <>
+                <span className={classes.orignalPrice}>
+                  $ {props.stylePrice.orignalPrice}
+                </span>
+                <br />
+                <span className={classes.discountPrice}>
+                  $ {props.stylePrice.salePrice}
+                </span>
+              </>
+            ) : (
+              props.stylePrice.orignalPrice
+            )}
           </Typography>
         </>
       ) : (
