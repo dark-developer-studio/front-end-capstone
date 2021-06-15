@@ -47,7 +47,7 @@ export function getQuestions(productId, page) {
  */
 export function createQuestion(question) {
   return axios.post('/api/qa/questions', {
-    product_id: question.productId,
+    product_id: question.product_id,
     body: question.body,
     name: question.name,
     email: question.email
@@ -103,13 +103,13 @@ export function getAnswers(questionId, page) {
  */
 export function createAnswer(answer) {
   return axios.post('/api/qa/answers', {
-    product_id: answer.productId,
     body: answer.body,
     name: answer.name,
-    email: answer.email
+    email: answer.email,
+    photos: answer.photos
   }, {
     params: {
-      question_id: answer.questionId
+      question_id: answer.question_id
     }
   }).then((response) => response.data);
 }

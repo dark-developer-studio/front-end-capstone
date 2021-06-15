@@ -6,7 +6,7 @@ import {
 } from '@material-ui/core';
 
 import AnswerList from './AnswerList.jsx';
-import AnswerModal from '../modals/AnswerModal.jsx';
+import AnswerDialog from '../modals/AnswerDialog.jsx';
 import { getAnswers } from '../helpers/qaRequests';
 
 export default function QuestionItem({ question }) {
@@ -38,7 +38,7 @@ export default function QuestionItem({ question }) {
             <Typography variant="body2" style={{ borderRight: '1px solid #555' }}>
               {`(${question.question_helpfulness})`}
             </Typography>
-            <AnswerModal question={question} />
+            <AnswerDialog question={question} />
           </Grid>
         </Grid>
       </Grid>
