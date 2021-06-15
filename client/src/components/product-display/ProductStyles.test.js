@@ -7,21 +7,6 @@ if (process.env.NODE_ENV !== 'production') {
 
 const { GITHUB_API_KEY } = process.env;
 
-const getProductStyles = (productId) => {
-  if (productId > 0) {
-    Axios
-      .get(`/api/display/products/${productId}/styles`)
-      .then((response) => {
-        return response.data;
-        done();
-      })
-      .catch((err) => {
-        return err;
-        done();
-      });
-  }
-};
-
 describe('Product API Calls', () => {
   test('Gets data from api and returns a object with the data', () => {
     function getProductStyles(productId) {
@@ -38,6 +23,5 @@ describe('Product API Calls', () => {
           });
       }
     }
-    // expect(getProductStyles(18078)).toEqual({});
   });
 });

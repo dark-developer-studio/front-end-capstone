@@ -54,9 +54,6 @@ const useStyles = makeStyles((theme) => ({
       marginLeft: theme.spacing(2)
     }
   },
-  formControl: {
-
-  },
   carousel: {
     height: '90%',
     width: '100%',
@@ -79,6 +76,43 @@ const useStyles = makeStyles((theme) => ({
   },
   imgBackground: {
     paddingRight: '17px'
+  },
+  mainImg: {
+    height: 550,
+    maxWidth: '100%',
+    padding: '10px',
+    position: 'relative',
+    top: 0,
+    left: 0
+  },
+  sideImg: {
+    height: '50px',
+    width: '50px',
+    position: 'absolute',
+    top: '60px',
+    left: '20px',
+    marginLeft: 'auto',
+    marginRight: 'auto',
+    border: '2px solid black'
+  },
+  sideImg2: {
+    height: '50px',
+    width: '50px',
+    position: 'absolute',
+    top: '120px',
+    left: '20px',
+    border: '2px solid black'
+  },
+  imgGrid: {
+    position: 'relative',
+    left: 0,
+    top: 0
+  },
+  discountPrice: {
+    color: 'red'
+  },
+  orignalPrice: {
+    textDecoration: 'line-through'
   }
 }));
 

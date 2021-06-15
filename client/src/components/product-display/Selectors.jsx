@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import {
-  Grid, Button, Select, MenuItem, FormControl, FormHelperText, InputLabel, ClickAwayListener
+  Grid, Button
 } from '@material-ui/core';
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import useStyles from './MaterialUi.jsx';
@@ -32,9 +32,9 @@ const Selectors = () => {
 
   const quantityArrayMaker = (maxNum) => {
     let count = 0;
-    let resultArr = [];
+    const resultArr = [];
     while (count !== maxNum) {
-      resultArr.push('ph');
+      resultArr.push(count);
       count += 1;
     }
     setQuantityArr(resultArr);
@@ -55,8 +55,6 @@ const Selectors = () => {
       quantityArrayMaker(resultNum);
     }
   };
-
-  // console.log(sizeForQuantity);
 
   useEffect(() => {
     getQuantityForSize(sizeForQuantity);
@@ -85,14 +83,18 @@ const Selectors = () => {
 
       </Grid>
       <Grid item xs={9}>
+
         <Button className={classes.button} variant="outlined">
           Add To Bag
         </Button>
+
       </Grid>
       <Grid item xs={3}>
+
         <Button className={classes.button} variant="outlined">
           <FavoriteBorderIcon className={classes.icon} />
         </Button>
+
       </Grid>
     </Grid>
   );

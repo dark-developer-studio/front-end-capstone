@@ -14,11 +14,9 @@ const SizeDD = (props) => {
     const vals = [];
     skusState.forEach((size) => {
       if (!vals.includes(size.size)) {
-        console.log(size.size);
         vals.push(size.size);
       }
     });
-    console.log(vals);
     setValsArr(vals);
   };
 
@@ -46,13 +44,6 @@ const SizeDD = (props) => {
             <MenuItem value="">
               <em>Select Size</em>
             </MenuItem>
-            {/* {props.open ? (null) : (
-              skusState.map((size, index) => (
-                <MenuItem value={size.size} key={size.size}>
-                  {size.size}
-                </MenuItem>
-              ))
-            )} */}
             {props.open ? (null) : (
               valsArr.map((size) => (
                 <MenuItem value={size} key={size}>

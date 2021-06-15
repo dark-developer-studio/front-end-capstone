@@ -1,19 +1,21 @@
 import React, { useState, useEffect, useContext } from 'react';
 import {
-  Typography, Card, CardContent, CardHeader, CardMedia, CircularProgress
+  Typography, Card, CardContent, CircularProgress
 } from '@material-ui/core';
 import useStyles from './MaterialUi.jsx';
 import { AppContext } from '../../helpers/context';
 
-const ProductDescription = (props) => {
+const ProductDescription = () => {
   const { product } = useContext(AppContext);
   const [dataIn, setDataIn] = useState(false);
   const classes = useStyles();
+
   useEffect(() => {
     if (product.id !== -1) {
       setDataIn(true);
     }
   }, [product]);
+
   return (
     <div>
       {dataIn ? (

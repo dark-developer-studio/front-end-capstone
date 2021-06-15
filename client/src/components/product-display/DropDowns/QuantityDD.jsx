@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import {
   Select, MenuItem, FormControl, FormHelperText, InputLabel
 } from '@material-ui/core';
@@ -19,14 +19,17 @@ const QuantityDD = (props) => {
         }}
         disabled={props.selectSizeValue === ''}
       >
+
         <MenuItem value="">
           <em>Select Quantity</em>
         </MenuItem>
+
         {props.quantityArr.map((quantity, i) => (
-          <MenuItem value={i} key={i}>
+          <MenuItem value={quantity} key={quantity}>
             {i + 1}
           </MenuItem>
         ))}
+
       </Select>
       <FormHelperText>Select Quantity</FormHelperText>
     </FormControl>

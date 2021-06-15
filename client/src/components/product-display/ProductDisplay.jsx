@@ -24,31 +24,37 @@ const ProductDisplay = () => {
 
   const classes = useStyles();
 
+  // Used for getting all style skus' for dynamic rendering of sizes and quantities
   const getSkus = (styleId) => {
     if (productStyles.results.length > 0) {
       const sizeAndQuantity = [];
       productStyles.results.forEach((style) => {
         if (styleId === style.style_id) {
           const styleSkus = style.skus;
-          for (const key in styleSkus) {
-            sizeAndQuantity.push(styleSkus[key]);
-          }
+          Object.values(styleSkus).forEach((skusObj) => {
+            sizeAndQuantity.push(skusObj);
+          });
         }
       });
-      console.log(sizeAndQuantity);
       setSkus(sizeAndQuantity);
     }
   };
 
+  // Used for getting the price and discount price as well
+  // as the name of products to for dynamic rendering
   const getStyleDetails = (styleId) => {
     if (productStyles.results.length > 0) {
       const allStylePhotos = [];
       let price = '';
       let name = '';
+      let discountPrice = '';
       productStyles.results.forEach((style) => {
         if (style.style_id === styleId) {
           if (price === '') {
             price = style.original_price;
+          }
+          if (discountPrice === '') {
+            discountPrice = style.sale_price;
           }
           if (name === '') {
             name = style.name;
@@ -59,7 +65,7 @@ const ProductDisplay = () => {
         }
       });
       setStyleName(name);
-      setStylePrice(price);
+      setStylePrice({ orignalPrice: price, salePrice: discountPrice });
       setPhotos(allStylePhotos);
     }
   };
@@ -71,8 +77,8 @@ const ProductDisplay = () => {
         .then((response) => {
           setProductStyles(response.data);
         })
-        .catch(() => {
-          console.log('Id not found');
+        .catch((err) => {
+          console.log(err);
         });
     }
   };
@@ -92,7 +98,6 @@ const ProductDisplay = () => {
     }
   }, [productStyles]);
 
-  // console.log(productStyles.results);
   return (
     <SkusContext.Provider value={{
       skusState: skus
