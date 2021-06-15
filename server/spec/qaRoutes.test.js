@@ -249,7 +249,7 @@ describe('Questions and Answers Routes', () => {
           body: 'This is a question?',
           name: 'John',
           email: 'John321@email.com',
-          product_id: 18078
+          photos: []
         })
         .then((response) => {
           expect(response.text).toEqual('Created');
@@ -259,7 +259,7 @@ describe('Questions and Answers Routes', () => {
               body: 'This is a question?',
               name: 'John',
               email: 'John321@email.com',
-              product_id: 18078
+              photos: []
             }, {
               headers: {
                 Authorization: GITHUB_API_KEY
