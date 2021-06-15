@@ -54,7 +54,7 @@ const RatingsAndReviews = () => {
   };
 
   const showMoreReviews = () => {
-  // Function to be added
+
   };
 
   // -------------CONSOLE LOGS
