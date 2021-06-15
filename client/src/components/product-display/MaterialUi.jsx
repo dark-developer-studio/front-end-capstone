@@ -17,6 +17,13 @@ const useStyles = makeStyles((theme) => ({
     },
     border: '1px solid black'
   },
+  avatarIndicators: {
+    '&:hover': {
+      cursor: 'pointer'
+    },
+    border: '1px solid black',
+    margin: '1px'
+  },
   button: {
     padding: '7px',
     border: '1px solid black',
@@ -64,6 +71,19 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: 'white',
     borderRadius: '6px'
   },
+  carouselThumbs: {
+    height: '50px',
+    width: '50px',
+    position: 'absolute',
+    top: '60px',
+    left: '20px',
+    marginLeft: 'auto',
+    marginRight: 'auto',
+    border: '2px solid black'
+  },
+  navButtonWrapper: {
+    top: '250px'
+  },
   grid: {
     textAlign: 'center',
     color: 'white',
@@ -88,19 +108,6 @@ const useStyles = makeStyles((theme) => ({
   sideImg: {
     height: '50px',
     width: '50px',
-    position: 'absolute',
-    top: '60px',
-    left: '20px',
-    marginLeft: 'auto',
-    marginRight: 'auto',
-    border: '2px solid black'
-  },
-  sideImg2: {
-    height: '50px',
-    width: '50px',
-    position: 'absolute',
-    top: '120px',
-    left: '20px',
     border: '2px solid black'
   },
   imgGrid: {

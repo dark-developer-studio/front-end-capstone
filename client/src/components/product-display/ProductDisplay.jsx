@@ -98,9 +98,12 @@ const ProductDisplay = () => {
     }
   }, [productStyles]);
 
+  console.log(productStyles.results)
+
   return (
     <SkusContext.Provider value={{
-      skusState: skus
+      skusState: skus,
+      photos: photosArr
     }}
     >
       <Grid className={classes.grid} item xs={12} container>
