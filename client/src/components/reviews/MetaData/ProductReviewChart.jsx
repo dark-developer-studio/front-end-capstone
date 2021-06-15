@@ -72,7 +72,6 @@ const ProductReviewSlider = withStyles({
       width: 10,
       backgroundColor: 'rgba(38, 166, 91, 1)',
       border: '2px solid black',
-      // borderRadius: "10px 10px 10px 10px",
       marginTop: -5,
       marginLeft: 0,
       '&:focus, &:hover, &$active': {
@@ -120,9 +119,9 @@ const ProductReviewChart = () => {
       </Typography>
 
       <div className={classes.sliderCharts}>
-        {charValPairs.map((item, index) => (
-          <div key={index}>
-            <Typography className={classes.chartTitles} gutterBottom >
+        {charValPairs.map((item) => (
+          <div key={item[0]}>
+            <Typography className={classes.chartTitles} gutterBottom>
               {item[0]}
             </Typography>
 

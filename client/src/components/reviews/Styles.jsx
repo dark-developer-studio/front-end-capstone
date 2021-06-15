@@ -51,10 +51,10 @@ const useStyles = makeStyles(() => ({
     alignContent: 'center'
   },
   reviewTile: {
+    border: '1px solid black',
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'space-around',
-    border: '1px solid black',
     marginTop: '10px',
     marginBottom: '10px',
     padding: '10px'

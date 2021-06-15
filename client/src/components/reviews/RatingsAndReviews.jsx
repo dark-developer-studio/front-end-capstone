@@ -53,6 +53,10 @@ const RatingsAndReviews = () => {
       });
   };
 
+  const showMoreReviews = () => {
+
+  };
+
   // -------------CONSOLE LOGS
   //   console.log('this is reviews in ranr',reviews);
   //   console.log('this is results in ranr', reviews.results);
@@ -79,13 +83,19 @@ const RatingsAndReviews = () => {
   return (
     <AppContext.Provider value={{ product }}>
       <ReviewsContext.Provider value={{ reviews, reviewResults }}>
-        <div className={classes.parentGrid}>
+        <Grid
+          container
+          className={classes.parentGrid}
+        >
           <Grid
+            item
+            xs={12}
             container
             direction="row"
             alignItems="center"
             justify="space-around"
-            className={classes.topGrid}>
+            className={classes.topGrid}
+          >
 
             <Grid item className={classes.componentTitle}>
               Rating and Reviews
@@ -112,16 +122,23 @@ const RatingsAndReviews = () => {
           </Grid>
 
           <Grid container direction="row" justify="space-evenly" className={classes.midGrid}>
-            <Grid item className={classes.leftPanel}>
+            <Grid item xs={6} className={classes.leftPanel}>
               <MetaData />
             </Grid>
 
-            <Grid item className={classes.rightPanel}>
+            <Grid item xs={6} className={classes.rightPanel}>
               <ReviewTile />
 
               <div className={classes.buttonContainer}>
                 <ReviewDialog />
-                <Button variant="outlined" color="secondary" className={classes.moreRevBtn}>More Reviews</Button>
+                <Button
+                  variant="outlined"
+                  color="secondary"
+                  className={classes.moreRevBtn}
+                  // onClick={{ showMoreReviews }}
+                >
+                  More Reviews
+                </Button>
               </div>
 
               {/* End of right panel   */}
@@ -129,7 +146,7 @@ const RatingsAndReviews = () => {
 
             {/* End of midGrid   */}
           </Grid>
-        </div>
+        </Grid>
       </ReviewsContext.Provider>
     </AppContext.Provider>
   );
