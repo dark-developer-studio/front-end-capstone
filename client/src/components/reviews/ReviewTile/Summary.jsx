@@ -1,40 +1,21 @@
-import React, { useContext, useState, useEffect } from 'react';
-import { Grid, Paper, Card } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles'
+import React from 'react';
+import { makeStyles } from '@material-ui/core/styles';
 
-import { ReviewsContext } from '../../../helpers/context';
-
-const useStyles = makeStyles( (theme) => ({
+const useStyles = makeStyles(() => ({
   reviewSummary: {
-    fontSize: "large",
-    fontWeight: "bold",
-    margin: "5px"
-  },
-}))
-
-const Summary = () => {
-  const { reviews } = useContext(ReviewsContext);
-  const [summary, setSummary] = useState(' ');
-
-  const getSummary = () => {
-    if (reviews.results) {
-      if (reviews.results.length !== 0) {
-        setSummary(reviews.results[0].summary);
-      }
-    }
+    fontSize: 'large',
+    fontWeight: 'bold',
+    margin: '5px'
   }
+}));
 
-  useEffect( () => {
-    getSummary();
-  }, [reviews]);
-
+const Summary = (props) => {
   const classes = useStyles();
-
   return (
     <div className={classes.reviewSummary}>
-      {summary}
+      {props.summary}
     </div>
   );
-}
+};
 
 export default Summary;
