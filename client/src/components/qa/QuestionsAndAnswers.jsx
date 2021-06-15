@@ -30,9 +30,7 @@ const QuestionsAndAnswers = () => {
       style={{
         margin: '10px 0px 10px 0px',
         padding: 3,
-        border: '1px solid #ddd',
-        maxHeight: window.innerHeight,
-        overflow: 'auto'
+        border: '1px solid #ddd'
       }}
     >
       <QuestionSearchBar setSearchValue={setSearchValue} />

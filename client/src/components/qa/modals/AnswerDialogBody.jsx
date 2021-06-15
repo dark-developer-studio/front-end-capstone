@@ -1,47 +1,25 @@
 import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 
-import { makeStyles } from '@material-ui/core/styles';
+// import { makeStyles } from '@material-ui/core/styles';
 import {
   Container,
   Typography,
   TextField,
-  Button
+  Button,
+  DialogContent
 } from '@material-ui/core';
 
 import { AppContext } from '../../../helpers/context';
+import ImageModal from '../../global/ImageDialog.jsx';
 
-function getModalStyle() {
-  const top = 25;
-  // const left = 50;
-
-  return {
-    top: `${top}%`,
-    margin: '0px 100px'
-    // left: `${left}%`
-  };
-}
-
-const useStyles = makeStyles((theme) => ({
-  paper: {
-    position: 'absolute',
-    backgroundColor: theme.palette.background.paper,
-    border: '2px solid #000',
-    boxShadow: theme.shadows[5],
-    padding: theme.spacing(2, 4, 3)
-  }
-}));
-
-export default function AnswerModalBody({ question }) {
+export default function AnswerDialogBody({
+  question, photos, setPhotos, setBody, setNickname, setEmail
+}) {
   const { product } = useContext(AppContext);
 
-  const classes = useStyles();
-  // getModalStyle is not a pure function, we roll the style only on the first render
-  const [modalStyle] = React.useState(getModalStyle);
-
   return (
-    <Container style={modalStyle} className={classes.paper}>
-      <Typography className="title">Submit your Answer</Typography>
+    <DialogContent dividers>
       <Typography className="subtitle">{`${product.name}: ${question.question_body}`}</Typography>
       <form className="formContainer">
         <TextField
@@ -49,7 +27,8 @@ export default function AnswerModalBody({ question }) {
           rows={6}
           variant="outlined"
           label="Answer"
-          className="answer"
+          fullWidth
+          onChange={(e) => setBody(e.target.value)}
         />
 
         <TextField
@@ -57,17 +36,23 @@ export default function AnswerModalBody({ question }) {
           label="Nickname"
           placeholder="Example: jack543!"
           helperText="For privacy reasons, do not use your full name or email address"
-          className="nickname"
+          fullWidth
+          onChange={(e) => setNickname(e.target.value)}
         />
 
         <TextField
           variant="outlined"
-          label="Nickname"
+          label="Email"
           placeholder="Example: jack@email.com"
           helperText="For authentication reasons, you will not be emailed"
           type="email"
-          className="email"
+          fullWidth
+          onChange={(e) => setEmail(e.target.value)}
         />
+
+        <Container>
+          {photos.map((url) => <ImageModal key={url} url={url} />)}
+        </Container>
 
         <Button
           variant="contained"
@@ -79,22 +64,33 @@ export default function AnswerModalBody({ question }) {
             hidden
           />
         </Button>
-
-        <Button variant="contained" type="button">Submit</Button>
       </form>
-    </Container>
+    </DialogContent>
   );
 }
 
-AnswerModalBody.propTypes = {
+AnswerDialogBody.propTypes = {
   question: PropTypes.shape({
     question_id: PropTypes.number,
     question_body: PropTypes.string,
     question_helpfulness: PropTypes.number,
     asker_name: PropTypes.string
-  })
+  }),
+  photos: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.number,
+    url: PropTypes.string
+  })),
+  setPhotos: PropTypes.func,
+  setBody: PropTypes.func,
+  setNickname: PropTypes.func,
+  setEmail: PropTypes.func
 };
 
-AnswerModalBody.defaultProps = {
-  question: {}
+AnswerDialogBody.defaultProps = {
+  question: {},
+  photos: [],
+  setPhotos: () => {},
+  setBody: () => {},
+  setNickname: () => {},
+  setEmail: () => {}
 };

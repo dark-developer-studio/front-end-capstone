@@ -3,11 +3,18 @@ import PropTypes from 'prop-types';
 
 import { Container, Button } from '@material-ui/core';
 import QuestionItem from './QuestionItem.jsx';
-import QuestionModal from '../modals/QuestionModal.jsx';
+import QuestionDialog from '../modals/QuestionDialog.jsx';
 
 export default function QuestionList({ questions, searchValue }) {
   return (
-    <Container className="questionlist" style={{ padding: 3 }}>
+    <Container
+      className="questionlist"
+      style={{
+        padding: 3,
+        maxHeight: window.innerHeight - 175,
+        overflow: 'auto'
+      }}
+    >
       {
         // eslint-disable-next-line arrow-body-style
         questions.map((question) => {
@@ -16,7 +23,7 @@ export default function QuestionList({ questions, searchValue }) {
       }
       <Container style={{ padding: 0 }} className="buttons">
         <Button type="button" variant="outlined" className="morequestions">MORE ANSWERED QUESTIONS</Button>
-        <QuestionModal />
+        <QuestionDialog />
       </Container>
     </Container>
   );

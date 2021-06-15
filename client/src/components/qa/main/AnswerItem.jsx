@@ -5,7 +5,7 @@ import {
   Container, Grid, Typography, Button
 } from '@material-ui/core';
 
-import ImageModal from '../modals/ImageModal.jsx';
+import ImageModal from '../../global/ImageDialog.jsx';
 
 export default function AnswerItem({ answer }) {
   function formatDate(date) {
