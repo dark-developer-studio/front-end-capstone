@@ -59,8 +59,8 @@ const ProductDisplay = () => {
           if (name === '') {
             name = style.name;
           }
-          style.photos.forEach((photos) => {
-            allStylePhotos.push(photos.url);
+          style.photos.forEach((photos, i) => {
+            allStylePhotos.push({ photoNum: i, url: photos.url });
           });
         }
       });
@@ -98,7 +98,7 @@ const ProductDisplay = () => {
     }
   }, [productStyles]);
 
-  console.log(productStyles.results)
+  // console.log(productStyles.results);
 
   return (
     <SkusContext.Provider value={{

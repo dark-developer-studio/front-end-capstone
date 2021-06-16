@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Carousel from 'react-material-ui-carousel';
 import { Paper, Grid, Avatar } from '@material-ui/core';
 import useStyles from './MaterialUi.jsx';
@@ -7,6 +7,36 @@ import CarouselThumbs from './CarouselThumbs.jsx';
 const ImageGallery = (props) => {
   const classes = useStyles();
   const images = props.photosArr;
+  const [imgState, setImgState] = useState([]);
+  const [currentImg, setCurrentImg] = useState(0);
+
+  useEffect(() => {
+    setImgState(images);
+  }, [images]);
+
+  const nextFunc = (next) => {
+    let count = currentImg;
+    if (count < imgState.length - 1) {
+      count += 1;
+      setCurrentImg(count);
+    } else if (count === imgState.length - 1) {
+      setCurrentImg(0);
+    }
+    return currentImg;
+  };
+
+  const prevFunc = () => {
+    let count = currentImg;
+    if (count > 0) {
+      count -= 1;
+      setCurrentImg(count);
+    } else if (count === 0) {
+      setCurrentImg(imgState.length - 1);
+    }
+    return currentImg;
+  };
+
+  // console.log(images);
 
   return (
     <Grid item container xs={12}>
@@ -30,14 +60,25 @@ const ImageGallery = (props) => {
             }
           }}
           indicators={false}
+          next={nextFunc}
+          prev={prevFunc}
         >
           {
-            images.map((img, i) => <Item key={i} src={img} />)
+            imgState.map((img) => (
+              <Item
+                key={img.photoNum}
+                img={img}
+                currentImg={imgState[currentImg]}
+              />
+            ))
           }
         </Carousel>
       </Grid>
       <Grid item container xs={1} style={{ position: 'absolute', bottom: '200px' }}>
-        <CarouselThumbs />
+        <CarouselThumbs
+          setCurrentImg={setCurrentImg}
+          currentImg={currentImg}
+        />
       </Grid>
     </Grid>
   );
@@ -45,6 +86,7 @@ const ImageGallery = (props) => {
 
 const Item = (props) => {
   const classes = useStyles();
+
   return (
     // <Grid item container xs={12} className={classes.imgGrid}>
     <Paper
@@ -52,7 +94,8 @@ const Item = (props) => {
       elevation={0}
     >
       <img
-        src={props.src}
+        key={props.img.photoNum}
+        src={props.currentImg.url}
         alt="Product Style"
         className={classes.mainImg}
       />

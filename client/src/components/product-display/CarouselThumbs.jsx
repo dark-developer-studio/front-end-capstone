@@ -8,14 +8,19 @@ import { SkusContext } from './ProductDisplay.jsx';
 const CarouselThumbs = (props) => {
   const classes = useStyles();
   const { photos } = useContext(SkusContext);
+
   return (
     <Grid item container direction="column" xs={12} spacing={1}>
-      {photos.map((img) => (
-        <Grid key={img} item xs={12}>
+      {photos.map((img, i) => (
+        <Grid key={img.photoNum} item xs={12}>
           <img
-            src={img}
+            src={img.url}
             alt="Product Style"
             className={classes.sideImg}
+            onClick={(e) => {
+              props.setCurrentImg(i)
+              console.log(props.currentImg)
+            }}
           />
         </Grid>
       ))}
