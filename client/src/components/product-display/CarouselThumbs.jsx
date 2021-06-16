@@ -19,7 +19,6 @@ const CarouselThumbs = (props) => {
             className={classes.sideImg}
             onClick={(e) => {
               props.setCurrentImg(i)
-              console.log(props.currentImg)
             }}
           />
         </Grid>
