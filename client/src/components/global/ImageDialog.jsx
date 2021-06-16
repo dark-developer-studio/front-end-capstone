@@ -12,6 +12,9 @@ const useStyles = makeStyles((theme) => ({
     margin: 0,
     padding: theme.spacing(4)
   },
+  dialog: {
+    overflow: 'hidden'
+  },
   closeButton: {
     position: 'absolute',
     right: theme.spacing(1),
@@ -49,8 +52,10 @@ export default function ImageDialog({ url }) {
         open={open}
         onClose={handleClose}
         scroll="body"
+        maxWidth="lg"
         aria-labelledby="image-dialog"
         aria-describedby="displays a dialog with the image at full resolution"
+        className={classes.dialog}
       >
         <DialogTitle className={classes.root}>
           <IconButton aria-label="close" onClick={handleClose} className={classes.closeButton}>
@@ -58,7 +63,17 @@ export default function ImageDialog({ url }) {
           </IconButton>
         </DialogTitle>
 
-        <img src={url} alt="dialog" style={{ height: 'auto', maxWidth: '100%', maxHeight: Math.floor(window.innerHeight * 0.80) }} />
+        <div style={{ overflow: 'hidden' }}>
+          <img
+            src={url}
+            alt="dialog"
+            style={{
+              padding: 5,
+              height: 'auto',
+              maxWidth: '99%'
+            }}
+          />
+        </div>
       </Dialog>
     </>
   );

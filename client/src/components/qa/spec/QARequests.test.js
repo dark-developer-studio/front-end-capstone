@@ -71,7 +71,7 @@ describe('Questions and Answers API Calls', () => {
     }));
 
     const question = {
-      productId: 18078,
+      product_id: 18078,
       body: 'This is a question?',
       name: 'John',
       email: 'john431@email.com'
@@ -188,11 +188,11 @@ describe('Questions and Answers API Calls', () => {
     }));
 
     const answer = {
-      questionId: 112873,
-      productId: 18078,
+      question_id: 112873,
       body: 'This is an answer.',
       name: 'John',
-      email: 'john431@email.com'
+      email: 'john431@email.com',
+      photos: []
     };
 
     createAnswer(answer)
@@ -201,10 +201,10 @@ describe('Questions and Answers API Calls', () => {
         expect(axios.post).toHaveBeenCalledWith(
           '/api/qa/answers',
           {
-            product_id: 18078,
             body: 'This is an answer.',
             name: 'John',
-            email: 'john431@email.com'
+            email: 'john431@email.com',
+            photos: []
           }, {
             params: {
               question_id: 112873
