@@ -10,7 +10,9 @@ import {
 
 import { AppContext } from '../../../helpers/context';
 
-export default function QuestionDialogBody({ setBody, setNickname, setEmail }) {
+export default function QuestionDialogBody({
+  setBody, setNickname, setEmail, validation
+}) {
   const { product } = useContext(AppContext);
 
   return (
@@ -22,6 +24,8 @@ export default function QuestionDialogBody({ setBody, setNickname, setEmail }) {
           rows={6}
           label="Question"
           variant="outlined"
+          helperText={validation.body}
+          error={validation.bodyError}
           className="question"
           onChange={(e) => setBody(e.target.value)}
         />
@@ -30,7 +34,8 @@ export default function QuestionDialogBody({ setBody, setNickname, setEmail }) {
           variant="outlined"
           label="Nickname"
           placeholder="Example: jackson11!"
-          helperText="For privacy reasons, do not use your full name or email address"
+          helperText={validation.nickname}
+          error={validation.nicknameError}
           className="nickname"
           onChange={(e) => setNickname(e.target.value)}
         />
@@ -39,7 +44,8 @@ export default function QuestionDialogBody({ setBody, setNickname, setEmail }) {
           variant="outlined"
           label="Email"
           placeholder="Example: jackson@email.com"
-          helperText="For authentication reasons, you will not be emailed"
+          helperText={validation.email}
+          error={validation.emailError}
           type="email"
           className="email"
           onChange={(e) => setEmail(e.target.value)}
@@ -52,11 +58,27 @@ export default function QuestionDialogBody({ setBody, setNickname, setEmail }) {
 QuestionDialogBody.propTypes = {
   setBody: PropTypes.func,
   setNickname: PropTypes.func,
-  setEmail: PropTypes.func
+  setEmail: PropTypes.func,
+  validation: PropTypes.shape({
+    body: PropTypes.string,
+    bodyError: PropTypes.bool,
+    nickname: PropTypes.string,
+    nicknameError: PropTypes.bool,
+    email: PropTypes.string,
+    emailError: PropTypes.bool
+  })
 };
 
 QuestionDialogBody.defaultProps = {
   setBody: () => {},
   setNickname: () => {},
-  setEmail: () => {}
+  setEmail: () => {},
+  validation: {
+    body: '',
+    bodyError: false,
+    nickname: 'For privacy reasons, do not use your full name or email address',
+    nicknameError: false,
+    email: 'For authentication reasons, you will not be emailed',
+    emailError: false
+  }
 };

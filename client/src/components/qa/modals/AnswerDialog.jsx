@@ -53,6 +53,14 @@ export default function AnswerDialog({ question }) {
   const [body, setBody] = useState('');
   const [nickname, setNickname] = useState('');
   const [email, setEmail] = useState('');
+  const [validation, setValidation] = useState({
+    body: '',
+    bodyError: false,
+    nickname: 'For privacy reasons, do not use your full name or email address',
+    nicknameError: false,
+    email: 'For authentication reasons, you will not be emailed',
+    emailError: false
+  });
 
   const handleOpen = () => {
     setOpen(true);
@@ -62,14 +70,68 @@ export default function AnswerDialog({ question }) {
     setOpen(false);
   };
 
-  const validateBody = () => body.indexOf(/[^a-zA-Z0-9!?.,():;"\-/ ]/) < 0 && body.length > 3 && body.length < 1000;
+  const validateBody = () => {
+    const validator = {};
+    if (body.match(/[^a-zA-Z0-9!?.,():;"\-/ ]/) !== null) {
+      validator.body = 'Invalid charaters used. Special characters available: (!?.,():;"-/)';
+      validator.bodyError = true;
+    } else if (body.length < 3) {
+      validator.body = 'Needs to be at least 3 characters long';
+      validator.bodyError = true;
+    } else if (body.length > 1000) {
+      validator.body = `Must be less than 1000 characters long. Length: ${body.length}`;
+      validator.bodyError = true;
+    } else {
+      validator.body = '';
+      validator.bodyError = false;
+    }
+    return validator;
+  };
 
-  const validateName = () => nickname.indexOf(/[^a-zA-Z0-9!?\-.]/) < 0 && nickname.length > 3 && nickname.length < 60;
+  const validateName = () => {
+    const validator = {};
+    if (nickname.match(/[^a-zA-Z0-9!?\-.]/) !== null) {
+      validator.nickname = 'Invalid charaters used. Special characters available: (!?-.)';
+      validator.nicknameError = true;
+    } else if (nickname.length < 3) {
+      validator.nickname = 'Needs to be at least 3 characters long';
+      validator.nicknameError = true;
+    } else if (nickname.length > 60) {
+      validator.nickname = `Must be less than 60 characters long. Length: ${nickname.length}`;
+      validator.nicknameError = true;
+    } else {
+      validator.nickname = 'For privacy reasons, do not use your full name or email address';
+      validator.nicknameError = false;
+    }
+    return validator;
+  };
 
-  const validateEmail = () => true;
+  const validateEmail = () => {
+    const validator = {};
+    // eslint-disable-next-line no-control-regex
+    if (email.match(/(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9]))\.){3}(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9])|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/) === null) {
+      validator.email = 'Invalid email address';
+      validator.emailError = true;
+    } else if (email.length < 3) {
+      validator.email = 'Needs to be at least 3 characters long';
+      validator.emailError = true;
+    } else if (email.length > 60) {
+      validator.email = `Must be less than 60 characters long. Length: ${email.length}`;
+      validator.emailError = true;
+    } else {
+      validator.email = 'For authentication reasons, you will not be emailed';
+      validator.emailError = false;
+    }
+    return validator;
+  };
 
   const validateAnswer = () => {
-    if (validateBody() && validateName() && validateEmail()) {
+    const bodyValidator = validateBody();
+    const nameValidator = validateName();
+    const emailValidator = validateEmail();
+    const newValidator = { ...bodyValidator, ...nameValidator, ...emailValidator };
+
+    if (!newValidator.bodyError && !newValidator.nicknameError && !newValidator.emailError) {
       const answer = {
         question_id: question.question_id,
         body,
@@ -77,9 +139,11 @@ export default function AnswerDialog({ question }) {
         email,
         photos
       };
-      createAnswer(answer);
+      createAnswer(answer)
+        .then(() => handleClose())
+        .catch();
     } else {
-      //
+      setValidation(newValidator);
     }
   };
 
@@ -101,6 +165,7 @@ export default function AnswerDialog({ question }) {
           setBody={setBody}
           setNickname={setNickname}
           setEmail={setEmail}
+          validation={validation}
         />
 
         <DialogActions>
