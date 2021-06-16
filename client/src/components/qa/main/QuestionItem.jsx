@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 
 import {
@@ -7,19 +7,9 @@ import {
 
 import AnswerList from './AnswerList.jsx';
 import AnswerDialog from '../modals/AnswerDialog.jsx';
-import { getAnswers } from '../helpers/qaRequests';
+import { markQuestionHelpful } from '../helpers/qaRequests';
 
 export default function QuestionItem({ question }) {
-  const [answers, setAnswers] = useState([]);
-
-  useEffect(() => {
-    getAnswers(question.question_id)
-      .then((answersObj) => {
-        setAnswers(answersObj.results);
-      })
-      .catch();
-  }, []);
-
   return (
     <Container className="questionContainer" style={{ padding: 0 }}>
 
@@ -34,7 +24,7 @@ export default function QuestionItem({ question }) {
             <Typography variant="body2" className="helpful">
               Helpful?
             </Typography>
-            <Button type="button">Yes</Button>
+            <Button type="button" onClick={() => markQuestionHelpful(question.question_id)}>Yes</Button>
             <Typography variant="body2" style={{ borderRight: '1px solid #555' }}>
               {`(${question.question_helpfulness})`}
             </Typography>
@@ -43,7 +33,7 @@ export default function QuestionItem({ question }) {
         </Grid>
       </Grid>
 
-      <AnswerList answers={answers} />
+      {Object.keys(question.answers).length > 0 ? <AnswerList question={question} /> : null}
 
     </Container>
   );
@@ -54,7 +44,8 @@ QuestionItem.propTypes = {
     question_id: PropTypes.number,
     question_body: PropTypes.string,
     question_helpfulness: PropTypes.number,
-    asker_name: PropTypes.string
+    asker_name: PropTypes.string,
+    answers: PropTypes.shape({})
   })
 };
 
