@@ -104,9 +104,6 @@ export default function ReviewDialog() {
   });
   const [networkError, setNetworkError] = useState(null);
 
-  console.log('CHAR', characteristics);
-  console.log('rating', rating);
-
   const postReview = (rev) => {
     axios.post('/api/reviews/revs', {
       rating: rev.rating,
