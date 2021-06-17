@@ -1,14 +1,14 @@
-import React from 'react';
+import React, { forwardRef } from 'react';
 import {
   Select, MenuItem, FormControl, FormHelperText, InputLabel
 } from '@material-ui/core';
 import useStyles from '../MaterialUi.jsx';
 
-const QuantityDD = (props) => {
+const QuantityDD = forwardRef((props, ref) => {
   const classes = useStyles();
 
   return (
-    <FormControl className={classes.formControl}>
+    <FormControl className={classes.formControl} ref={ref}>
       <InputLabel id="Select-Quantity-DD">Quantity</InputLabel>
       <Select
         labelId="Select-Quantity-DD"
@@ -16,6 +16,9 @@ const QuantityDD = (props) => {
         value={props.selectQuantityValue}
         onChange={(event) => {
           props.handleQuantityChange(event);
+        }}
+        onClick={(event) => {
+          props.setQuantitiySelected(event.target.quantity + 1);
         }}
         disabled={props.selectSizeValue === ''}
       >
@@ -34,6 +37,6 @@ const QuantityDD = (props) => {
       <FormHelperText>Select Quantity</FormHelperText>
     </FormControl>
   );
-};
+});
 
 export default QuantityDD;
