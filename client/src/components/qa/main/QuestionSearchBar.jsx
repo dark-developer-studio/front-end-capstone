@@ -7,7 +7,7 @@ export default function QuestionSearchBar({ setSearchValue }) {
   return (
     <Container style={{ padding: 3 }}>
       <Typography variant="h5">Questions &amp; Answers</Typography>
-      <TextField onChange={(e) => setSearchValue(e.target.value)} placeholder="HAVE A QUESTION? SEARCH FOR ANSWERS..." variant="outlined" style={{ width: '100%' }} />
+      <TextField onChange={(e) => setSearchValue(e.target.value)} placeholder="HAVE A QUESTION? SEARCH FOR ANSWERS..." variant="outlined" fullWidth />
     </Container>
   );
 }

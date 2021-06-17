@@ -6,6 +6,7 @@ import {
 } from '@material-ui/core';
 
 import ImageModal from '../../global/ImageDialog.jsx';
+import { markAnswerHelpful, reportAnswer } from '../helpers/qaRequests';
 
 export default function AnswerItem({ answer }) {
   function formatDate(date) {
@@ -37,11 +38,11 @@ export default function AnswerItem({ answer }) {
         <Typography variant="body2">
           Helpful?
         </Typography>
-        <Button type="button">Yes</Button>
+        <Button type="button" onClick={() => markAnswerHelpful(answer.answer_id)}>Yes</Button>
         <Typography variant="body2" style={{ borderRight: '1px solid #555' }}>
           {`(${answer.helpfulness})`}
         </Typography>
-        <Button className="addAnswer">Report</Button>
+        <Button className="addAnswer" onClick={() => reportAnswer(answer.answer_id)}>Report</Button>
       </Grid>
     </Container>
   );

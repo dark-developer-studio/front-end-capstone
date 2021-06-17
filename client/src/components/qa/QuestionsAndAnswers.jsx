@@ -1,28 +1,12 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState } from 'react';
 
 import Container from '@material-ui/core/Container';
 
-import { AppContext } from '../../helpers/context';
 import QuestionSearchBar from './main/QuestionSearchBar.jsx';
 import QuestionList from './main/QuestionList.jsx';
 
-import { getQuestions } from './helpers/qaRequests';
-
 const QuestionsAndAnswers = () => {
-  const { product } = useContext(AppContext);
-
-  const [questions, setQuestions] = useState([]);
   const [searchValue, setSearchValue] = useState('');
-
-  useEffect(() => {
-    if (product.id > -1) {
-      getQuestions(product.id)
-        .then((questionsObj) => {
-          setQuestions(questionsObj.results);
-        })
-        .catch();
-    }
-  }, [product]);
 
   return (
     <Container
@@ -34,7 +18,7 @@ const QuestionsAndAnswers = () => {
       }}
     >
       <QuestionSearchBar setSearchValue={setSearchValue} />
-      <QuestionList questions={questions} searchValue={searchValue} />
+      <QuestionList searchValue={searchValue} />
     </Container>
   );
 };
