@@ -1,4 +1,5 @@
 import { makeStyles } from '@material-ui/core/styles';
+import ZoomInIcon from '@material-ui/icons/ZoomIn';
 
 const useStyles = makeStyles((theme) => ({
   avatarSmall: {
@@ -6,14 +7,23 @@ const useStyles = makeStyles((theme) => ({
     height: theme.spacing(3),
     '&:hover': {
       cursor: 'pointer'
-    }
+    },
+    border: '1px solid black'
   },
   avatarLarge: {
     width: theme.spacing(7),
     height: theme.spacing(7),
     '&:hover': {
       cursor: 'pointer'
-    }
+    },
+    border: '1px solid black'
+  },
+  avatarIndicators: {
+    '&:hover': {
+      cursor: 'pointer'
+    },
+    border: '1px solid black',
+    margin: '1px'
   },
   button: {
     padding: '7px',
@@ -29,8 +39,9 @@ const useStyles = makeStyles((theme) => ({
     paddingTop: '56.25%' // 16:9
   },
   img: {
-    borderRadius: '50%',
-    border: '1px solid black'
+    height: 550,
+    maxWidth: '100%',
+    padding: '10px'
   },
   icon: {
     color: 'black'
@@ -38,48 +49,80 @@ const useStyles = makeStyles((theme) => ({
   selectTag: {
     padding: '10px',
     border: '1px solid black',
-    width: '100%'
+    borderRadius: '4px',
+    width: '100%',
+    fontWeight: 'bold'
+  },
+  card: {
+    maxWidth: '100%'
+  },
+  loadingSpinner: {
+    display: 'flex',
+    '& > * + *': {
+      marginLeft: theme.spacing(2)
+    }
+  },
+  carousel: {
+    height: '90%',
+    width: '100%',
+    boxShadow: '0px 1px 2px 1px rgba(0, 0, 0, .3)',
+    padding: '20px',
+    backgroundColor: 'white',
+    borderRadius: '6px'
+  },
+  carouselThumbs: {
+    height: '50px',
+    width: '50px',
+    position: 'absolute',
+    top: '60px',
+    left: '20px',
+    marginLeft: 'auto',
+    marginRight: 'auto',
+    border: '2px solid black'
+  },
+  navButtonWrapper: {
+    top: '250px'
   },
   grid: {
-    padding: theme.spacing(2),
     textAlign: 'center',
     color: 'white',
-    backgroundColor: 'purple',
-    border: '2px solid black'
+    maxWidth: '100%',
+    alignContent: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#ADD8E6',
+    borderRadius: '6px',
+    padding: '2px'
   },
-  grid2: {
-    padding: theme.spacing(2),
-    textAlign: 'center',
-    color: 'white',
-    border: '2px solid black'
+  mainImg: {
+    maxWidth: '100%',
+    '&:hover': {
+      cursor: 'zoom-in'
+    }
   },
-  grid3: {
-    padding: theme.spacing(2),
-    textAlign: 'center',
-    color: 'white',
-    backgroundColor: 'blue',
-    border: '2px solid black'
+  sideImg: {
+    height: '50px',
+    width: '50px',
+    border: '2px solid black',
+    '&:hover': {
+      cursor: 'pointer'
+    }
   },
-  grid4: {
-    padding: theme.spacing(1),
-    textAlign: 'center',
-    color: 'white',
-    backgroundColor: 'red',
-    border: '2px solid black'
+  imgGrid: {
+    position: 'relative',
+    left: 0,
+    top: 0
   },
-  grid5: {
-    padding: theme.spacing(1),
-    textAlign: 'center',
-    color: 'white',
-    backgroundColor: 'gray',
-    border: '2px solid black'
+  discountPrice: {
+    color: 'red'
   },
-  grid6: {
-    padding: theme.spacing(1),
-    textAlign: 'center',
-    color: 'white',
-    backgroundColor: 'orange',
-    border: '2px solid black'
+  orignalPrice: {
+    textDecoration: 'line-through'
+  },
+  popoverContent: {
+    padding: '5px',
+    backgroundColor: '#ffcccb',
+    border: '2px solid red',
+    borderRadius: '6px'
   }
 }));
 

@@ -1,26 +1,89 @@
-import React from 'react';
+import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 
 import {
-  Container, Grid, Typography
+  Container, Grid, Typography, Button
 } from '@material-ui/core';
 
-import ImageModal from '../modals/ImageModal.jsx';
+import ImageModal from '../../global/ImageDialog.jsx';
+import { markAnswerHelpful, reportAnswer } from '../helpers/qaRequests';
 
-export default function AnswerItem() {
+export default function AnswerItem({ answer }) {
+  const [disableHelpful, setDisableHelpful] = useState(false);
+  const [disableReport, setDisableReport] = useState(false);
+  const [helpfulness, setHelpfulness] = useState(answer.helpfulness);
+
+  function formatDate(date) {
+    const monthNames = ['Jan', 'Feb', 'Mar', 'Apr',
+      'May', 'Jun', 'Jul', 'Aug',
+      'Sep', 'Oct', 'Nov', 'Dec'];
+
+    const day = date.getDate();
+    const month = monthNames[date.getMonth()];
+    const year = date.getFullYear();
+
+    return `${month} ${day}, ${year}`;
+  }
+
   return (
     <Container style={{ padding: 0 }}>
-      <Typography className="text">
-        Hi answer here, lorem ipsum not data with javascript this
-        is a basic text with blank response plus two equals hi
-      </Typography>
+      <Typography className="text">{answer.body}</Typography>
       <Grid container>
-        <ImageModal />
+        {answer.photos.map((photo) => <ImageModal key={photo.id} url={photo.url} />)}
       </Grid>
-      <Grid container direction="row">
-        <Typography className="user">by [User], [Month d, yyyy] | </Typography>
-        <Typography className="helpful">Helpful</Typography>
-        <Typography className="addAnswer">Report</Typography>
+      <Grid container direction="row" alignItems="baseline">
+        <Typography
+          className="user"
+          variant="body2"
+          style={{ borderRight: '1px solid #555' }}
+        >
+          {`by ${answer.answerer_name}, ${formatDate(new Date(answer.date))}`}
+        </Typography>
+        <Typography variant="body2">
+          Helpful?
+        </Typography>
+        <Button
+          type="button"
+          disabled={disableHelpful}
+          onClick={() => {
+            markAnswerHelpful(answer.answer_id);
+            setHelpfulness(helpfulness + 1);
+            setDisableHelpful(true);
+          }}
+        >
+          Yes
+        </Button>
+        <Typography variant="body2" style={{ borderRight: '1px solid #555' }}>
+          {`(${helpfulness})`}
+        </Typography>
+        <Button
+          type="button"
+          disabled={disableReport}
+          onClick={() => {
+            reportAnswer(answer.answer_id);
+            setDisableReport(true);
+          }}
+        >
+          Report
+        </Button>
       </Grid>
     </Container>
   );
 }
+
+AnswerItem.propTypes = {
+  answer: PropTypes.shape({
+    answer_id: PropTypes.number,
+    body: PropTypes.string,
+    helpfulness: PropTypes.number,
+    answerer_name: PropTypes.string,
+    date: PropTypes.string,
+    photos: PropTypes.arrayOf(PropTypes.shape({
+      url: PropTypes.string
+    }))
+  })
+};
+
+AnswerItem.defaultProps = {
+  answer: {}
+};
