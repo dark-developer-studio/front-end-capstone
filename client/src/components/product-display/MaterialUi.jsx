@@ -120,6 +120,12 @@ const useStyles = makeStyles((theme) => ({
   },
   orignalPrice: {
     textDecoration: 'line-through'
+  },
+  popoverContent: {
+    padding: '5px',
+    backgroundColor: '#ffcccb',
+    border: '2px solid red',
+    borderRadius: '6px'
   }
 }));
 

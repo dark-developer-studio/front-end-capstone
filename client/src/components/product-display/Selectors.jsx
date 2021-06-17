@@ -19,10 +19,13 @@ const Selectors = (props) => {
   const [skusId, setSkusId] = useState(0);
   const [quantityArr, setQuantityArr] = useState([]);
   const [open, setOpen] = useState(false);
-  const [anchorEl, setAnchorEl] = useState(null);
+  const [anchorElQuantity, setAnchorElQuantity] = useState(null);
+  const [anchorElSize, setAnchorElSize] = useState(null);
 
-  const popoverOpen = Boolean(anchorEl);
-  const inputEl = createRef();
+  const popoverOpenQuantity = Boolean(anchorElQuantity);
+  const popoverOpenSize = Boolean(anchorElSize);
+  const inputElQuantity = createRef();
+  const inputElSize = createRef();
 
   const handleClickAway = () => {
     setOpen(false);
@@ -37,14 +40,22 @@ const Selectors = (props) => {
   };
 
   // Quantity popover
-  const handlePopover = () => {
-    setAnchorEl(inputEl.current);
+  const handlePopoverQuantityOpen = () => {
+    setAnchorElQuantity(inputElQuantity.current);
   };
 
-  const handleClose = () => {
-    setAnchorEl(null);
+  const handleCloseQuantity = () => {
+    setAnchorElQuantity(null);
   };
 
+  // Size Popover
+  const handlePopoverSizeOpen = () => {
+    setAnchorElSize(inputElSize.current);
+  };
+
+  const handleCloseSize = () => {
+    setAnchorElSize(null);
+  };
   // Rendering quantity DD
   const getStyleId = (size) => {
     skusState.forEach((stlyeObj) => {
@@ -91,6 +102,7 @@ const Selectors = (props) => {
       <Grid item xs={6}>
 
         <SizeDD
+          ref={inputElSize}
           handleSizeChange={handleSizeChange}
           setSizeForQuantity={setSizeForQuantity}
           selectSizeValue={selectSizeValue}
@@ -103,7 +115,7 @@ const Selectors = (props) => {
       <Grid item xs={6}>
 
         <QuantityDD
-          ref={inputEl}
+          ref={inputElQuantity}
           selectQuantityValue={selectQuantityValue}
           handleQuantityChange={handleQuantityChange}
           selectSizeValue={selectSizeValue}
@@ -118,10 +130,12 @@ const Selectors = (props) => {
           className={classes.button}
           variant="outlined"
           onClick={(event) => {
-            if (quantityArr.length === 0) {
-              handlePopover(event);
+            if (sizeForQuantity === '' && quantityArr.length === 0) {
+              handlePopoverSizeOpen(event);
+            } else if (sizeForQuantity !== '' && quantitiySelected === '') {
+              handlePopoverQuantityOpen(event);
             }
-            if (quantityArr.length > 0 && quantitiySelected !== '') {
+            if (sizeForQuantity !== '' && quantitiySelected !== '') {
               props.addToBag(skusId);
             }
           }}
@@ -129,9 +143,9 @@ const Selectors = (props) => {
           Add To Bag
         </Button>
         <Popover
-          open={popoverOpen}
-          onClose={handleClose}
-          anchorEl={anchorEl}
+          open={popoverOpenQuantity}
+          onClose={handleCloseQuantity}
+          anchorEl={anchorElQuantity}
           anchorOrigin={{
             vertical: 'bottom',
             horizontal: 'center'
@@ -141,8 +155,25 @@ const Selectors = (props) => {
             horizontal: 'center'
           }}
         >
-          <Typography>
+          <Typography className={classes.popoverContent}>
             Please chose an amount.
+          </Typography>
+        </Popover>
+        <Popover
+          open={popoverOpenSize}
+          onClose={handleCloseSize}
+          anchorEl={anchorElSize}
+          anchorOrigin={{
+            vertical: 'bottom',
+            horizontal: 'center'
+          }}
+          transformOrigin={{
+            vertical: 'top',
+            horizontal: 'center'
+          }}
+        >
+          <Typography className={classes.popoverContent}>
+            Please chose a Size.
           </Typography>
         </Popover>
 

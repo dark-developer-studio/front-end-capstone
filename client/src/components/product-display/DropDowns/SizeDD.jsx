@@ -1,11 +1,11 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext, forwardRef } from 'react';
 import {
   Select, MenuItem, FormControl, FormHelperText, InputLabel, ClickAwayListener
 } from '@material-ui/core';
 import useStyles from '../MaterialUi.jsx';
 import { SkusContext } from '../ProductDisplay.jsx';
 
-const SizeDD = (props) => {
+const SizeDD = forwardRef((props, ref) => {
   const classes = useStyles();
   const { skusState, photos } = useContext(SkusContext);
   const [valsArr, setValsArr] = useState([]);
@@ -27,7 +27,7 @@ const SizeDD = (props) => {
   return (
     <ClickAwayListener onClickAway={props.handleClickAway}>
       <div>
-        <FormControl className={classes.formControl}>
+        <FormControl className={classes.formControl} ref={ref}>
           <InputLabel id="Select-Size-DD">Size</InputLabel>
           <Select
             labelId="Select-Size-DD"
@@ -57,6 +57,6 @@ const SizeDD = (props) => {
       </div>
     </ClickAwayListener>
   );
-};
+});
 
 export default SizeDD;
