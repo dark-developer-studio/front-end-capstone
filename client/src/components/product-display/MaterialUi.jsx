@@ -1,4 +1,5 @@
 import { makeStyles } from '@material-ui/core/styles';
+import ZoomInIcon from '@material-ui/icons/ZoomIn';
 
 const useStyles = makeStyles((theme) => ({
   avatarSmall: {
@@ -64,10 +65,8 @@ const useStyles = makeStyles((theme) => ({
   carousel: {
     height: '90%',
     width: '100%',
-    objectFit: 'contain',
     boxShadow: '0px 1px 2px 1px rgba(0, 0, 0, .3)',
-    margin: '20px',
-    padding: '10px',
+    padding: '20px',
     backgroundColor: 'white',
     borderRadius: '6px'
   },
@@ -94,21 +93,19 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: '6px',
     padding: '2px'
   },
-  imgBackground: {
-    paddingRight: '17px'
-  },
   mainImg: {
-    height: 550,
     maxWidth: '100%',
-    padding: '10px',
-    position: 'relative',
-    top: 0,
-    left: 0
+    '&:hover': {
+      cursor: 'zoom-in'
+    }
   },
   sideImg: {
     height: '50px',
     width: '50px',
-    border: '2px solid black'
+    border: '2px solid black',
+    '&:hover': {
+      cursor: 'pointer'
+    }
   },
   imgGrid: {
     position: 'relative',
