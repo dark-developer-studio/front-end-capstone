@@ -30,7 +30,8 @@ describe('Questions and Answers API Calls', () => {
           {
             params: {
               page: undefined,
-              product_id: 18078
+              product_id: 18078,
+              count: 100
             }
           }
         );
@@ -56,7 +57,8 @@ describe('Questions and Answers API Calls', () => {
           {
             params: {
               page: 1,
-              product_id: 18078
+              product_id: 18078,
+              count: 100
             }
           }
         );

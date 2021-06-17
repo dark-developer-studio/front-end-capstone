@@ -23,7 +23,7 @@ export default function AnswerList({ question }) {
             setAnswers(newAnswerArr);
 
             const displayArr = [];
-            for (let i = 0; i < displayCount; i += 1) {
+            for (let i = 0; i < displayCount && i < newAnswerArr.length; i += 1) {
               displayArr.push(newAnswerArr[i]);
             }
             setDisplayAnswers(displayArr);
@@ -36,7 +36,7 @@ export default function AnswerList({ question }) {
         .catch();
     } else if (page !== null) {
       const displayArr = [];
-      for (let i = 0; i < displayCount; i += 1) {
+      for (let i = 0; i < displayCount && i < answers.length; i += 1) {
         displayArr.push(answers[i]);
       }
       setDisplayAnswers(displayArr);

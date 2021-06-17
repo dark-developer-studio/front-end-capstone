@@ -19,7 +19,8 @@ router.get('/questions', (req, res) => {
     },
     params: {
       product_id: req.query.product_id,
-      page: req.query.page || 1
+      page: req.query.page || 1,
+      count: req.query.count || 5
     }
   })
     .then((response) => response.data)

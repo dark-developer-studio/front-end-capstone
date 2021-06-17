@@ -31,11 +31,12 @@ import axios from 'axios';
  * @returns {Promise<Array<Question>>} A promise that resolves to an array of
  * questions if the request is successful
  */
-export function getQuestions(productId, page) {
+export function getQuestions(productId, page, count = 100) {
   return axios.get('/api/qa/questions', {
     params: {
       product_id: productId,
-      page
+      page,
+      count
     }
   }).then((response) => response.data);
 }
