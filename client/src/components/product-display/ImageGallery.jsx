@@ -14,7 +14,7 @@ const ImageGallery = (props) => {
     setImgState(images);
   }, [images]);
 
-  const nextFunc = (next) => {
+  const nextFunc = () => {
     let count = currentImg;
     if (count < imgState.length - 1) {
       count += 1;
@@ -35,8 +35,6 @@ const ImageGallery = (props) => {
     }
     return currentImg;
   };
-
-  // console.log(images);
 
   return (
     <Grid item container xs={12}>
@@ -88,7 +86,6 @@ const Item = (props) => {
   const classes = useStyles();
 
   return (
-    // <Grid item container xs={12} className={classes.imgGrid}>
     <Paper
       className={classes.imgBackground}
       elevation={0}
@@ -100,7 +97,6 @@ const Item = (props) => {
         className={classes.mainImg}
       />
     </Paper>
-    // </Grid>
   );
 };
 

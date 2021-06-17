@@ -96,7 +96,6 @@ const Selectors = (props) => {
     getStyleId(sizeForQuantity);
   }, [sizeForQuantity]);
 
-  // console.log(skusId);
   return (
     <Grid item xs={12} spacing={1} container>
       <Grid item xs={6}>

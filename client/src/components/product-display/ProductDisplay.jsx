@@ -42,7 +42,6 @@ const ProductDisplay = () => {
           });
         }
       });
-      // console.log(sizeAndQuantity);
       setSkus(sizeAndQuantity);
     }
   };
@@ -97,7 +96,7 @@ const ProductDisplay = () => {
           {
             sku_id: productId
           })
-        .then((response) => {
+        .then(() => {
           console.log('CREATED');
         })
         .catch((err) => {
@@ -120,8 +119,6 @@ const ProductDisplay = () => {
       getSkus(productStyles.results[0].style_id);
     }
   }, [productStyles]);
-
-  // console.log(productStyles.results);
 
   return (
     <SkusContext.Provider value={{
