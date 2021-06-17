@@ -8,7 +8,6 @@ import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
 
 // helper function
-//import { getAllCharVals, buildCharRadios } from '../helperFunctions.jsx';
 import { getAllCharVals, buildCharRadios } from './modalHelperFunctions.jsx';
 
 import { AppContext } from '../../../helpers/context';

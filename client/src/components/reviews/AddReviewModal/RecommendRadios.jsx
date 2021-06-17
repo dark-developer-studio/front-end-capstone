@@ -10,7 +10,7 @@ import FormLabel from '@material-ui/core/FormLabel';
 const useStyles = makeStyles({
   root: {
     '&:hover': {
-      backgroundColor: 'transparent',
+      backgroundColor: 'transparent'
     }
   },
   icon: {
