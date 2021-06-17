@@ -1,10 +1,9 @@
 import React, { useContext, useState, useEffect } from 'react';
-import { Grid, Paper, Card } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
 import { ReviewsContext } from '../../../helpers/context';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   recommendPercentage: {
     margin: '10px'
   }

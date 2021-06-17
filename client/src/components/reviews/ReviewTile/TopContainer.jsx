@@ -1,5 +1,5 @@
 import React from 'react';
-import { Grid, Paper, Card } from '@material-ui/core';
+import { Grid } from '@material-ui/core';
 import Rating from '@material-ui/lab/Rating';
 import StarBorderIcon from '@material-ui/icons/StarBorder';
 import { makeStyles } from '@material-ui/core/styles';
@@ -7,7 +7,7 @@ import { makeStyles } from '@material-ui/core/styles';
 // helper functions
 import { dateFormatter } from '../helperFunctions.jsx';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   parentContainer: {
     // border: "2px solid rebeccaPurple",
     display: 'flex',

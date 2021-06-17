@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useContext} from 'react';
 import { Grid } from '@material-ui/core';
 import useStyles from '../Styles.jsx';
 import { ReviewsContext } from '../../../helpers/context';

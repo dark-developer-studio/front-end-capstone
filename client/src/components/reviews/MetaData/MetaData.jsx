@@ -1,7 +1,5 @@
 import React, { useContext, useState, useEffect } from 'react';
 import axios from 'axios';
-import { Grid, Paper, Card } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
 
 import { AppContext, ReviewsContext } from '../../../helpers/context';
 
@@ -12,10 +10,6 @@ import ProductReviewChart from './ProductReviewChart.jsx';
 import RecommendPercentage from './RecommendPercentage.jsx';
 
 const { GITHUB_API_KEY } = require('../../../../../config');
-
-const useStyles = makeStyles((theme) => ({
-// Empty styles for now
-}));
 
 const MetaData = () => {
   const { product } = useContext(AppContext);
@@ -39,8 +33,6 @@ const MetaData = () => {
   useEffect(() => {
     getAllRevsMetaData(product.id);
   }, [product]);
-
-  const classes = useStyles();
 
   return (
     <ReviewsContext.Provider value={{ revsMetaData }}>
