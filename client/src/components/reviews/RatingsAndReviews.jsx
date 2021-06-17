@@ -67,7 +67,6 @@ const RatingsAndReviews = () => {
   useEffect(() => {
     if (product.id > 0) {
       getAllReviews(product.id);
-      // loadReviewTileList();
     }
   }, [product]);
 
@@ -134,7 +133,9 @@ const RatingsAndReviews = () => {
             </Grid>
 
             <Grid item xs={6} className={classes.rightPanel}>
-              <ReviewTile />
+              <Grid item xs={12} className={classes.ReviewTileViewPort}>
+                <ReviewTile />
+              </Grid>
 
               <div className={classes.buttonContainer}>
                 <ReviewDialog />
