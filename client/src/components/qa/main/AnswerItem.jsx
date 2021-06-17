@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
 import {
@@ -9,6 +9,10 @@ import ImageModal from '../../global/ImageDialog.jsx';
 import { markAnswerHelpful, reportAnswer } from '../helpers/qaRequests';
 
 export default function AnswerItem({ answer }) {
+  const [disableHelpful, setDisableHelpful] = useState(false);
+  const [disableReport, setDisableReport] = useState(false);
+  const [helpfulness, setHelpfulness] = useState(answer.helpfulness);
+
   function formatDate(date) {
     const monthNames = ['Jan', 'Feb', 'Mar', 'Apr',
       'May', 'Jun', 'Jul', 'Aug',
@@ -38,11 +42,30 @@ export default function AnswerItem({ answer }) {
         <Typography variant="body2">
           Helpful?
         </Typography>
-        <Button type="button" onClick={() => markAnswerHelpful(answer.answer_id)}>Yes</Button>
+        <Button
+          type="button"
+          disabled={disableHelpful}
+          onClick={() => {
+            markAnswerHelpful(answer.answer_id);
+            setHelpfulness(helpfulness + 1);
+            setDisableHelpful(true);
+          }}
+        >
+          Yes
+        </Button>
         <Typography variant="body2" style={{ borderRight: '1px solid #555' }}>
-          {`(${answer.helpfulness})`}
+          {`(${helpfulness})`}
         </Typography>
-        <Button className="addAnswer" onClick={() => reportAnswer(answer.answer_id)}>Report</Button>
+        <Button
+          type="button"
+          disabled={disableReport}
+          onClick={() => {
+            reportAnswer(answer.answer_id);
+            setDisableReport(true);
+          }}
+        >
+          Report
+        </Button>
       </Grid>
     </Container>
   );

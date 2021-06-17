@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
 import {
@@ -10,6 +10,9 @@ import AnswerDialog from '../modals/AnswerDialog.jsx';
 import { markQuestionHelpful } from '../helpers/qaRequests';
 
 export default function QuestionItem({ question }) {
+  const [disableHelpful, setDisableHelpful] = useState(false);
+  const [helpfulness, setHelpfulness] = useState(question.question_helpfulness);
+
   return (
     <Container className="questionContainer" style={{ padding: 0 }}>
 
@@ -24,9 +27,19 @@ export default function QuestionItem({ question }) {
             <Typography variant="body2" className="helpful">
               Helpful?
             </Typography>
-            <Button type="button" onClick={() => markQuestionHelpful(question.question_id)}>Yes</Button>
+            <Button
+              type="button"
+              disabled={disableHelpful}
+              onClick={() => {
+                markQuestionHelpful(question.question_id);
+                setHelpfulness(helpfulness + 1);
+                setDisableHelpful(true);
+              }}
+            >
+              Yes
+            </Button>
             <Typography variant="body2" style={{ borderRight: '1px solid #555' }}>
-              {`(${question.question_helpfulness})`}
+              {`(${helpfulness})`}
             </Typography>
             <AnswerDialog question={question} />
           </Grid>
