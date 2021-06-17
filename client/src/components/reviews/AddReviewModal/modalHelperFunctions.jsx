@@ -193,7 +193,7 @@ export function getAllCharVals(prodID) {
   return resultsArr;
 }
 
-export function buildCharRadios(charArr, setRecommend, setCharacteristics, characteristics) {
+export function buildCharRadios(charArr, setCharacteristics, characteristics) {
   const handleCharacteristics = (event) => {
     const resultObj = characteristics;
     if (event.target.value.length > 0) {
@@ -212,7 +212,7 @@ export function buildCharRadios(charArr, setRecommend, setCharacteristics, chara
           <FormControl component="fieldset">
             <FormLabel component="legend" />
             <Typography className="inputText">{char[1]}</Typography>
-            <RadioGroup defaultValue="none" aria-label="recommend" name="customized-radios">
+            <RadioGroup defaultValue="none" aria-label="characteristics" name="customized-radios">
               {char[2].map((val) => (
                 <FormControlLabel key={val[0]} value={[val[0], char[0]]} control={<StyledRadio />} label={`${val[0]} : ${val[1]}`} onChange={handleCharacteristics} />
               ))}

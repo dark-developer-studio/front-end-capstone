@@ -42,7 +42,7 @@ const RatingsAndReviews = () => {
         params: {
           product_id: productID,
           page: pageState,
-          count: 5
+          count: 100
         }
       })
       .then((response) => {
