@@ -7,7 +7,7 @@ import { SkusContext } from '../ProductDisplay.jsx';
 
 const SizeDD = (props) => {
   const classes = useStyles();
-  const { skusState } = useContext(SkusContext);
+  const { skusState, photos } = useContext(SkusContext);
   const [valsArr, setValsArr] = useState([]);
 
   const noDuplicateVals = () => {
@@ -41,7 +41,7 @@ const SizeDD = (props) => {
               props.setSizeForQuantity(event.target.value);
             }}
           >
-            <MenuItem value="">
+            <MenuItem value="" key="empty">
               <em>Select Size</em>
             </MenuItem>
             {props.open ? (null) : (

@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 import React, { useState, useEffect, useContext } from 'react';
 import {
   Grid, Typography, Card, CardContent
@@ -28,14 +29,20 @@ const ProductDisplay = () => {
   const getSkus = (styleId) => {
     if (productStyles.results.length > 0) {
       const sizeAndQuantity = [];
+      let ids = [];
       productStyles.results.forEach((style) => {
         if (styleId === style.style_id) {
           const styleSkus = style.skus;
-          Object.values(styleSkus).forEach((skusObj) => {
+          if (ids.length === 0) {
+            ids = Object.keys(styleSkus);
+          }
+          Object.values(styleSkus).forEach((skusObj, i) => {
+            skusObj.id = ids[i];
             sizeAndQuantity.push(skusObj);
           });
         }
       });
+      // console.log(sizeAndQuantity);
       setSkus(sizeAndQuantity);
     }
   };
@@ -76,6 +83,22 @@ const ProductDisplay = () => {
         .get(`/api/display/products/${productId}/styles`)
         .then((response) => {
           setProductStyles(response.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  };
+
+  const addToBag = (productId) => {
+    if (productId > 0) {
+      Axios
+        .post('/api/display/cart',
+          {
+            sku_id: productId
+          })
+        .then((response) => {
+          console.log('CREATED');
         })
         .catch((err) => {
           console.log(err);
@@ -141,6 +164,7 @@ const ProductDisplay = () => {
                 productDetails={productStyles.results}
                 thumbnails={thumbnails}
                 skus={skus}
+                addToBag={addToBag}
               />
 
             </CardContent>
