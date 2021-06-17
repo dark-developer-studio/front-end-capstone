@@ -1,16 +1,12 @@
 import React, { useContext } from 'react';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
-import { Radio, Typography } from '@material-ui/core';
-import RadioGroup from '@material-ui/core/RadioGroup';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import FormControl from '@material-ui/core/FormControl';
-import FormLabel from '@material-ui/core/FormLabel';
+import { Radio } from '@material-ui/core';
 
 // helper function
 import { getAllCharVals, buildCharRadios } from './modalHelperFunctions.jsx';
 
-import { AppContext } from '../../../helpers/context';
+import { AppContext, ReviewsContext } from '../../../helpers/context';
 
 const useStyles = makeStyles({
   root: {
@@ -71,12 +67,11 @@ function StyledRadio(props) {
 
 export default function CharRadios() {
   const { product } = useContext(AppContext);
+  const { setRecommend, setCharacteristics, characteristics } = useContext(ReviewsContext);
   const charArr = getAllCharVals(product.id);
-  //const charKeys = Object.keys(charArr[2]);
-
   return (
     <div>
-      {buildCharRadios(charArr)}
+      {buildCharRadios(charArr, setRecommend, setCharacteristics, characteristics)}
     </div>
   );
 }
