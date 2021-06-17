@@ -81,7 +81,8 @@ export default function ReviewDialog() {
   const [name, setName] = useState('new');
   const [email, setEmail] = useState('new@gmail.com');
   const [photos, setPhotos] = useState(['url']);
-  const [characteristics, setCharacteristics] = useState({ '60627': 3 });
+  // const [characteristics, setCharacteristics] = useState({ '60627': 3 });
+  const [characteristics, setCharacteristics] = useState({});
   // const [characteristics, setCharacteristics] = useState({});
 
   console.log('this is rating ', rating);
@@ -91,6 +92,7 @@ export default function ReviewDialog() {
   console.log('this is email', email);
   console.log('this is name', name);
   console.log('prod id', product.id);
+  console.log('this is CHAR', characteristics);
 
   const postReview = (rev) => {
     axios.post('/api/reviews/revs', {
@@ -132,6 +134,7 @@ export default function ReviewDialog() {
   const classes = useStyles();
 
   return (
+    <ReviewsContext.Provider value={{ setRecommend, setCharacteristics, characteristics }}>
     <div>
       <Button variant="outlined" color="primary" onClick={handleClickOpen}>
         Add Review
@@ -229,5 +232,6 @@ export default function ReviewDialog() {
 
       </Dialog>
     </div>
+    </ReviewsContext.Provider>
   );
 }
