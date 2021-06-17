@@ -6,7 +6,7 @@ import { withStyles, makeStyles } from '@material-ui/core/styles';
 //   MuiDialogContent, MuiDialogActions, IconButton, CloseIcon, Typography,
 //   Container } from '@material-ui/core';
 import {
-  Container, Button, TextField, Input, Dialog, Typography, IconButton
+  Container, Button, TextField, Dialog, Typography, IconButton
 } from '@material-ui/core';
 import MuiDialogTitle from '@material-ui/core/DialogTitle';
 import MuiDialogContent from '@material-ui/core/DialogContent';
@@ -22,7 +22,7 @@ import { AppContext, ReviewsContext } from '../../../helpers/context';
 import RecommendRadios from './RecommendRadios.jsx';
 import CharRadios from './CharRadios.jsx';
 import ImageModal from '../../global/ImageDialog.jsx';
-import { uploadRevPhoto } from '../../../helpers/globalRequest';
+import { uploadPhoto } from '../../../helpers/globalRequest';
 
 const styles = (theme) => ({
   root: {
@@ -86,8 +86,8 @@ export default function ReviewDialog() {
   const [summary, setSummary] = useState('');
   const [body, setBody] = useState('');
   const [name, setName] = useState('');
-  const [email, setEmail] = useState('new@gmail.com');
-  const [photos, setPhotos] = useState(['url']);
+  const [email, setEmail] = useState('');
+  const [photos, setPhotos] = useState([]);
   const [recommend, setRecommend] = useState(false);
   const [characteristics, setCharacteristics] = useState({});
   const [validation, setValidation] = useState({
@@ -102,6 +102,10 @@ export default function ReviewDialog() {
     email: 'For authentication reasons, you will not be emailed',
     emailError: false
   });
+  const [networkError, setNetworkError] = useState(null);
+
+  console.log('CHAR', characteristics);
+  console.log('rating', rating);
 
   const postReview = (rev) => {
     axios.post('/api/reviews/revs', {
@@ -252,10 +256,13 @@ export default function ReviewDialog() {
     event.preventDefault();
     const file = event.target.files[0];
     const newPhotos = [...photos];
-    uploadRevPhoto(file)
+    uploadPhoto(file)
       .then((imageData) => {
         newPhotos.push(imageData.url);
         setPhotos(newPhotos);
+      })
+      .catch((err) => {
+        setNetworkError(err);
       });
   };
 
@@ -339,12 +346,16 @@ export default function ReviewDialog() {
                 variant="contained"
                 component="label"
               >
-                <Input
+                Upload Photo
+                <input
                   type="file"
                   onChange={addPhoto}
                   hidden
                 />
               </Button>
+              <Typography color="error" variant="body1">
+                {networkError !== null ? `Error: ${networkError.message}` : ''}
+              </Typography>
 
               <Typography className="inputText">What is your nickname:</Typography>
               <TextField
