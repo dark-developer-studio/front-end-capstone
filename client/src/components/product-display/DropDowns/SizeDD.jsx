@@ -7,7 +7,7 @@ import { SkusContext } from '../ProductDisplay.jsx';
 
 const SizeDD = forwardRef((props, ref) => {
   const classes = useStyles();
-  const { skusState, photos } = useContext(SkusContext);
+  const { skusState } = useContext(SkusContext);
   const [valsArr, setValsArr] = useState([]);
 
   const noDuplicateVals = () => {

@@ -6,7 +6,6 @@ import useStyles from './MaterialUi.jsx';
 
 const StyleThumbs = (props) => {
   const classes = useStyles();
-  // const [thumbnails, setThumbnails] = useState([]);
   const [thumbsCollected, setThumbsCollected] = useState(false);
 
   const getThumbs = () => {
