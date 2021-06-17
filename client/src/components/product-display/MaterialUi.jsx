@@ -1,4 +1,5 @@
 import { makeStyles } from '@material-ui/core/styles';
+import ZoomInIcon from '@material-ui/icons/ZoomIn';
 
 const useStyles = makeStyles((theme) => ({
   avatarSmall: {
@@ -93,17 +94,18 @@ const useStyles = makeStyles((theme) => ({
     padding: '2px'
   },
   mainImg: {
-    height: 550,
     maxWidth: '100%',
-    padding: '10px',
-    position: 'relative',
-    top: 0,
-    left: 0
+    '&:hover': {
+      cursor: 'zoom-in'
+    }
   },
   sideImg: {
     height: '50px',
     width: '50px',
-    border: '2px solid black'
+    border: '2px solid black',
+    '&:hover': {
+      cursor: 'pointer'
+    }
   },
   imgGrid: {
     position: 'relative',

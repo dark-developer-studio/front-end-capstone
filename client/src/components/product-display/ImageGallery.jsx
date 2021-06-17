@@ -3,6 +3,7 @@ import Carousel from 'react-material-ui-carousel';
 import { Paper, Grid, Avatar } from '@material-ui/core';
 import useStyles from './MaterialUi.jsx';
 import CarouselThumbs from './CarouselThumbs.jsx';
+import ImageModal from '../global/ImageDialog.jsx';
 
 const ImageGallery = (props) => {
   const classes = useStyles();
@@ -38,21 +39,10 @@ const ImageGallery = (props) => {
 
   return (
     <Grid item container xs={12} md={10} lg={10} style={{ position: 'relative' }}>
-      {/* <Grid item style={{ position: 'relative' }} xs={2}> */}
-      {/* </Grid> */}
-      {/* <Grid item container xs={10}> */}
-      {/* <Grid item style={{ position: 'relative' }} xs={2}>
-        <Grid item container xs={2} style={{ position: 'absolute', top: '200px' }}>
-          <CarouselThumbs
-            setCurrentImg={setCurrentImg}
-            currentImg={currentImg}
-          />
-        </Grid>
-      </Grid> */}
-      {/* <Grid item container xs={12} lg={12} style={{ position: 'relative' }}> */}
       <Carousel
         className={classes.carousel}
         animation="slide"
+        autoPlay={false}
         navButtonsAlwaysVisible
         navButtonsWrapperProps={{
           style: {
@@ -88,8 +78,6 @@ const ImageGallery = (props) => {
           currentImg={currentImg}
         />
       </Grid>
-      {/* </Grid> */}
-      {/* </Grid> */}
     </Grid>
   );
 };
@@ -101,11 +89,16 @@ const Item = (props) => {
     <Paper
       elevation={0}
     >
-      <img
+      {/* <img
         key={props.img.photoNum}
         src={props.currentImg.url}
         alt="Product Style"
         className={classes.mainImg}
+      /> */}
+      <ImageModal
+        key={props.img.photoNum}
+        url={props.currentImg.url}
+        imageHeight={550}
       />
     </Paper>
   );

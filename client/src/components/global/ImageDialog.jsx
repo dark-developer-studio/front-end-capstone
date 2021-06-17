@@ -20,7 +20,13 @@ const useStyles = makeStyles((theme) => ({
     right: theme.spacing(1),
     top: theme.spacing(1),
     color: theme.palette.grey[500]
-  }
+  },
+  mainImg: {
+    maxWidth: '100%',
+    '&:hover': {
+      cursor: 'zoom-in'
+    }
+  },
 }));
 
 export default function ImageDialog({ url, imageHeight }) {
@@ -46,7 +52,7 @@ export default function ImageDialog({ url, imageHeight }) {
   return (
     <>
       <Button onClick={handleOpen} onKeyDown={handleKey}>
-        <img src={url} alt="thumbnail" width="auto" height={imageHeight} />
+        <img src={url} alt="thumbnail" width="auto" height={imageHeight} className={classes.mainImg} />
       </Button>
       <Dialog
         open={open}
