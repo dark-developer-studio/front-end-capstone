@@ -41,7 +41,8 @@ describe('Questions and Answers Routes', () => {
               },
               params: {
                 product_id: '18078',
-                page: 1
+                page: 1,
+                count: 5
               }
             }
           );
@@ -78,7 +79,8 @@ describe('Questions and Answers Routes', () => {
               },
               params: {
                 product_id: '18078',
-                page: '3'
+                page: '3',
+                count: 5
               }
             }
           );
