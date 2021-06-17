@@ -1,11 +1,10 @@
 import React from 'react';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
-import { Radio, Typography } from '@material-ui/core';
-import RadioGroup from '@material-ui/core/RadioGroup';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import FormControl from '@material-ui/core/FormControl';
-import FormLabel from '@material-ui/core/FormLabel';
+import {
+  Radio, Typography, RadioGroup,
+  FormControlLabel, FormControl, FormLabel
+} from '@material-ui/core';
 
 const useStyles = makeStyles({
   root: {
@@ -201,9 +200,6 @@ export function buildCharRadios(charArr, setRecommend, setCharacteristics, chara
       const str = event.target.value;
       const key = str.slice(2, str.length);
       const val = Number(str.slice(0, 1));
-      console.log('SPLICE', key);
-      console.log('SPLICE2', val);
-
       resultObj[key] = val;
     }
     setCharacteristics(resultObj);

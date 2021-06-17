@@ -22,7 +22,7 @@ import { AppContext, ReviewsContext } from '../../../helpers/context';
 import RecommendRadios from './RecommendRadios.jsx';
 import CharRadios from './CharRadios.jsx';
 import ImageModal from '../../global/ImageDialog.jsx';
-import { uploadPhoto } from '../../../helpers/globalRequest';
+import { uploadRevPhoto } from '../../../helpers/globalRequest';
 
 const styles = (theme) => ({
   root: {
@@ -102,15 +102,6 @@ export default function ReviewDialog() {
     email: 'For authentication reasons, you will not be emailed',
     emailError: false
   });
-
-  // console.log('this is rating ', rating);
-  // console.log('this is recommend ', recommend);
-  // console.log('this is body', body);
-  // console.log('this is summary', summary);
-  // console.log('this is email', email);
-  // console.log('this is name', name);
-  // console.log('prod id', product.id);
-  // console.log('this is CHAR', characteristics);
 
   const postReview = (rev) => {
     axios.post('/api/reviews/revs', {
@@ -261,7 +252,7 @@ export default function ReviewDialog() {
     event.preventDefault();
     const file = event.target.files[0];
     const newPhotos = [...photos];
-    uploadPhoto(file)
+    uploadRevPhoto(file)
       .then((imageData) => {
         newPhotos.push(imageData.url);
         setPhotos(newPhotos);
@@ -348,7 +339,6 @@ export default function ReviewDialog() {
                 variant="contained"
                 component="label"
               >
-                Upload Photo
                 <Input
                   type="file"
                   onChange={addPhoto}
