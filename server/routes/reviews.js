@@ -50,16 +50,19 @@ router.post('/revs', (req, res) => {
     characteristics: req.body.characteristics
   }, {
     headers: {
-      Authorization: GITHUB_API_KEY
+      Authorization: GITHUB_API_KEY,
+      'Content-Type': 'application/json'
     }
   })
     .then((response) => {
       res.status(201);
       res.send(response.data);
+      console.log('post success');
     })
     .catch((err) => {
+      console.log('Post failed');
       console.log(err);
-      res.send();
+      //res.send();
     });
 });
 
