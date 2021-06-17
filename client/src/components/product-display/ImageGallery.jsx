@@ -37,47 +37,59 @@ const ImageGallery = (props) => {
   };
 
   return (
-    <Grid item container xs={12}>
-      <Grid item container xs={12} style={{ position: 'relative' }}>
-        <Carousel
-          className={classes.carousel}
-          animation="slide"
-          navButtonsAlwaysVisible
-          navButtonsWrapperProps={{
-            style: {
-              top: '265px'
-            }
-          }}
-          navButtonsProps={{
-            style: {
-              backgroundColor: '#ADD8E6',
-              borderRadius: '6px',
-              border: '2px solid black',
-              height: '10px',
-              margin: '5px'
-            }
-          }}
-          indicators={false}
-          next={nextFunc}
-          prev={prevFunc}
-        >
-          {
-            imgState.map((img) => (
-              <Item
-                key={img.photoNum}
-                img={img}
-                currentImg={imgState[currentImg]}
-              />
-            ))
+    <Grid item container xs={12} md={10} lg={10} style={{ position: 'relative' }}>
+      {/* <Grid item style={{ position: 'relative' }} xs={2}> */}
+      {/* </Grid> */}
+      {/* <Grid item container xs={10}> */}
+      {/* <Grid item style={{ position: 'relative' }} xs={2}>
+        <Grid item container xs={2} style={{ position: 'absolute', top: '200px' }}>
+          <CarouselThumbs
+            setCurrentImg={setCurrentImg}
+            currentImg={currentImg}
+          />
+        </Grid>
+      </Grid> */}
+      {/* <Grid item container xs={12} lg={12} style={{ position: 'relative' }}> */}
+      <Carousel
+        className={classes.carousel}
+        animation="slide"
+        navButtonsAlwaysVisible
+        navButtonsWrapperProps={{
+          style: {
+            top: '265px'
           }
-        </Carousel>
-      </Grid>
-      <Grid item container xs={1} style={{ position: 'absolute', bottom: '200px' }}>
+        }}
+        navButtonsProps={{
+          style: {
+            backgroundColor: '#ADD8E6',
+            borderRadius: '6px',
+            border: '2px solid black',
+            height: '10px',
+            margin: '5px'
+          }
+        }}
+        indicators={false}
+        next={nextFunc}
+        prev={prevFunc}
+      >
+        {
+          imgState.map((img) => (
+            <Item
+              key={img.photoNum}
+              img={img}
+              currentImg={imgState[currentImg]}
+            />
+          ))
+        }
+      </Carousel>
+      <Grid item container xs={2} style={{ position: 'absolute', top: '10px' }}>
         <CarouselThumbs
           setCurrentImg={setCurrentImg}
           currentImg={currentImg}
         />
       </Grid>
+      {/* </Grid> */}
+      {/* </Grid> */}
     </Grid>
   );
 };

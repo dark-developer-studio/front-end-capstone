@@ -155,7 +155,7 @@ const Selectors = (props) => {
           }}
         >
           <Typography className={classes.popoverContent}>
-            Please chose an amount.
+            Please choose an amount.
           </Typography>
         </Popover>
         <Popover
@@ -172,7 +172,7 @@ const Selectors = (props) => {
           }}
         >
           <Typography className={classes.popoverContent}>
-            Please chose a Size.
+            Please choose a Size.
           </Typography>
         </Popover>
 

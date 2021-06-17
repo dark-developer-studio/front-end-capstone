@@ -66,8 +66,8 @@ const useStyles = makeStyles((theme) => ({
     width: '100%',
     objectFit: 'contain',
     boxShadow: '0px 1px 2px 1px rgba(0, 0, 0, .3)',
-    margin: '20px',
-    padding: '10px',
+    // margin: '20px',
+    padding: '20px',
     backgroundColor: 'white',
     borderRadius: '6px'
   },
