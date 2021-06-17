@@ -64,9 +64,7 @@ const useStyles = makeStyles((theme) => ({
   carousel: {
     height: '90%',
     width: '100%',
-    objectFit: 'contain',
     boxShadow: '0px 1px 2px 1px rgba(0, 0, 0, .3)',
-    // margin: '20px',
     padding: '20px',
     backgroundColor: 'white',
     borderRadius: '6px'
@@ -93,9 +91,6 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: '#ADD8E6',
     borderRadius: '6px',
     padding: '2px'
-  },
-  imgBackground: {
-    paddingRight: '17px'
   },
   mainImg: {
     height: 550,

@@ -99,7 +99,6 @@ const Item = (props) => {
 
   return (
     <Paper
-      className={classes.imgBackground}
       elevation={0}
     >
       <img
