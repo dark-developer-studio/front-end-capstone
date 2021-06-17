@@ -17,7 +17,6 @@ const MoreReviewsBtn = () => {
   const getTwoReviewTiles = () => {
     let lastVal = false;
     const arr = [];
-    console.log('tileCount in func', tileCount);
     if (reviewResults.length > 0 && reviewTileList.length < reviewResults.length) {
       const promise = new Promise((resolve) => {
         resolve(tileCount);
