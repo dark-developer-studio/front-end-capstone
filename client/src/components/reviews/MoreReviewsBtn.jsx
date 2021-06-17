@@ -4,8 +4,6 @@ import { makeStyles } from '@material-ui/core/styles';
 
 import { ReviewsContext } from '../../helpers/context';
 
-// import helper functions
-
 const useStyles = makeStyles(() => ({
 
 }));
