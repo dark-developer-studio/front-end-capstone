@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
     '&:hover': {
       cursor: 'zoom-in'
     }
-  },
+  }
 }));
 
 export default function ImageDialog({ url, imageHeight }) {
