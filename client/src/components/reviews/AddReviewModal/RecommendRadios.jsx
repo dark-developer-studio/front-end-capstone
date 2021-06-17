@@ -64,13 +64,25 @@ function StyledRadio(props) {
   );
 }
 
-export default function RecommendRadios() {
+export default function RecommendRadios(props) {
+  const handleRecommend = (event) => {
+    if (event.target.value === 'Yes') {
+      props.setRecommend(true);
+    } else if (event.target.value === 'No') {
+      props.setRecommend(false);
+    }
+  };
   return (
     <FormControl component="fieldset">
-      <FormLabel component="legend"></FormLabel>
+      <FormLabel component="legend" />
       <RadioGroup defaultValue="none" aria-label="recommend" name="customized-radios">
-        <FormControlLabel value="Yes" control={<StyledRadio />} label="Yes" />
-        <FormControlLabel value="No" control={<StyledRadio />} label="No" />
+        <FormControlLabel
+          value="Yes"
+          onChange={handleRecommend}
+          control={<StyledRadio />}
+          label="Yes"
+        />
+        <FormControlLabel value="No" onChange={handleRecommend} control={<StyledRadio />} label="No" />
       </RadioGroup>
     </FormControl>
   );

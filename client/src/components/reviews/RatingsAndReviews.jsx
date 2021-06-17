@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 
 // Material UI imports
-import { Grid, Button } from '@material-ui/core';
+import { Grid } from '@material-ui/core';
 import useStyles from './Styles.jsx';
 // Component imports
 import ReviewTile from './ReviewTile/ReviewTile.jsx';

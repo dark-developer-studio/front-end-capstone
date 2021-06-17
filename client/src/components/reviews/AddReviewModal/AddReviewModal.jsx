@@ -1,7 +1,7 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import axios from 'axios';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
-import { Button, Radio, TextField, Input } from '@material-ui/core';
+import { Button, TextField, Input } from '@material-ui/core';
 import Dialog from '@material-ui/core/Dialog';
 import MuiDialogTitle from '@material-ui/core/DialogTitle';
 import MuiDialogContent from '@material-ui/core/DialogContent';
@@ -71,10 +71,26 @@ const DialogActions = withStyles((theme) => ({
   }
 }))(MuiDialogActions);
 
-
 export default function ReviewDialog() {
   const { product } = useContext(AppContext);
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
+  const [rating, setRating] = useState(1);
+  const [summary, setSummary] = useState('new');
+  const [body, setBody] = useState('new');
+  const [recommend, setRecommend] = useState(false);
+  const [name, setName] = useState('new');
+  const [email, setEmail] = useState('new@gmail.com');
+  const [photos, setPhotos] = useState(['url']);
+  const [characteristics, setCharacteristics] = useState({ '60627': 3 });
+  // const [characteristics, setCharacteristics] = useState({});
+
+  console.log('this is rating ', rating);
+  console.log('this is recommend ', recommend);
+  console.log('this is body', body);
+  console.log('this is summary', summary);
+  console.log('this is email', email);
+  console.log('this is name', name);
+  console.log('prod id', product.id);
 
   const postReview = (rev) => {
     axios.post('/api/reviews/revs', {
@@ -85,11 +101,8 @@ export default function ReviewDialog() {
       name: rev.name,
       email: rev.email,
       photos: rev.photos,
-      characteristics: rev.characteristics
-    }, {
-      params: {
-        review_id: rev.id
-      }
+      characteristics: rev.characteristics,
+      product_id: rev.product_id
     }).then((response) => response.data);
   };
 
@@ -98,6 +111,22 @@ export default function ReviewDialog() {
   };
   const handleClose = () => {
     setOpen(false);
+  };
+
+  const handleSubmit = () => {
+    const revObj = {
+      rating,
+      summary,
+      body,
+      recommend,
+      name,
+      email,
+      photos,
+      characteristics,
+      product_id: product.id
+    };
+    postReview(revObj);
+    handleClose();
   };
 
   const classes = useStyles();
@@ -132,14 +161,14 @@ export default function ReviewDialog() {
               readOnly={false}
               size="large"
               defaultValue={0}
-              // value={revStarRating}
+              onChange={(event) => setRating(Number(event.target.value))}
               emptyIcon={<StarBorderIcon fontSize="inherit" />}
             />
 
             <Typography gutterBottom>
               Do you recommend this product?
             </Typography>
-            <RecommendRadios />
+            <RecommendRadios setRecommend={setRecommend} />
 
             <Typography gutterBottom>
               Rate Characteristics
@@ -147,7 +176,12 @@ export default function ReviewDialog() {
             <CharRadios />
 
             <Typography className="inputText">Add a summary:</Typography>
-            <TextField variant="outlined" placeholder="Example: Best purchase ever!" className="reviewSummary" />
+            <TextField
+              variant="outlined"
+              placeholder="Example: Best purchase ever!"
+              className="reviewSummary"
+              onChange={(event) => setSummary(event.target.value)}
+            />
 
             <Typography className="inputText">Add a review:</Typography>
             <TextField
@@ -156,6 +190,7 @@ export default function ReviewDialog() {
               variant="outlined"
               placeholder="Why did you like the product or not?"
               className="reviewBody"
+              onChange={(event) => setBody(event.target.value)}
             />
 
             <Typography className="inputText">Upload your photos:</Typography>
@@ -166,9 +201,8 @@ export default function ReviewDialog() {
               variant="outlined"
               label="Nickname"
               placeholder="Example: jackson11!"
-              helperText="For privacy reasons, do not use your full name or email address"
               className="nickname"
-              onChange={(e) => setNickname(e.target.value)}
+              onChange={(event) => setName(event.target.value)}
             />
             <Typography className="inputText">For privacy reasons, do not use your full name or email address</Typography>
 
@@ -179,7 +213,7 @@ export default function ReviewDialog() {
               placeholder="Example: jackson11@email.com"
               type="email"
               className="email"
-              onChange={(e) => setEmail(e.target.value)}
+              onChange={(event) => setEmail(event.target.value)}
             />
             <Typography className="inputText">For authentication reasons, you will not be emailed</Typography>
           </form>
@@ -187,7 +221,8 @@ export default function ReviewDialog() {
         </DialogContent>
 
         <DialogActions>
-          <Button autoFocus onClick={handleClose} color="primary">
+          {/* <Button autoFocus onClick={handleClose} color="primary"> */}
+          <Button autoFocus onClick={handleSubmit} color="primary">
             Submit Review
           </Button>
         </DialogActions>
