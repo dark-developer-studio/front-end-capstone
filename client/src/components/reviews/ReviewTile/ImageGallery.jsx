@@ -1,6 +1,7 @@
 import React, { useContext, useState, useEffect } from 'react';
-import { Card, GridList, Grid, Button } from '@material-ui/core';
+import { Card, Grid} from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
+import ImageModal from '../../global/ImageDialog.jsx';
 
 import { ReviewsContext } from '../../../helpers/context';
 
@@ -43,9 +44,7 @@ const ImageGallery = (props) => {
       <Card className={classes.parentContainer}>
         <Grid className={classes.gridList}>
           {photosArr.map((photo) => (
-            <Button key={photo.id}>
-              <img src={photo.url} alt="Broken-thumbnail" width="auto" height="100" className={classes.image} />
-            </Button>
+            <ImageModal key={photo.id} url={photo.url} />
           ))}
         </Grid>
       </Card>
