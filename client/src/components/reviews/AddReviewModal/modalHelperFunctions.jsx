@@ -30,7 +30,7 @@ const useStyles = makeStyles({
     'input:disabled ~ &': {
       boxShadow: 'none',
       background: 'rgba(206,217,224,.5)'
-    },
+    }
   },
   checkedIcon: {
     backgroundColor: '#137cbd',
@@ -43,10 +43,12 @@ const useStyles = makeStyles({
       content: '""'
     },
     'input:hover ~ &': {
-      backgroundColor: '#106ba3',
+      backgroundColor: '#106ba3'
     }
   }
 });
+
+// Inspired by blueprintjs
 function StyledRadio(props) {
   const classes = useStyles();
 
@@ -192,7 +194,21 @@ export function getAllCharVals(prodID) {
   return resultsArr;
 }
 
-export function buildCharRadios(charArr) {
+export function buildCharRadios(charArr, setRecommend, setCharacteristics, characteristics) {
+  const handleCharacteristics = (event) => {
+    const resultObj = characteristics;
+    if (event.target.value.length > 0) {
+      const str = event.target.value;
+      const key = str.slice(2, str.length);
+      const val = Number(str.slice(0, 1));
+      console.log('SPLICE', key);
+      console.log('SPLICE2', val);
+
+      resultObj[key] = val;
+    }
+    setCharacteristics(resultObj);
+  };
+
   return (
     <div>
       {charArr.map((char) => (
@@ -202,7 +218,7 @@ export function buildCharRadios(charArr) {
             <Typography className="inputText">{char[1]}</Typography>
             <RadioGroup defaultValue="none" aria-label="recommend" name="customized-radios">
               {char[2].map((val) => (
-                <FormControlLabel key={val} value={val[0]} control={<StyledRadio />} label={`${val[0]} : ${val[1]}`} />
+                <FormControlLabel key={val[0]} value={[val[0], char[0]]} control={<StyledRadio />} label={`${val[0]} : ${val[1]}`} onChange={handleCharacteristics} />
               ))}
             </RadioGroup>
           </FormControl>
