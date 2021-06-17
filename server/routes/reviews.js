@@ -37,6 +37,35 @@ router.get('/revs', (req, res) => {
     });
 });
 
+router.post('/revs', (req, res) => {
+  axios.post('https://app-hrsei-api.herokuapp.com/api/fec2/hr-bld/reviews', {
+    product_id: req.body.product_id,
+    rating: req.body.rating,
+    summary: req.body.summary,
+    body: req.body.body,
+    recommend: req.body.recommend,
+    name: req.body.name,
+    email: req.body.email,
+    photos: req.body.photos,
+    characteristics: req.body.characteristics
+  }, {
+    headers: {
+      Authorization: GITHUB_API_KEY,
+      'Content-Type': 'application/json'
+    }
+  })
+    .then((response) => {
+      res.status(201);
+      res.send(response.data);
+      console.log('post success');
+    })
+    .catch((err) => {
+      console.log('Post failed');
+      console.log(err);
+      //res.send();
+    });
+});
+
 router.get('/meta', (req, res) => {
   axios
     .get('https://app-hrsei-api.herokuapp.com/api/fec2/hr-bld/reviews/meta', {
@@ -57,6 +86,38 @@ router.get('/meta', (req, res) => {
     .catch((err) => {
       console.log(err);
       res.send(err);
+    });
+});
+
+router.put('/helpful', (req, res) => {
+  axios.put(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-bld/reviews/${req.query.review_id}/helpful`, {}, {
+    headers: {
+      Authorization: GITHUB_API_KEY
+    }
+  })
+    .then(() => {
+      res.status(204);
+      res.send();
+    })
+    .catch((err) => {
+      console.log(err);
+      res.send();
+    });
+});
+
+router.put('/report', (req, res) => {
+  axios.put(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-bld/reviews/${req.query.review_id}/report`, {}, {
+    headers: {
+      Authorization: GITHUB_API_KEY
+    }
+  })
+    .then(() => {
+      res.status(204);
+      res.send();
+    })
+    .catch((err) => {
+      console.log(err);
+      res.send();
     });
 });
 

@@ -11,13 +11,13 @@ import ReviewBody from './ReviewBody.jsx';
 import ImageGallery from './ImageGallery.jsx';
 
 const ReviewTile = () => {
-  const { reviewResults } = useContext(ReviewsContext);
+  const { reviewTileList } = useContext(ReviewsContext);
   const classes = useStyles();
   // const [helpfulnessCount, setHelpfulnessCount] = useState(0);
 
   return (
     <Grid item className={classes.reviewTile}>
-      { reviewResults.map((revItem) => (
+      { reviewTileList.map((revItem) => (
         <div key={revItem.review_id} className={classes.reviewTile}>
           <TopContainer
             rating={revItem.rating}

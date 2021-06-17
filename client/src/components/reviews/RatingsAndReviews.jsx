@@ -2,13 +2,14 @@ import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 
 // Material UI imports
-import { Grid, Button } from '@material-ui/core';
+import { Grid } from '@material-ui/core';
 import useStyles from './Styles.jsx';
 // Component imports
 import ReviewTile from './ReviewTile/ReviewTile.jsx';
 import TotalReviewCount from './TotalReviewCount.jsx';
 import ReviewDialog from './AddReviewModal/AddReviewModal.jsx';
 import MetaData from './MetaData/MetaData.jsx';
+import MoreReviewsBtn from './MoreReviewsBtn.jsx';
 // Context import
 import { AppContext, ReviewsContext } from '../../helpers/context';
 
@@ -19,9 +20,18 @@ const RatingsAndReviews = () => {
   const [reviews, setReviews] = useState([]);
   const [pageState, setPageState] = useState(1);
   const [reviewResults, setReviewResults] = useState([]);
+  const [reviewTileList, setReviewTileList] = useState([]);
+  const [tileCount, setTileCount] = useState(2);
 
-  // getModalStyle is not a pure function, roll the style only on the first render
-  // const [open, setOpen] = useState(false);
+  const loadReviewTileList = (reviewsArr) => {
+    if (reviewTileList.length < 2) {
+      for (let i = 0; i < 2; i += 1) {
+        reviewTileList.unshift(reviewsArr[i]);
+      }
+    }
+  };
+
+  // const [helpfulnessCount, setHelpfulnessCount] = useState(0);
 
   const getAllReviews = (productID) => {
     axios
@@ -47,24 +57,12 @@ const RatingsAndReviews = () => {
               let num = pageState;
               num += 1;
               setPageState(num);
+              loadReviewTileList(response.data.results);
             }
           }
         }
       });
   };
-
-  const showMoreReviews = () => {
-
-  };
-
-  // -------------CONSOLE LOGS
-  //   console.log('this is reviews in ranr',reviews);
-  //   console.log('this is results in ranr', reviews.results);
-  //   if(reviews.results) {
-  //   if (reviews.results.length !== 0) {
-  //   console.log('this is results[0] in ranr', reviews.results[0]);
-  //   }
-  // }
 
   useEffect(() => {
     if (product.id > 0) {
@@ -82,7 +80,15 @@ const RatingsAndReviews = () => {
 
   return (
     <AppContext.Provider value={{ product }}>
-      <ReviewsContext.Provider value={{ reviews, reviewResults }}>
+      <ReviewsContext.Provider value={{
+        reviews,
+        reviewResults,
+        reviewTileList,
+        tileCount,
+        setTileCount,
+        setReviewTileList
+      }}
+      >
         <Grid
           container
           className={classes.parentGrid}
@@ -102,7 +108,7 @@ const RatingsAndReviews = () => {
             </Grid>
 
             <Grid item className={classes.totalRev}>
-              <span>Total Reviews:</span>
+              <span>Total Reviews:&nbsp;</span>
               <div>
                 <TotalReviewCount />
               </div>
@@ -127,18 +133,13 @@ const RatingsAndReviews = () => {
             </Grid>
 
             <Grid item xs={6} className={classes.rightPanel}>
-              <ReviewTile />
+              <Grid item xs={12} className={classes.ReviewTileViewPort}>
+                <ReviewTile />
+              </Grid>
 
               <div className={classes.buttonContainer}>
                 <ReviewDialog />
-                <Button
-                  variant="outlined"
-                  color="secondary"
-                  className={classes.moreRevBtn}
-                  // onClick={{ showMoreReviews }}
-                >
-                  More Reviews
-                </Button>
+                <MoreReviewsBtn />
               </div>
 
               {/* End of right panel   */}

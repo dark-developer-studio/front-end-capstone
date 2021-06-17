@@ -1,41 +1,60 @@
-import React from 'react';
+import React, { useContext, useState } from 'react';
+import axios from 'axios';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
-import { Button, Radio, TextField, Input } from '@material-ui/core';
-import Dialog from '@material-ui/core/Dialog';
+// import {
+//   Button, TextField, Input, Dialog, MuiDialogTitle,
+//   MuiDialogContent, MuiDialogActions, IconButton, CloseIcon, Typography,
+//   Container } from '@material-ui/core';
+import {
+  Container, Button, TextField, Input, Dialog, Typography, IconButton
+} from '@material-ui/core';
 import MuiDialogTitle from '@material-ui/core/DialogTitle';
 import MuiDialogContent from '@material-ui/core/DialogContent';
 import MuiDialogActions from '@material-ui/core/DialogActions';
-import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
-import Typography from '@material-ui/core/Typography';
+
+// Icons used for star rating
 import Rating from '@material-ui/lab/Rating';
+import StarBorderIcon from '@material-ui/icons/StarBorder';
+
+import { AppContext, ReviewsContext } from '../../../helpers/context';
 
 import RecommendRadios from './RecommendRadios.jsx';
 import CharRadios from './CharRadios.jsx';
+import ImageModal from '../../global/ImageDialog.jsx';
+import { uploadRevPhoto } from '../../../helpers/globalRequest';
 
 const styles = (theme) => ({
   root: {
     margin: 0,
-    padding: theme.spacing(2),
+    padding: theme.spacing(2)
   },
   closeButton: {
     position: 'absolute',
     right: theme.spacing(1),
     top: theme.spacing(1),
-    color: theme.palette.grey[500],
-  },
+    color: theme.palette.grey[500]
+  }
 });
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   reviewStarRating: {
-    //border: "3px solid green",
-    padding: "10px"
+
+    padding: '10px'
+  },
+  parentDialogBox: {
   }
 }));
 
 const DialogTitle = withStyles(styles)((props) => {
-  const { children, classes, onClose, ...other } = props;
+  const {
+    children,
+    classes,
+    onClose,
+    ...other
+  } = props;
   return (
+    // eslint-disable-next-line react/jsx-props-no-spreading
     <MuiDialogTitle disableTypography className={classes.root} {...other}>
       <Typography variant="h6">{children}</Typography>
       {onClose ? (
@@ -49,19 +68,54 @@ const DialogTitle = withStyles(styles)((props) => {
 
 const DialogContent = withStyles((theme) => ({
   root: {
-    padding: theme.spacing(2),
-  },
+    padding: theme.spacing(2)
+  }
 }))(MuiDialogContent);
 
 const DialogActions = withStyles((theme) => ({
   root: {
     margin: 0,
-    padding: theme.spacing(1),
-  },
+    padding: theme.spacing(1)
+  }
 }))(MuiDialogActions);
 
 export default function ReviewDialog() {
-  const [open, setOpen] = React.useState(false);
+  const { product } = useContext(AppContext);
+  const [open, setOpen] = useState(false);
+  const [rating, setRating] = useState(0);
+  const [summary, setSummary] = useState('');
+  const [body, setBody] = useState('');
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('new@gmail.com');
+  const [photos, setPhotos] = useState(['url']);
+  const [recommend, setRecommend] = useState(false);
+  const [characteristics, setCharacteristics] = useState({});
+  const [validation, setValidation] = useState({
+    // rating: 0,
+    // ratingError: false,
+    summary: '',
+    summaryError: false,
+    body: '',
+    bodyError: false,
+    name: 'For privacy reasons, do not use your full name or email address',
+    nameError: false,
+    email: 'For authentication reasons, you will not be emailed',
+    emailError: false
+  });
+
+  const postReview = (rev) => {
+    axios.post('/api/reviews/revs', {
+      rating: rev.rating,
+      summary: rev.summary,
+      body: rev.body,
+      recommend: rev.recommend,
+      name: rev.name,
+      email: rev.email,
+      photos: rev.photos,
+      characteristics: rev.characteristics,
+      product_id: rev.product_id
+    }).then((response) => response.data);
+  };
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -70,57 +124,264 @@ export default function ReviewDialog() {
     setOpen(false);
   };
 
+  const validateBody = () => {
+    const validator = {};
+    if (body.match(/[^a-zA-Z0-9!?.,():;"\-/ ]/) !== null) {
+      validator.body = 'Invalid charaters used. Special characters available: (!?.,():;"-/)';
+      validator.bodyError = true;
+    } else if (body.length < 50) {
+      validator.body = 'Needs to be at least 50 characters long';
+      validator.bodyError = true;
+    } else if (body.length > 1000) {
+      validator.body = `Must be less than 1000 characters long. Length: ${body.length}`;
+      validator.bodyError = true;
+    } else {
+      validator.body = '';
+      validator.bodyError = false;
+    }
+    return validator;
+  };
+
+  // const validateRating = () => {
+  //   const validator = {};
+  //   if (rating === 0) {
+  //     validator.ratingError = true;
+  //   } else {
+  //     validator.rating = 0;
+  //     validator.ratingError = false;
+  //   }
+  //   return validator;
+  // };
+
+  const validateSummary = () => {
+    const validator = {};
+    if (summary.match(/[^a-zA-Z0-9!?.,():;"\-/ ]/) !== null) {
+      validator.summary = 'Invalid charaters used. Special characters available: (!?.,():;"-/)';
+      validator.summaryError = true;
+    } else if (summary.length < 3) {
+      validator.summary = 'Needs to be at least 3 characters long';
+      validator.summaryError = true;
+    } else if (summary.length > 60) {
+      validator.summary = `Must be less than 60 characters long. Length: ${summary.length}`;
+      validator.summaryError = true;
+    } else {
+      validator.summary = '';
+      validator.summaryError = false;
+    }
+    return validator;
+  };
+
+  const validateName = () => {
+    const validator = {};
+    if (name.match(/[^a-zA-Z0-9!?\-.]/) !== null) {
+      validator.name = 'Invalid charaters used. Special characters available: (!?-.)';
+      validator.nameError = true;
+    } else if (name.length < 3) {
+      validator.name = 'Needs to be at least 3 characters long';
+      validator.nameError = true;
+    } else if (name.length > 60) {
+      validator.nickname = `Must be less than 60 characters long. Length: ${name.length}`;
+      validator.nameError = true;
+    } else {
+      validator.name = 'For privacy reasons, do not use your full name or email address';
+      validator.nameError = false;
+    }
+    return validator;
+  };
+
+  const validateEmail = () => {
+    const validator = {};
+    // eslint-disable-next-line no-control-regex
+    if (email.match(/(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9]))\.){3}(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9])|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/) === null) {
+      validator.email = 'Invalid email address';
+      validator.emailError = true;
+    } else if (email.length < 3) {
+      validator.email = 'Needs to be at least 3 characters long';
+      validator.emailError = true;
+    } else if (email.length > 60) {
+      validator.email = `Must be less than 60 characters long. Length: ${email.length}`;
+      validator.emailError = true;
+    } else {
+      validator.email = 'For authentication reasons, you will not be emailed';
+      validator.emailError = false;
+    }
+    return validator;
+  };
+
+  const validateReview = () => {
+    const bodyValidator = validateBody();
+    const nameValidator = validateName();
+    const emailValidator = validateEmail();
+    const summaryValidator = validateSummary();
+    // const ratingValidator = validateRating();
+    const newValidator = {
+      ...bodyValidator,
+      ...nameValidator,
+      ...emailValidator,
+      ...summaryValidator
+      // ...ratingValidator
+    };
+
+    if (
+      !newValidator.bodyError
+      && !newValidator.nameError
+      && !newValidator.emailError
+      && !newValidator.summaryError
+      && !newValidator.ratingError
+    ) {
+      const revObj = {
+        rating,
+        summary,
+        body,
+        recommend,
+        name,
+        email,
+        photos,
+        characteristics,
+        product_id: product.id
+      };
+      postReview(revObj)
+        .then(() => handleClose())
+        .catch();
+    } else {
+      setValidation(newValidator);
+    }
+  };
+
+  const addPhoto = (event) => {
+    event.preventDefault();
+    const file = event.target.files[0];
+    const newPhotos = [...photos];
+    uploadRevPhoto(file)
+      .then((imageData) => {
+        newPhotos.push(imageData.url);
+        setPhotos(newPhotos);
+      });
+  };
+
   const classes = useStyles();
+
   return (
-    <div>
-      <Button variant="outlined" color="primary" onClick={handleClickOpen}>
-        Add Review
-      </Button>
-      <Dialog onClose={handleClose} aria-labelledby="customized-dialog-title" open={open}>
-        <DialogTitle id="customized-dialog-title" onClose={handleClose}>
-          Write Your Review
-        </DialogTitle>
+    <ReviewsContext.Provider value={{ setRecommend, setCharacteristics, characteristics }}>
+      <div>
+        <Button variant="outlined" color="primary" onClick={handleClickOpen}>
+          Add Review
+        </Button>
+        <Dialog
+          className={classes.parentDialogBox}
+          onClose={handleClose}
+          aria-labelledby="customized-dialog-title"
+          open={open}
+          fullWidth={true}
+        >
+          <DialogTitle onClose={handleClose}>Write Your Review</DialogTitle>
+          <DialogContent dividers>
+            <Typography>
+              About the &nbsp;
+              {product.name}
+            </Typography>
 
-        <DialogContent dividers>
+            <form className="formContainer">
 
-          <Rating name="reviewStarRating" className={classes.reviewStarRating} size="large" defaultValue={0} />
+              <Typography gutterBottom>
+                Rate this product:
+              </Typography>
+              <Rating
+                name="reviewStarRating"
+                className={classes.reviewStarRating}
+                readOnly={false}
+                size="large"
+                defaultValue={0}
+                error={validation.ratingError}
+                onChange={(event) => setRating(Number(event.target.value))}
+                emptyIcon={<StarBorderIcon fontSize="inherit" />}
+              />
 
-          <Typography gutterBottom>
-           Do you recommend this product?
-          </Typography>
-          <RecommendRadios />
+              <Typography gutterBottom>
+                Do you recommend this product?
+              </Typography>
+              <RecommendRadios setRecommend={setRecommend} />
 
-          <Typography gutterBottom>
-           Rate Characteristics
-          </Typography>
-          <CharRadios />
+              <Typography gutterBottom>
+                Rate Characteristics
+              </Typography>
+              <CharRadios />
 
-          <Typography className="inputText">Add a summary:</Typography>
-        <TextField variant="outlined" placeholder="Example: Best purchase ever!" className="reviewSummary" />
+              <Typography className="inputText">Add a summary:</Typography>
+              <TextField
+                variant="outlined"
+                placeholder="Example: Best purchase ever!"
+                className="reviewSummary"
+                helperText={validation.summary}
+                error={validation.summmaryError}
+                onChange={(event) => setSummary(event.target.value)}
+              />
 
-        <Typography className="inputText">Add a review:</Typography>
-        <TextField variant="outlined" placeholder="Why did you like the product or not?" className="reviewBody" />
+              <Typography className="inputText">Add a review:</Typography>
+              <TextField
+                multiline
+                rows={6}
+                variant="outlined"
+                placeholder="Why did you like the product or not?"
+                className="reviewBody"
+                helperText={validation.body}
+                error={validation.bodyError}
+                onChange={(event) => setBody(event.target.value)}
+              />
 
-        <Typography className="inputText">Upload your photos:</Typography>
-        <Input type="file" className="upload" />
+              <Typography className="inputText">Upload your photos:</Typography>
 
-          <Typography className="inputText">What is your nickname:</Typography>
-        <TextField variant="outlined" placeholder="Example: jackson11!" className="nickname" />
+              <Container>
+                {photos.map((url) => <ImageModal key={url} url={url} />)}
+              </Container>
 
-          <Typography className="inputText">Your email:</Typography>
-        <TextField variant="outlined" placeholder="Example: jackson11@email.com" type="email" className="email" />
+              <Button
+                variant="contained"
+                component="label"
+              >
+                <Input
+                  type="file"
+                  onChange={addPhoto}
+                  hidden
+                />
+              </Button>
 
-        </DialogContent>
+              <Typography className="inputText">What is your nickname:</Typography>
+              <TextField
+                variant="outlined"
+                label="Nickname"
+                placeholder="Example: jackson11!"
+                className="nickname"
+                helperText={validation.name}
+                error={validation.nameError}
+                onChange={(event) => setName(event.target.value)}
+              />
+              <Typography className="inputText">For privacy reasons, do not use your full name or email address</Typography>
 
+              <Typography className="inputText">Your email:</Typography>
+              <TextField
+                variant="outlined"
+                label="Email"
+                placeholder="Example: jackson11@email.com"
+                type="email"
+                className="email"
+                helperText={validation.email}
+                error={validation.emailError}
+                onChange={(event) => setEmail(event.target.value)}
+              />
+              <Typography className="inputText">For authentication reasons, you will not be emailed</Typography>
+            </form>
 
+          </DialogContent>
 
-        <DialogActions>
-          <Button autoFocus onClick={handleClose} color="primary">
-            Submit Review
-          </Button>
-        </DialogActions>
-      </Dialog>
-    </div>
+          <DialogActions>
+            <Button autoFocus onClick={validateReview} color="primary">
+              Submit Review
+            </Button>
+          </DialogActions>
+
+        </Dialog>
+      </div>
+    </ReviewsContext.Provider>
   );
 }
-

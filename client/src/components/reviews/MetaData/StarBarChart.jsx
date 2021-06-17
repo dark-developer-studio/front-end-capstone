@@ -8,7 +8,7 @@ import { ReviewsContext } from '../../../helpers/context';
 // helper functions
 import { convertToPercentages } from '../helperFunctions.jsx';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   starBarChart: {
     // border: "3px solid red",
     display: 'flex',
@@ -26,7 +26,7 @@ const StarBarChart = () => {
   // Bar Colors
   const emerald = 'rgba(63, 195, 128, 1)';
   const eucalyptus = 'rgba(38, 166, 91, 1)';
-  const htmlGray = 'rgba(128,128,128, 1)';
+  // const htmlGray = 'rgba(128,128,128, 1)';
 
   const data = {
     labels: ['5 Stars', '4 Stars', '3 Stars', '2 Stars', '1 Star'],

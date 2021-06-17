@@ -8,7 +8,7 @@ import { calcAvgRating, calcStarRating } from '../helperFunctions.jsx';
 
 import { ReviewsContext } from '../../../helpers/context';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   parentContainer: {
     // border: "3px solid red",
     display: 'flex',
