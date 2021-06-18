@@ -140,7 +140,7 @@ const ProductDisplay = () => {
 
               <Typography variant="body2" color="textSecondary" component="p" align="left">
                 *Stars*
-                <u>View All Reviews</u>
+                <a href="#starsAndPercent" className={classes.linkToReviews}>View All Reviews</a>
               </Typography>
 
               <CategoryPriceName stylePrice={stylePrice} />
