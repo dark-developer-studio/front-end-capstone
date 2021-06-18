@@ -46,7 +46,9 @@ const ImageGallery = (props) => {
         navButtonsAlwaysVisible
         navButtonsWrapperProps={{
           style: {
-            top: '265px'
+            height: '30px',
+            top: '93%',
+            opacity: '1'
           }
         }}
         navButtonsProps={{
@@ -54,8 +56,7 @@ const ImageGallery = (props) => {
             backgroundColor: '#ADD8E6',
             borderRadius: '6px',
             border: '2px solid black',
-            height: '10px',
-            margin: '5px'
+            height: '30px'
           }
         }}
         indicators={false}
@@ -89,12 +90,6 @@ const Item = (props) => {
     <Paper
       elevation={0}
     >
-      {/* <img
-        key={props.img.photoNum}
-        src={props.currentImg.url}
-        alt="Product Style"
-        className={classes.mainImg}
-      /> */}
       <ImageModal
         key={props.img.photoNum}
         url={props.currentImg.url}
