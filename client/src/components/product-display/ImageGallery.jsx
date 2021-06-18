@@ -46,16 +46,32 @@ const ImageGallery = (props) => {
         navButtonsAlwaysVisible
         navButtonsWrapperProps={{
           style: {
-            top: '265px'
+            height: '30px',
+            top: '93%',
+            color: 'white',
+            opacity: '1',
+            '&:hover': {
+              '& $button': {
+                backgroundColor: 'black',
+                filter: 'brightness(120%)',
+                opacity: 'unset'
+              }
+            }
           }
         }}
         navButtonsProps={{
           style: {
-            backgroundColor: '#ADD8E6',
+            color: 'white',
+            backgroundColor: 'black',
+            filter: 'brightness(120%)',
+            opacity: '0.4',
             borderRadius: '6px',
-            border: '2px solid black',
-            height: '10px',
-            margin: '5px'
+            // border: '2px solid black',
+            height: '30px',
+            '&:hover unset': {
+              backgroundColor: 'black',
+              opacity: '1.0 !important'
+            }
           }
         }}
         indicators={false}
@@ -89,16 +105,11 @@ const Item = (props) => {
     <Paper
       elevation={0}
     >
-      {/* <img
-        key={props.img.photoNum}
-        src={props.currentImg.url}
-        alt="Product Style"
-        className={classes.mainImg}
-      /> */}
       <ImageModal
         key={props.img.photoNum}
         url={props.currentImg.url}
         imageHeight={550}
+        zoomDisabled={false}
       />
     </Paper>
   );
