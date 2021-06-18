@@ -48,15 +48,30 @@ const ImageGallery = (props) => {
           style: {
             height: '30px',
             top: '93%',
-            opacity: '1'
+            color: 'white',
+            opacity: '1',
+            '&:hover': {
+              '& $button': {
+                backgroundColor: 'black',
+                filter: 'brightness(120%)',
+                opacity: 'unset'
+              }
+            }
           }
         }}
         navButtonsProps={{
           style: {
-            backgroundColor: '#ADD8E6',
+            color: 'white',
+            backgroundColor: 'black',
+            filter: 'brightness(120%)',
+            opacity: '0.4',
             borderRadius: '6px',
-            border: '2px solid black',
-            height: '30px'
+            // border: '2px solid black',
+            height: '30px',
+            '&:hover unset': {
+              backgroundColor: 'black',
+              opacity: '1.0 !important'
+            }
           }
         }}
         indicators={false}
@@ -94,6 +109,7 @@ const Item = (props) => {
         key={props.img.photoNum}
         url={props.currentImg.url}
         imageHeight={550}
+        zoomDisabled={false}
       />
     </Paper>
   );
