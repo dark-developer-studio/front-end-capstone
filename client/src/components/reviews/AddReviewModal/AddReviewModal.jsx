@@ -98,7 +98,7 @@ export default function ReviewDialog() {
   });
   const [networkError, setNetworkError] = useState(null);
 
-  // // Still Need for checking Validation
+  // Still Need for checking Validation
   // console.log('CHAR', characteristics);
   // console.log('rating', rating);
 
@@ -282,16 +282,6 @@ export default function ReviewDialog() {
                 onChange={(event) => setRating(Number(event.target.value))}
                 emptyIcon={<StarBorderIcon fontSize="inherit" />}
               />
-              {/* <Rating
-                name="reviewStarRating"
-                className={classes.reviewStarRating}
-                readOnly={false}
-                size="large"
-                defaultValue={0}
-
-                onChange={(event) => setRating(Number(event.target.value))}
-                emptyIcon={<StarBorderIcon fontSize="inherit" />}
-              /> */}
 
               <Typography gutterBottom>
                 Do you recommend this product?
