@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom';
-
 import Container from '@material-ui/core/Container';
 
 import Banner from './components/Banner.jsx';
@@ -9,7 +8,7 @@ import QuestionsAndAnswers from './components/qa/QuestionsAndAnswers.jsx';
 import RatingsAndReviews from './components/reviews/RatingsAndReviews.jsx';
 // import RelatedProducts from './components/related-products/RelatedProducts.jsx';
 
-import { getProduct } from './helpers/globalRequest';
+import { getProduct, getAllRevsMetaData } from './helpers/globalRequest';
 import { AppContext } from './helpers/context';
 
 function App() {
@@ -24,6 +23,8 @@ function App() {
     features: []
   });
 
+  const [revsMetaData, setRevsMetaData] = useState({});
+
   useEffect(() => {
     getProduct()
       .then((productData) => {
@@ -32,8 +33,18 @@ function App() {
       .catch((err) => console.log(err));
   }, []);
 
+  useEffect(() => {
+    if (product.id > -1) {
+      getAllRevsMetaData(product.id)
+        .then((reviewData) => {
+          setRevsMetaData(reviewData);
+        })
+        .catch((err) => console.log(err));
+    }
+  }, [product]);
+
   return (
-    <AppContext.Provider value={{ product }}>
+    <AppContext.Provider value={{ product, revsMetaData }}>
       <Container maxWidth="lg">
         <Banner />
         <ProductDisplay />
