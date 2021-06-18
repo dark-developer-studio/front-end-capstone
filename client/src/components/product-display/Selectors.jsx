@@ -96,7 +96,6 @@ const Selectors = (props) => {
     getStyleId(sizeForQuantity);
   }, [sizeForQuantity]);
 
-  // console.log(skusId);
   return (
     <Grid item xs={12} spacing={1} container>
       <Grid item xs={6}>
@@ -106,6 +105,7 @@ const Selectors = (props) => {
           handleSizeChange={handleSizeChange}
           setSizeForQuantity={setSizeForQuantity}
           selectSizeValue={selectSizeValue}
+          setSelectQuantityValue={setSelectQuantityValue}
           open={open}
           handleClickAway={handleClickAway}
           setSkusId={setSkusId}
@@ -130,9 +130,9 @@ const Selectors = (props) => {
           className={classes.button}
           variant="outlined"
           onClick={(event) => {
-            if (sizeForQuantity === '' && quantityArr.length === 0) {
+            if (sizeForQuantity === '' || quantityArr.length === 0) {
               handlePopoverSizeOpen(event);
-            } else if (sizeForQuantity !== '' && quantitiySelected === '') {
+            } else if (sizeForQuantity !== '' && (quantitiySelected === undefined || quantitiySelected === '')) {
               handlePopoverQuantityOpen(event);
             }
             if (sizeForQuantity !== '' && quantitiySelected !== '') {
@@ -156,7 +156,7 @@ const Selectors = (props) => {
           }}
         >
           <Typography className={classes.popoverContent}>
-            Please chose an amount.
+            Please choose an amount.
           </Typography>
         </Popover>
         <Popover
@@ -173,7 +173,7 @@ const Selectors = (props) => {
           }}
         >
           <Typography className={classes.popoverContent}>
-            Please chose a Size.
+            Please choose a Size.
           </Typography>
         </Popover>
 

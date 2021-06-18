@@ -7,7 +7,7 @@ import { SkusContext } from '../ProductDisplay.jsx';
 
 const SizeDD = forwardRef((props, ref) => {
   const classes = useStyles();
-  const { skusState, photos } = useContext(SkusContext);
+  const { skusState } = useContext(SkusContext);
   const [valsArr, setValsArr] = useState([]);
 
   const noDuplicateVals = () => {
@@ -35,13 +35,15 @@ const SizeDD = forwardRef((props, ref) => {
             value={props.selectSizeValue}
             onChange={(event) => {
               props.handleSizeChange(event);
-            }}
+              props.setSelectQuantityValue('');
+            }
+            }
             onClick={(event) => {
               event.preventDefault();
               props.setSizeForQuantity(event.target.value);
             }}
           >
-            <MenuItem value="" key="empty">
+            <MenuItem value="" key="empty" disabled>
               <em>Select Size</em>
             </MenuItem>
             {props.open ? (null) : (
@@ -55,7 +57,7 @@ const SizeDD = forwardRef((props, ref) => {
           <FormHelperText>Select Size</FormHelperText>
         </FormControl>
       </div>
-    </ClickAwayListener>
+    </ClickAwayListener >
   );
 });
 

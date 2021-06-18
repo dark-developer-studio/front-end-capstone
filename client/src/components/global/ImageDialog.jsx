@@ -20,10 +20,16 @@ const useStyles = makeStyles((theme) => ({
     right: theme.spacing(1),
     top: theme.spacing(1),
     color: theme.palette.grey[500]
+  },
+  mainImg: {
+    maxWidth: '100%',
+    '&:hover': {
+      cursor: 'zoom-in'
+    }
   }
 }));
 
-export default function ImageDialog({ url }) {
+export default function ImageDialog({ url, imageHeight }) {
   const [open, setOpen] = React.useState(false);
   const classes = useStyles();
 
@@ -46,7 +52,7 @@ export default function ImageDialog({ url }) {
   return (
     <>
       <Button onClick={handleOpen} onKeyDown={handleKey}>
-        <img src={url} alt="thumbnail" width="auto" height="100" />
+        <img src={url} alt="thumbnail" width="auto" height={imageHeight} className={classes.mainImg} />
       </Button>
       <Dialog
         open={open}
@@ -80,9 +86,11 @@ export default function ImageDialog({ url }) {
 }
 
 ImageDialog.propTypes = {
-  url: PropTypes.string
+  url: PropTypes.string,
+  imageHeight: PropTypes.number
 };
 
 ImageDialog.defaultProps = {
-  url: ''
+  url: '',
+  imageHeight: 100
 };

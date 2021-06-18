@@ -35,7 +35,9 @@ const CategoryPriceName = (props) => {
                 </span>
               </>
             ) : (
-              props.stylePrice.orignalPrice
+              <span>
+                $ {props.stylePrice.orignalPrice}
+              </span>
             )}
           </Typography>
         </>

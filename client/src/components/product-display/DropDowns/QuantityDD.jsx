@@ -23,7 +23,7 @@ const QuantityDD = forwardRef((props, ref) => {
         disabled={props.selectSizeValue === ''}
       >
 
-        <MenuItem value="">
+        <MenuItem value={undefined} disabled>
           <em>Select Quantity</em>
         </MenuItem>
 

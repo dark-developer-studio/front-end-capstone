@@ -56,7 +56,6 @@ const ProductDisplay = () => {
           });
         }
       });
-      // console.log(sizeAndQuantity);
       setSkus(sizeAndQuantity);
     }
   };
@@ -111,7 +110,7 @@ const ProductDisplay = () => {
           {
             sku_id: productId
           })
-        .then((response) => {
+        .then(() => {
           console.log('CREATED');
         })
         .catch((err) => {
