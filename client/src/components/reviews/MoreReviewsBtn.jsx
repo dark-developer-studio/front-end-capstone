@@ -23,7 +23,7 @@ const MoreReviewsBtn = () => {
       });
       promise
         .then((res1) => {
-          arr.unshift(reviewResults[res1]);
+          arr.push(reviewResults[res1]);
           if (tileCount !== reviewResults.length - 1) {
             setTileCount(res1 + 1);
             return res1 + 1;
@@ -32,7 +32,7 @@ const MoreReviewsBtn = () => {
         })
         .then((res2) => {
           if (lastVal === false) {
-            arr.unshift(reviewResults[res2]);
+            arr.push(reviewResults[res2]);
             setTileCount(res2 + 1);
           }
           setReviewTileList([...arr, ...reviewTileList]);

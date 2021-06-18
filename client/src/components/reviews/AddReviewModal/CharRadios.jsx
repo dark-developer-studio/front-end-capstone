@@ -67,11 +67,11 @@ function StyledRadio(props) {
 
 export default function CharRadios() {
   const { product } = useContext(AppContext);
-  const { setRecommend, setCharacteristics, characteristics } = useContext(ReviewsContext);
+  const { setCharacteristics, characteristics } = useContext(ReviewsContext);
   const charArr = getAllCharVals(product.id);
   return (
     <div>
-      {buildCharRadios(charArr, setRecommend, setCharacteristics, characteristics)}
+      {buildCharRadios(charArr, setCharacteristics, characteristics)}
     </div>
   );
 }

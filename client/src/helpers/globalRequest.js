@@ -43,22 +43,3 @@ export function uploadPhoto(file) {
   }
   return Promise.reject(new Error(result.message));
 }
-
-export function uploadRevPhoto(file) {
-  const result = validateFile(file.name);
-
-  if (result.isValidFile) {
-    const formData = new FormData();
-    formData.append('image', file);
-
-    return axios.post('https://api.imgbb.com/1/upload', formData, {
-      headers: {
-        'Content-Type': 'multipart/form-data'
-      },
-      params: {
-        key: '7c11a49f7deee27c6ae186b1c11b3318'
-      }
-    }).then((response) => response.data.data);
-  }
-  return Promise.reject(new Error(result.message));
-}
