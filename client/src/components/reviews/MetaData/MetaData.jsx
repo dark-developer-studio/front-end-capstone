@@ -9,8 +9,6 @@ import StarBarChart from './StarBarChart.jsx';
 import ProductReviewChart from './ProductReviewChart.jsx';
 import RecommendPercentage from './RecommendPercentage.jsx';
 
-const { GITHUB_API_KEY } = require('../../../../../config');
-
 const MetaData = () => {
   const { product } = useContext(AppContext);
   const [revsMetaData, setRevsMetaData] = useState({});
@@ -18,9 +16,6 @@ const MetaData = () => {
   const getAllRevsMetaData = (productID) => {
     axios
       .get('/api/reviews/meta', {
-        headers: {
-          Authorization: GITHUB_API_KEY
-        },
         params: {
           product_id: productID
         }
