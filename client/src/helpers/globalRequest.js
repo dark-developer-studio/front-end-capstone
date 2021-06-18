@@ -32,14 +32,28 @@ export function uploadPhoto(file) {
     const formData = new FormData();
     formData.append('image', file);
 
-    return axios.post('https://api.imgbb.com/1/upload', formData, {
-      headers: {
-        'Content-Type': 'multipart/form-data'
-      },
-      params: {
-        key: '811b6930fa34cc442fd5f319e9d975f6'
-      }
-    }).then((response) => response.data.data);
+    return axios
+      .post('https://api.imgbb.com/1/upload', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+        params: {
+          key: '811b6930fa34cc442fd5f319e9d975f6',
+        },
+      })
+      .then((response) => response.data.data);
   }
   return Promise.reject(new Error(result.message));
+}
+
+// Star Rating
+
+export function getAllRevsMetaData(productID) {
+  return axios
+    .get('/api/reviews/meta', {
+      params: {
+        product_id: productID
+      }
+    })
+    .then((response) => response.data);
 }

@@ -14,7 +14,8 @@ const useStyles = makeStyles(() => ({
     flexDirection: 'column',
     justifyContent: 'space-evenly',
     alignItems: 'center',
-    margin: '10%'
+    margin: '10%',
+    padding: '10px'
   },
   sliderCharts: {
     width: '100%'
@@ -130,7 +131,7 @@ const ProductReviewChart = () => {
               getAriaValueText={valuetext}
               aria-labelledby="discrete-slider"
               valueLabelDisplay="auto"
-              step={1}
+              step={20}
               marks={item[2]}
               min={1}
               max={5}
