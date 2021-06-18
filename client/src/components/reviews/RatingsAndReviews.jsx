@@ -13,8 +13,6 @@ import MoreReviewsBtn from './MoreReviewsBtn.jsx';
 // Context import
 import { AppContext, ReviewsContext } from '../../helpers/context';
 
-const { GITHUB_API_KEY } = require('../../../../config');
-
 const RatingsAndReviews = () => {
   const { product } = useContext(AppContext);
   const [reviews, setReviews] = useState([]);
@@ -31,14 +29,9 @@ const RatingsAndReviews = () => {
     }
   };
 
-  // const [helpfulnessCount, setHelpfulnessCount] = useState(0);
-
   const getAllReviews = (productID) => {
     axios
       .get('/api/reviews/revs', {
-        headers: {
-          Authorization: GITHUB_API_KEY
-        },
         params: {
           product_id: productID,
           page: pageState,
