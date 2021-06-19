@@ -6,7 +6,6 @@ import Banner from './components/Banner.jsx';
 import ProductDisplay from './components/product-display/ProductDisplay.jsx';
 import QuestionsAndAnswers from './components/qa/QuestionsAndAnswers.jsx';
 import RatingsAndReviews from './components/reviews/RatingsAndReviews.jsx';
-// import RelatedProducts from './components/related-products/RelatedProducts.jsx';
 
 import { getProduct, getAllRevsMetaData } from './helpers/globalRequest';
 import { AppContext } from './helpers/context';
@@ -30,7 +29,8 @@ function App() {
       .then((productData) => {
         setProduct(productData);
       })
-      .catch((err) => console.log(err));
+      // eslint-disable-next-line no-console
+      .catch(() => console.log(new Error('Unable to get product')));
   }, []);
 
   useEffect(() => {
@@ -39,7 +39,8 @@ function App() {
         .then((reviewData) => {
           setRevsMetaData(reviewData);
         })
-        .catch((err) => console.log(err));
+        // eslint-disable-next-line no-console
+        .catch(() => console.log(new Error(`Unable to get review meta data using product id: ${product.id}`)));
     }
   }, [product]);
 
@@ -49,7 +50,6 @@ function App() {
         <Banner />
         <ProductDisplay />
         <Container maxWidth="md">
-          {/* <RelatedProducts /> */}
           <QuestionsAndAnswers />
           <RatingsAndReviews />
         </Container>

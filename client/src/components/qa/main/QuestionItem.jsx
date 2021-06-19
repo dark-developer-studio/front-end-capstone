@@ -10,7 +10,9 @@ import AnswerDialog from '../modals/AnswerDialog.jsx';
 import { markQuestionHelpful } from '../helpers/qaRequests';
 
 export default function QuestionItem({ question }) {
+  // State for if the helpful button should be disabled
   const [disableHelpful, setDisableHelpful] = useState(false);
+  // State for helpfulness counter
   const [helpfulness, setHelpfulness] = useState(question.question_helpfulness);
 
   return (
@@ -22,6 +24,7 @@ export default function QuestionItem({ question }) {
             {`Q: ${question.question_body}`}
           </Typography>
         </Grid>
+
         <Grid item>
           <Grid container direction="row" alignItems="center">
             <Typography variant="body2" className="helpful">

@@ -9,10 +9,17 @@ import ImageModal from '../../global/ImageDialog.jsx';
 import { markAnswerHelpful, reportAnswer } from '../helpers/qaRequests';
 
 export default function AnswerItem({ answer }) {
+  // State for if buttons are disabled
   const [disableHelpful, setDisableHelpful] = useState(false);
   const [disableReport, setDisableReport] = useState(false);
+  // State for helpfulness counter
   const [helpfulness, setHelpfulness] = useState(answer.helpfulness);
 
+  /**
+   * Formats a date to Mon d, yyyy
+   * @param {Date} date
+   * @return {string} A string formatted as Mon d, yyyy
+   */
   function formatDate(date) {
     const monthNames = ['Jan', 'Feb', 'Mar', 'Apr',
       'May', 'Jun', 'Jul', 'Aug',
@@ -28,9 +35,11 @@ export default function AnswerItem({ answer }) {
   return (
     <Container style={{ padding: 0 }}>
       <Typography className="text">{answer.body}</Typography>
+
       <Grid container>
         {answer.photos.map((photo) => <ImageModal key={photo.id} url={photo.url} />)}
       </Grid>
+
       <Grid container direction="row" alignItems="baseline">
         <Typography
           className="user"
@@ -39,6 +48,7 @@ export default function AnswerItem({ answer }) {
         >
           {`by ${answer.answerer_name}, ${formatDate(new Date(answer.date))}`}
         </Typography>
+
         <Typography variant="body2">
           Helpful?
         </Typography>
@@ -56,6 +66,7 @@ export default function AnswerItem({ answer }) {
         <Typography variant="body2" style={{ borderRight: '1px solid #555' }}>
           {`(${helpfulness})`}
         </Typography>
+
         <Button
           type="button"
           disabled={disableReport}
