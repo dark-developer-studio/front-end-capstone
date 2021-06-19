@@ -1,11 +1,11 @@
 import React, { useContext, useState, useEffect } from 'react';
 import { Slider, Typography } from '@material-ui/core';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
-
 import { ReviewsContext } from '../../../helpers/context';
 
 // helper function
 import { getCharLowHighVals, getMarks } from '../helperFunctions.jsx';
+
 
 const useStyles = makeStyles(() => ({
   parentContainer: {
@@ -104,7 +104,7 @@ const ProductReviewChart = () => {
     charKeys.forEach((key) => {
       const charNumVal = revsMetaData.characteristics[key].value;
 
-      const charArr = [key, Number(charNumVal), getMarks(), getCharLowHighVals(key)];
+      const charArr = [key, Number(charNumVal).toFixed(1), getMarks(), getCharLowHighVals(key)];
       resultArr.unshift(charArr);
     });
     setCharValPairs(resultArr);
@@ -132,12 +132,11 @@ const ProductReviewChart = () => {
             <Typography className={classes.chartTitles} gutterBottom>
               {item[0]}
             </Typography>
-
             <ProductReviewSlider
               defaultValue={item[1]}
               getAriaValueText={valuetext}
               aria-labelledby="discrete-slider"
-              valueLabelDisplay="off"
+              valueLabelDisplay="on"
               step={10}
               marks={item[2]}
               min={1.00}

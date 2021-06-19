@@ -16,7 +16,7 @@ const ReviewTile = () => {
   // const [helpfulnessCount, setHelpfulnessCount] = useState(0);
 
   return (
-    <Grid item className={classes.reviewTile}>
+    <Grid item className={classes.reviewTileList}>
       { reviewTileList.map((revItem) => (
         <div key={revItem.review_id} className={classes.reviewTile}>
           <TopContainer
