@@ -1,10 +1,8 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 
 import Rating from '@material-ui/lab/Rating';
 import StarBorderIcon from '@material-ui/icons/StarBorder';
-
-import { ReviewsContext } from '../../../helpers/context';
 
 // helper functions
 import { calcStarRating } from '../helperFunctions.jsx';
@@ -16,7 +14,6 @@ const useStyles = makeStyles(() => ({
 }));
 
 const StarRating = (props) => {
-  // const { revsMetaData } = useContext(ReviewsContext);
   const [revStarRating, setRevStarRating] = useState(0);
 
   useEffect(() => {
