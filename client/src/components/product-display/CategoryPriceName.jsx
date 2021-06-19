@@ -1,9 +1,10 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { Typography, CircularProgress } from '@material-ui/core';
+import PropTypes from 'prop-types';
 import { AppContext } from '../../helpers/context';
 import useStyles from './MaterialUi.jsx';
 
-const CategoryPriceName = (props) => {
+const CategoryPriceName = ({ stylePrice }) => {
   const { product } = useContext(AppContext);
   const [dataIn, setDataIn] = useState(false);
   const classes = useStyles();
@@ -24,19 +25,22 @@ const CategoryPriceName = (props) => {
             {product.name}
           </Typography>
           <Typography variant="body2" color="textSecondary" component="p" align="left">
-            {props.stylePrice.salePrice ? (
+            {stylePrice.salePrice ? (
               <>
                 <span className={classes.orignalPrice}>
-                  $ {props.stylePrice.orignalPrice}
+                  $
+                  {stylePrice.orignalPrice}
                 </span>
                 <br />
                 <span className={classes.discountPrice}>
-                  $ {props.stylePrice.salePrice}
+                  $
+                  {stylePrice.salePrice}
                 </span>
               </>
             ) : (
               <span>
-                $ {props.stylePrice.orignalPrice}
+                $
+                {stylePrice.orignalPrice}
               </span>
             )}
           </Typography>
@@ -48,6 +52,16 @@ const CategoryPriceName = (props) => {
       )}
     </div>
   );
+};
+
+CategoryPriceName.propTypes = {
+  stylePrice: PropTypes.shape({
+    salePrice: PropTypes.string,
+    orignalPrice: PropTypes.string
+  })
+};
+CategoryPriceName.defaultProps = {
+  stylePrice: {}
 };
 
 export default CategoryPriceName;
