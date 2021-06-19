@@ -16,9 +16,6 @@ router.get('/revs', (req, res) => {
     .get('https://app-hrsei-api.herokuapp.com/api/fec2/hr-bld/reviews', {
       headers: {
         Authorization: GITHUB_API_KEY
-        // ---------EXTRA HEADERS INCASE NEEDED
-        // Accept: 'application/json',
-        // 'User-Agent': 'request',
       },
       params: {
         product_id: req.query.product_id,
@@ -71,9 +68,6 @@ router.get('/meta', (req, res) => {
     .get('https://app-hrsei-api.herokuapp.com/api/fec2/hr-bld/reviews/meta', {
       headers: {
         Authorization: GITHUB_API_KEY
-        // ---------EXTRA HEADERS INCASE NEEDED
-        // Accept: 'application/json',
-        // 'User-Agent': 'request',
       },
       params: {
         product_id: req.query.product_id
@@ -89,7 +83,7 @@ router.get('/meta', (req, res) => {
     });
 });
 
-router.put('/helpful', (req, res) => {
+router.put('/revs/helpful', (req, res) => {
   axios.put(`https://app-hrsei-api.herokuapp.com/api/fec2/hr-bld/reviews/${req.query.review_id}/helpful`, {}, {
     headers: {
       Authorization: GITHUB_API_KEY
