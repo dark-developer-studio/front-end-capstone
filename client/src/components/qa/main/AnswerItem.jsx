@@ -36,23 +36,14 @@ export default function AnswerItem({ answer }) {
   }
 
   return (
-<<<<<<< HEAD
-    <Container style={{ padding: 0 }}>
-      <Typography className="text">{answer.body}</Typography>
-
-      <Grid container>
-        {answer.photos.map((photo) => <ImageModal key={photo.id} url={photo.url} />)}
-      </Grid>
-
-      <Grid container direction="row" alignItems="baseline">
-=======
     <Container className={classes.answerContainer}>
       <Typography className={classes.answerBody}>{answer.body}</Typography>
+
       <Grid container>
         {answer.photos.map((photo) => <ImageModal key={photo.id} url={photo.url} />)}
       </Grid>
+
       <Grid container direction="row" alignItems="baseline" className={classes.answerInfo}>
->>>>>>> 3d8c1ae6cbb85bd87a3475049e5b1de82587d488
         <Typography
           className="user"
           variant="body2"
