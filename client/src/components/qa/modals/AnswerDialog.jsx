@@ -28,6 +28,7 @@ const styles = (theme) => ({
   }
 });
 
+// Title bar with a close button
 const DialogTitleBar = withStyles(styles)((props) => {
   const {
     children,
@@ -49,11 +50,14 @@ const DialogTitleBar = withStyles(styles)((props) => {
 });
 
 export default function AnswerDialog({ question }) {
+  // Boolean for if the modal is open or not
   const [open, setOpen] = useState(false);
-  const [photos, setPhotos] = useState([]);
+  // Form data
   const [body, setBody] = useState('');
   const [nickname, setNickname] = useState('');
   const [email, setEmail] = useState('');
+  const [photos, setPhotos] = useState([]);
+  // Validation object for showing info to user
   const [validation, setValidation] = useState({
     body: '',
     bodyError: false,
@@ -73,6 +77,11 @@ export default function AnswerDialog({ question }) {
     setOpen(false);
   };
 
+  /**
+   * Validates the body string
+   * @return {{body: string, bodyError: boolean}} body: helper text to display for errors,
+   * bodyError: true if body is invalid and the form should display the error
+   */
   const validateBody = () => {
     const validator = {};
     if (body.match(/[^a-zA-Z0-9!?.,():;"\n\-/ ]/) !== null) {
@@ -91,6 +100,11 @@ export default function AnswerDialog({ question }) {
     return validator;
   };
 
+  /**
+   * Validates the nickname string
+   * @return {{nickname: string, nicknameError: boolean}} nickname: helper text to display for
+   * errors, nicknameError: true if nickname is invalid and the form should display the error
+   */
   const validateName = () => {
     const validator = {};
     if (nickname.match(/[^a-zA-Z0-9!?\-.]/) !== null) {
@@ -109,6 +123,11 @@ export default function AnswerDialog({ question }) {
     return validator;
   };
 
+  /**
+   * Validates the email string
+   * @return {{email: string, emailError: boolean}} email: helper text to display for errors,
+   * emailError: true if email is invalid and the form should display the error
+   */
   const validateEmail = () => {
     const validator = {};
     // eslint-disable-next-line no-control-regex
@@ -135,6 +154,7 @@ export default function AnswerDialog({ question }) {
     const newValidator = { ...bodyValidator, ...nameValidator, ...emailValidator };
 
     if (!newValidator.bodyError && !newValidator.nicknameError && !newValidator.emailError) {
+      // If the answer is valid create it
       const answer = {
         question_id: question.question_id,
         body,
@@ -146,6 +166,7 @@ export default function AnswerDialog({ question }) {
         .then(() => handleClose())
         .catch();
     } else {
+      // Update validation with errors that are present in the form
       setValidation(newValidator);
     }
   };

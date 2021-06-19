@@ -31,7 +31,7 @@ const QuestionsAndAnswers = () => {
 
           setPage(page + 1);
         } else {
-          // If we have gotten all the questions
+          // If we have gotten all the questions from the server
           setPage(null);
         }
       })
@@ -56,6 +56,7 @@ const QuestionsAndAnswers = () => {
         displayCount={displayCount}
         questions={questions}
       />
+
       <Container className={classes.buttonsContainer}>
         {
           displayCount < questions.length && searchValue.length < 3
@@ -71,6 +72,7 @@ const QuestionsAndAnswers = () => {
             )
             : null
         }
+
         <QuestionDialog />
       </Container>
 
