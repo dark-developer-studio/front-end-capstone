@@ -1,7 +1,6 @@
 import React, { useState, useContext } from 'react';
 import PropTypes from 'prop-types';
 
-// import { makeStyles } from '@material-ui/core/styles';
 import {
   Container,
   Typography,
@@ -13,6 +12,7 @@ import {
 import { AppContext } from '../../../helpers/context';
 import { uploadPhoto } from '../../../helpers/globalRequest';
 import ImageModal from '../../global/ImageDialog.jsx';
+import useStyles from '../muiStyles';
 
 export default function AnswerDialogBody({
   question, photos, setPhotos, setBody, setNickname, setEmail, validation
@@ -20,6 +20,8 @@ export default function AnswerDialogBody({
   const { product } = useContext(AppContext);
 
   const [networkError, setNetworkError] = useState(null);
+
+  const classes = useStyles();
 
   const addPhoto = (e) => {
     e.preventDefault();
@@ -47,6 +49,7 @@ export default function AnswerDialogBody({
           helperText={validation.body}
           error={validation.bodyError}
           fullWidth
+          className={classes.formField}
           onChange={(e) => setBody(e.target.value)}
         />
 
@@ -57,6 +60,7 @@ export default function AnswerDialogBody({
           helperText={validation.nickname}
           error={validation.nicknameError}
           fullWidth
+          className={classes.formField}
           onChange={(e) => setNickname(e.target.value)}
         />
 
@@ -68,16 +72,18 @@ export default function AnswerDialogBody({
           error={validation.emailError}
           type="email"
           fullWidth
+          className={classes.formField}
           onChange={(e) => setEmail(e.target.value)}
         />
 
-        <Container>
+        <Container className={classes.formField} style={{ padding: 0 }}>
           {photos.map((url) => <ImageModal key={url} url={url} />)}
         </Container>
 
         <Button
           variant="contained"
           component="label"
+          className={classes.formField}
         >
           Upload Photo
           <input
@@ -99,10 +105,7 @@ AnswerDialogBody.propTypes = {
     question_helpfulness: PropTypes.number,
     asker_name: PropTypes.string
   }),
-  photos: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.number,
-    url: PropTypes.string
-  })),
+  photos: PropTypes.arrayOf(PropTypes.string),
   setPhotos: PropTypes.func,
   setBody: PropTypes.func,
   setNickname: PropTypes.func,

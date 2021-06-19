@@ -8,17 +8,20 @@ import {
 import AnswerList from './AnswerList.jsx';
 import AnswerDialog from '../modals/AnswerDialog.jsx';
 import { markQuestionHelpful } from '../helpers/qaRequests';
+import useStyles from '../muiStyles';
 
 export default function QuestionItem({ question }) {
   const [disableHelpful, setDisableHelpful] = useState(false);
   const [helpfulness, setHelpfulness] = useState(question.question_helpfulness);
+
+  const classes = useStyles();
 
   return (
     <Container className="questionContainer" style={{ padding: 0 }}>
 
       <Grid container alignItems="center" justify="space-between">
         <Grid item>
-          <Typography className="text">
+          <Typography className="text" style={{ fontWeight: 500 }}>
             {`Q: ${question.question_body}`}
           </Typography>
         </Grid>
@@ -30,6 +33,7 @@ export default function QuestionItem({ question }) {
             <Button
               type="button"
               disabled={disableHelpful}
+              className={classes.linkButton}
               onClick={() => {
                 markQuestionHelpful(question.question_id);
                 setHelpfulness(helpfulness + 1);
@@ -38,7 +42,7 @@ export default function QuestionItem({ question }) {
             >
               Yes
             </Button>
-            <Typography variant="body2" style={{ borderRight: '1px solid #555' }}>
+            <Typography variant="body2" style={{ borderRight: '1px solid #555', paddingRight: 8 }}>
               {`(${helpfulness})`}
             </Typography>
             <AnswerDialog question={question} />
