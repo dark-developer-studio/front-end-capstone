@@ -83,15 +83,26 @@ const useStyles = makeStyles((theme) => ({
   navButtonWrapper: {
     top: '250px'
   },
+  mainGrid: {
+    textAlign: 'center',
+    color: 'white',
+    maxWidth: '100%',
+    alignContent: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#b3c0d7',
+    borderRadius: '3px',
+    padding: '5px',
+    boxShadow: '0 4px 8px 0 rgb(0 0 0 / 5%), 0 6px 5px 0 rgb(0 0 0 / 4%)'
+  },
   grid: {
     textAlign: 'center',
     color: 'white',
     maxWidth: '100%',
     alignContent: 'center',
     justifyContent: 'center',
-    backgroundColor: '#ADD8E6',
-    borderRadius: '6px',
-    padding: '2px'
+    backgroundColor: '#b3c0d7',
+    borderRadius: '3px',
+    padding: '5px'
   },
   mainImg: {
     maxWidth: '100%',

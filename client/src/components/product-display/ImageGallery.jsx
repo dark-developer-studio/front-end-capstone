@@ -38,7 +38,7 @@ const ImageGallery = (props) => {
   };
 
   return (
-    <Grid item container xs={12} md={10} lg={10} style={{ position: 'relative' }}>
+    <Grid item container xs={12} md={10} lg={10} style={{ position: 'relative', overflow: 'hidden' }}>
       <Carousel
         className={classes.carousel}
         animation="slide"

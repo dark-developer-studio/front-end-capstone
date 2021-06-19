@@ -95,7 +95,6 @@ const ProductDisplay = () => {
       Axios
         .get(`/api/display/products/${productId}/styles`)
         .then((response) => {
-          console.log(response.data)
           setProductStyles(response.data);
         })
         .catch((err) => {
@@ -144,15 +143,15 @@ const ProductDisplay = () => {
       photos: photosArr
     }}
     >
-      <Grid className={classes.grid} item xs={12} container>
+      <Grid className={classes.mainGrid} item xs={12} container>
 
-        <Grid className={classes.grid} item xs={6} container>
+        <Grid className={classes.grid} item xs container>
 
           <ImageGallery photosArr={photosArr} />
 
         </Grid>
 
-        <Grid className={classes.grid} item xs={6} container direction="column">
+        <Grid className={classes.grid} item xs container direction="column">
           <Card>
             <CardContent>
 
