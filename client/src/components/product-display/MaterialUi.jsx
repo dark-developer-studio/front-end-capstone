@@ -104,6 +104,16 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: '3px',
     padding: '5px'
   },
+  gridList: {
+
+  },
+  carouselGrid: {
+    color: 'white',
+    maxWidth: '100%',
+    backgroundColor: '#b3c0d7',
+    borderRadius: '3px',
+    padding: '5px'
+  },
   mainImg: {
     maxWidth: '100%',
     '&:hover': {
@@ -111,8 +121,8 @@ const useStyles = makeStyles((theme) => ({
     }
   },
   sideImg: {
-    height: '50px',
-    width: '50px',
+    maxHeight: '50px',
+    maxWidth: '50px',
     border: '2px solid black',
     '&:hover': {
       cursor: 'pointer'

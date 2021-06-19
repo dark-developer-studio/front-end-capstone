@@ -7,7 +7,7 @@ import Axios from 'axios';
 import { AppContext } from '../../helpers/context';
 import CategoryPriceName from './CategoryPriceName.jsx';
 import useStyles from './MaterialUi.jsx';
-import StyleThumbs from './StyleThumbs.jsx';
+import StyleThumbs from './StyleThumbs/StyleThumbs.jsx';
 import Selectors from './Selectors.jsx';
 import ProductDescription from './ProductDescription.jsx';
 import ImageGallery from './ImageGallery.jsx';
@@ -140,18 +140,16 @@ const ProductDisplay = () => {
   return (
     <SkusContext.Provider value={{
       skusState: skus,
-      photos: photosArr
+      photos: photosArr,
+      findStyleDetails: getStyleDetails,
+      findSkus: getSkus
     }}
     >
       <Grid className={classes.mainGrid} item xs={12} container>
 
-        <Grid className={classes.grid} item xs container>
+        <ImageGallery photosArr={photosArr} />
 
-          <ImageGallery photosArr={photosArr} />
-
-        </Grid>
-
-        <Grid className={classes.grid} item xs container direction="column">
+        <Grid className={classes.grid} item xs sm={6} md={6} container direction="column">
           <Card>
             <CardContent>
 
@@ -162,7 +160,7 @@ const ProductDisplay = () => {
 
               <CategoryPriceName stylePrice={stylePrice} />
 
-              <Typography variant="body2" color="textSecondary" component="p" align="left">
+              <Typography variant="body2" color="textSecondary" component="p" align="left" style={{ padding: '5px' }}>
                 <b>Style &gt; </b>
                 {styleName}
               </Typography>
@@ -170,8 +168,6 @@ const ProductDisplay = () => {
                 productDetails={productStyles.results}
                 thumbnails={thumbnails}
                 setThumbnails={setThumbnails}
-                getStyleDetails={getStyleDetails}
-                getSkus={getSkus}
               />
 
               <Selectors

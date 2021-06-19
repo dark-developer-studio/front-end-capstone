@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import {
-  GridList, GridListTile, Avatar, CircularProgress
+  GridList, GridListTile, Avatar, CircularProgress, Badge
 } from '@material-ui/core';
-import useStyles from './MaterialUi.jsx';
+import useStyles from '../MaterialUi.jsx';
+import AvatarThumbnail from './AvatarThumbnail.jsx';
 
 const StyleThumbs = (props) => {
   const classes = useStyles();
   const [thumbsCollected, setThumbsCollected] = useState(false);
+  const [selected, setSelected] = useState(0);
 
   const getThumbs = () => {
     if (props.productDetails.length > 0) {
@@ -36,18 +38,14 @@ const StyleThumbs = (props) => {
           <CircularProgress />
         </div>
       ) : (
-        <GridList cellHeight={60} className={classes.gridList} cols={4}>
+        <GridList cellHeight={50} cols={4} className={classes.gridList}>
           {props.thumbnails.map((tile, index) => (
             <GridListTile key={index} cols={tile.cols || 1}>
-              <Avatar
-                className={classes.avatarLarge}
-                alt="Styles"
-                src={tile.thumbNail}
-                onClick={() => {
-                  props.getStyleDetails(tile.styleId);
-                  props.getSkus(tile.styleId);
-                }}
-                hover="pointer"
+              <AvatarThumbnail
+                tile={tile}
+                index={index}
+                setSelected={setSelected}
+                selected={selected}
               />
             </GridListTile>
           ))}
