@@ -1,24 +1,34 @@
 import React, { useContext, useState, useEffect } from 'react';
 import { Slider, Typography } from '@material-ui/core';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
-
 import { ReviewsContext } from '../../../helpers/context';
 
 // helper function
-import { getCharLowHighVals } from '../helperFunctions.jsx';
+import { getCharLowHighVals, getMarks } from '../helperFunctions.jsx';
+
 
 const useStyles = makeStyles(() => ({
   parentContainer: {
-    // border: "3px solid red",
     display: 'flex',
     flexDirection: 'column',
-    justifyContent: 'space-evenly',
     alignItems: 'center',
-    margin: '10%',
-    padding: '10px'
+    margin: '5%'
   },
-  sliderCharts: {
+  sliderChartsParent: {
     width: '100%'
+  },
+  sliderChart: {
+    width: '100%',
+    marginTop: '5%'
+  },
+  charLabels: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center'
+  },
+  charLabelText: {
+    fontSize: '10px'
   }
 }));
 
@@ -39,12 +49,10 @@ const ProductReviewSlider = withStyles({
     '&:focus, &:hover, &$active': {
       boxShadow: 'inherit'
     },
-    borderRadius: 0
+    borderRadius: '40%'
   },
   active: {},
-  valueLabel: {
-    left: 'calc(-50% + 4px)'
-  },
+
   track: {
     height: 10,
     borderRadius: 0,
@@ -56,16 +64,15 @@ const ProductReviewSlider = withStyles({
     margin: 0
   },
   mark: {
-    backgroundColor: '#ffffff',
-    height: 10,
+    backgroundColor: '#000000',
+    marginTop: -0.5,
+    height: 11,
     width: 5,
-    marginTop: 0
+    borderRadius: '30%'
   },
   markActive: {
     opacity: 1,
-    backgroundColor: '#000000',
-    border: '0.5px solid black',
-    height: 9
+    backgroundColor: '#000000'
   },
   disabled: {
     '& .MuiSlider-thumb': {
@@ -79,7 +86,6 @@ const ProductReviewSlider = withStyles({
         boxShadow: 'inherit'
       }
     },
-    color: 'rgba(63, 195, 128, 1)',
     height: 10
   }
 })(Slider);
@@ -97,7 +103,8 @@ const ProductReviewChart = () => {
     const charKeys = Object.keys(revsMetaData.characteristics);
     charKeys.forEach((key) => {
       const charNumVal = revsMetaData.characteristics[key].value;
-      const charArr = [key, Math.round(Number(charNumVal)), getCharLowHighVals(key)];
+
+      const charArr = [key, Number(charNumVal).toFixed(1), getMarks(), getCharLowHighVals(key)];
       resultArr.unshift(charArr);
     });
     setCharValPairs(resultArr);
@@ -119,24 +126,31 @@ const ProductReviewChart = () => {
         Product Review Chart
       </Typography>
 
-      <div className={classes.sliderCharts}>
+      <div className={classes.sliderChartsParent}>
         {charValPairs.map((item) => (
-          <div key={item[0]}>
+          <div key={item[0]} className={classes.sliderChart}>
             <Typography className={classes.chartTitles} gutterBottom>
               {item[0]}
             </Typography>
-
             <ProductReviewSlider
               defaultValue={item[1]}
               getAriaValueText={valuetext}
               aria-labelledby="discrete-slider"
-              valueLabelDisplay="auto"
-              step={20}
+              valueLabelDisplay="on"
+              step={10}
               marks={item[2]}
-              min={1}
-              max={5}
+              min={1.00}
+              max={5.00}
               disabled
             />
+            <div className={classes.charLabels}>
+              <Typography className={classes.charLabelText}>
+                {item[3][0].label}
+              </Typography>
+              <Typography className={classes.charLabelText}>
+                {item[3][1].label}
+              </Typography>
+            </div>
           </div>
         ))}
 

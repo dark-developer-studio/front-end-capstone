@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react';
 import axios from 'axios';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
 import {
-  Container, Button, TextField, Dialog, Typography, IconButton
+  Container, Button, TextField, Dialog, Typography, IconButton, FormLabel, FormControl
 } from '@material-ui/core';
 import MuiDialogTitle from '@material-ui/core/DialogTitle';
 import MuiDialogContent from '@material-ui/core/DialogContent';
@@ -21,6 +21,9 @@ import ImageModal from '../../global/ImageDialog.jsx';
 import { uploadPhoto } from '../../../helpers/globalRequest';
 
 const styles = (theme) => ({
+  parentContainer: {
+    Maxwidth: '100vw'
+  },
   root: {
     margin: 0,
     padding: theme.spacing(2)
@@ -87,6 +90,7 @@ export default function ReviewDialog() {
   const [recommend, setRecommend] = useState(false);
   const [characteristics, setCharacteristics] = useState({});
   const [validation, setValidation] = useState({
+    rating: false,
     summary: '',
     summaryError: false,
     body: '',
@@ -97,10 +101,6 @@ export default function ReviewDialog() {
     emailError: false
   });
   const [networkError, setNetworkError] = useState(null);
-
-  // Still Need for checking Validation
-  // console.log('CHAR', characteristics);
-  // console.log('rating', rating);
 
   const postReview = (rev) => axios.post('/api/reviews/revs', {
     rating: rev.rating,
@@ -194,12 +194,24 @@ export default function ReviewDialog() {
     return validator;
   };
 
+  const validateRating = () => {
+    const validator = {};
+    if (rating < 1 || rating > 5) {
+      validator.rating = true;
+    } else {
+      validator.rating = false;
+    }
+    return validator;
+  };
+
   const validateReview = () => {
     const bodyValidator = validateBody();
     const nameValidator = validateName();
     const emailValidator = validateEmail();
     const summaryValidator = validateSummary();
+    const ratingValidator = validateRating();
     const newValidator = {
+      ...ratingValidator,
       ...summaryValidator,
       ...bodyValidator,
       ...nameValidator,
@@ -211,6 +223,7 @@ export default function ReviewDialog() {
       && !newValidator.nameError
       && !newValidator.emailError
       && !newValidator.summaryError
+      && !newValidator.ratingError
     ) {
       const revObj = {
         rating,
@@ -245,12 +258,11 @@ export default function ReviewDialog() {
         setNetworkError(err);
       });
   };
-
   const classes = useStyles();
 
   return (
     <ReviewsContext.Provider value={{ setRecommend, setCharacteristics, characteristics }}>
-      <div>
+      <div className={classes.parentContainer}>
         <Button variant="outlined" color="primary" onClick={handleClickOpen}>
           Add Review
         </Button>
@@ -259,7 +271,7 @@ export default function ReviewDialog() {
           onClose={handleClose}
           aria-labelledby="customized-dialog-title"
           open={open}
-          fullWidth={true}
+          maxWidth="xl"
         >
           <DialogTitle onClose={handleClose}>Write Your Review</DialogTitle>
           <DialogContent dividers>
@@ -270,18 +282,18 @@ export default function ReviewDialog() {
 
             <form className="formContainer">
 
-              <Typography gutterBottom>
-                Rate this product:
-              </Typography>
-              <Rating
-                name="reviewStarRating"
-                className={classes.reviewStarRating}
-                readOnly={false}
-                size="large"
-                defaultValue={0}
-                onChange={(event) => setRating(Number(event.target.value))}
-                emptyIcon={<StarBorderIcon fontSize="inherit" />}
-              />
+              <FormControl component="fieldset" error={validation.rating}>
+                <FormLabel component="legend">Rate this product:</FormLabel>
+                <Rating
+                  name="reviewStarRating"
+                  className={classes.reviewStarRating}
+                  readOnly={false}
+                  size="large"
+                  defaultValue={0}
+                  onChange={(event) => setRating(Number(event.target.value))}
+                  emptyIcon={<StarBorderIcon fontSize="inherit" />}
+                />
+              </FormControl>
 
               <Typography gutterBottom>
                 Do you recommend this product?
