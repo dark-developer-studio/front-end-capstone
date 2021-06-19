@@ -34,7 +34,6 @@ const Helpfulness = ({ helpfulness, review_id}) => {
     updateHelpfulness(reviewId);
   };
 
-  console.log('this is review id', review_id);
   return (
     <div
       className="bottomRowReviewTile"
