@@ -61,10 +61,12 @@ export default function QuestionList({
       className={classes.questionListContainer}
     >
       {
-        // eslint-disable-next-line arrow-body-style
-        displayQuestions.map((question) => {
-          return (<QuestionItem key={question.question_id} question={question} />);
-        })
+        questions.length > 0
+          // eslint-disable-next-line arrow-body-style
+          ? displayQuestions.map((question) => {
+            return (<QuestionItem key={question.question_id} question={question} />);
+          })
+          : <p>There are currently no questions for this product...</p>
       }
     </Container>
   );
