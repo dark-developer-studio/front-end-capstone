@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import Carousel from 'react-material-ui-carousel';
-import { Paper, Grid, Avatar } from '@material-ui/core';
-import useStyles from './MaterialUi.jsx';
+import PropTypes from 'prop-types';
+import { Paper, Grid } from '@material-ui/core';
+import useStyles from '../MaterialUi.jsx';
 import CarouselThumbs from './CarouselThumbs.jsx';
-import ImageModal from '../global/ImageDialog.jsx';
+import ImageModal from '../../global/ImageDialog.jsx';
 
-const ImageGallery = (props) => {
+const ImageGallery = ({ photosArr }) => {
   const classes = useStyles();
-  const images = props.photosArr;
+  const images = photosArr;
   const [imgState, setImgState] = useState([]);
   const [currentImg, setCurrentImg] = useState(0);
 
@@ -38,7 +39,16 @@ const ImageGallery = (props) => {
   };
 
   return (
-    <Grid className={classes.carouselGrid} item container xs={12} sm={6} md={6} lg={6} style={{ position: 'relative', overflow: 'hidden' }}>
+    <Grid
+      className={classes.carouselGrid}
+      item
+      container
+      xs={12}
+      sm={6}
+      md={6}
+      lg={6}
+      style={{ position: 'relative', overflow: 'hidden' }}
+    >
       <Carousel
         className={classes.carousel}
         animation="slide"
@@ -66,7 +76,6 @@ const ImageGallery = (props) => {
             filter: 'brightness(120%)',
             opacity: '0.4',
             borderRadius: '6px',
-            // border: '2px solid black',
             height: '30px',
             '&:hover unset': {
               backgroundColor: 'black',
@@ -98,21 +107,45 @@ const ImageGallery = (props) => {
   );
 };
 
-const Item = (props) => {
-  const classes = useStyles();
+const Item = ({ img, currentImg }) => (
+  <Paper
+    elevation={0}
+  >
+    <ImageModal
+      key={img.photoNum}
+      url={currentImg.url}
+      imageHeight={550}
+      zoomDisabled={false}
+    />
+  </Paper>
+);
 
-  return (
-    <Paper
-      elevation={0}
-    >
-      <ImageModal
-        key={props.img.photoNum}
-        url={props.currentImg.url}
-        imageHeight={550}
-        zoomDisabled={false}
-      />
-    </Paper>
-  );
+Item.propTypes = {
+  img: PropTypes.shape({
+    photoNum: PropTypes.number,
+    url: PropTypes.string
+  }),
+  currentImg: PropTypes.shape({
+    photoNum: PropTypes.number,
+    url: PropTypes.string
+  })
+};
+Item.defaultProps = {
+  img: PropTypes.shape({
+    photoNum: 0,
+    url: ''
+  }),
+  currentImg: PropTypes.shape({
+    photoNum: 0,
+    url: ''
+  })
+};
+
+ImageGallery.propTypes = {
+  photosArr: PropTypes.arrayOf(PropTypes.object)
+};
+ImageGallery.defaultProps = {
+  photosArr: [{}]
 };
 
 export default ImageGallery;

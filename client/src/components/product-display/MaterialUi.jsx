@@ -1,5 +1,4 @@
 import { makeStyles } from '@material-ui/core/styles';
-import ZoomInIcon from '@material-ui/icons/ZoomIn';
 
 const useStyles = makeStyles((theme) => ({
   avatarSmall: {
@@ -36,7 +35,7 @@ const useStyles = makeStyles((theme) => ({
   },
   media: {
     height: 0,
-    paddingTop: '56.25%' // 16:9
+    paddingTop: '56.25%'
   },
   img: {
     height: 550,
@@ -103,9 +102,6 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: '#b3c0d7',
     borderRadius: '3px',
     padding: '5px'
-  },
-  gridList: {
-
   },
   carouselGrid: {
     color: 'white',

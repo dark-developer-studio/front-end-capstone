@@ -1,19 +1,24 @@
 import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import {
-  GridList, GridListTile, Avatar, CircularProgress, Badge
+  GridList, GridListTile, CircularProgress
 } from '@material-ui/core';
 import useStyles from '../MaterialUi.jsx';
 import AvatarThumbnail from './AvatarThumbnail.jsx';
 
-const StyleThumbs = (props) => {
+const StyleThumbs = ({
+  productDetails,
+  setThumbnails,
+  thumbnails
+}) => {
   const classes = useStyles();
   const [thumbsCollected, setThumbsCollected] = useState(false);
   const [selected, setSelected] = useState(0);
 
   const getThumbs = () => {
-    if (props.productDetails.length > 0) {
+    if (productDetails.length > 0) {
       const thumbs = [];
-      props.productDetails.forEach((style) => {
+      productDetails.forEach((style) => {
         if (style.photos[0] !== undefined) {
           thumbs.push({
             styleId: style.style_id,
@@ -22,24 +27,24 @@ const StyleThumbs = (props) => {
           });
         }
       });
-      props.setThumbnails(thumbs);
+      setThumbnails(thumbs);
       setThumbsCollected(true);
     }
   };
 
   useEffect(() => {
     getThumbs();
-  }, [props.productDetails]);
+  }, [productDetails]);
 
   return (
     <div>
-      {props.thumbnails.length === 0 ? (
+      {thumbnails.length === 0 ? (
         <div className={classes.loadingSpinner}>
           <CircularProgress />
         </div>
       ) : (
         <GridList cellHeight={50} cols={4} className={classes.gridList}>
-          {props.thumbnails.map((tile, index) => (
+          {thumbnails.map((tile, index) => (
             <GridListTile key={index} cols={tile.cols || 1}>
               <AvatarThumbnail
                 tile={tile}
@@ -53,6 +58,17 @@ const StyleThumbs = (props) => {
       )}
     </div>
   );
+};
+
+StyleThumbs.propTypes = {
+  productDetails: PropTypes.arrayOf(PropTypes.object),
+  setThumbnails: PropTypes.func,
+  thumbnails: PropTypes.arrayOf(PropTypes.object)
+};
+StyleThumbs.defaultProps = {
+  productDetails: {},
+  setThumbnails: () => {},
+  thumbnails: [{}]
 };
 
 export default StyleThumbs;

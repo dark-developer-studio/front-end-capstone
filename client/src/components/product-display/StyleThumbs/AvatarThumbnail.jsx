@@ -1,13 +1,14 @@
 import React, { useContext } from 'react';
 import { Avatar, Badge } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
+import PropTypes from 'prop-types';
 import { SkusContext } from '../ProductDisplay.jsx';
 import useStyles from '../MaterialUi.jsx';
 
 const StyledBadge = withStyles((theme) => ({
   badge: {
-    backgroundColor: '#b3c0d7',
-    color: '#b3c0d7',
+    backgroundColor: 'rgb(68, 92, 130)',
+    color: 'rgb(68, 92, 130)',
     boxShadow: `0 0 0 2px ${theme.palette.background.paper}`,
     '&::after': {
       position: 'absolute',
@@ -59,7 +60,7 @@ const AvatarThumbnail = ({
         alt="Styles"
         src={tile.thumbNail}
         onClick={() => {
-          handleBadgeSelected(event);
+          handleBadgeSelected();
           findStyleDetails(tile.styleId);
           findSkus(tile.styleId);
         }}
@@ -67,6 +68,22 @@ const AvatarThumbnail = ({
       />
     </StyledBadge>
   );
+};
+
+AvatarThumbnail.propTypes = {
+  index: PropTypes.number,
+  setSelected: PropTypes.func,
+  selected: PropTypes.number,
+  tile: PropTypes.shape({
+    styleId: PropTypes.number,
+    thumbNail: PropTypes.string
+  })
+};
+AvatarThumbnail.defaultProps = {
+  index: 0,
+  setSelected: () => {},
+  selected: 0,
+  tile: {}
 };
 
 export default AvatarThumbnail;

@@ -10,7 +10,7 @@ import useStyles from './MaterialUi.jsx';
 import StyleThumbs from './StyleThumbs/StyleThumbs.jsx';
 import Selectors from './Selectors.jsx';
 import ProductDescription from './ProductDescription.jsx';
-import ImageGallery from './ImageGallery.jsx';
+import ImageGallery from './Carousel/ImageGallery.jsx';
 import StarRating from '../reviews/MetaData/StarRating.jsx';
 import { calcAvgRating } from '../reviews/helperFunctions.jsx';
 
@@ -21,7 +21,7 @@ const ProductDisplay = () => {
   });
   const [photosArr, setPhotos] = useState([]);
   const [thumbnails, setThumbnails] = useState([]);
-  const [stylePrice, setStylePrice] = useState('');
+  const [stylePrice, setStylePrice] = useState({});
   const [styleName, setStyleName] = useState('');
   const [skus, setSkus] = useState([]);
   const [avgRating, setAvgRating] = useState(0);
