@@ -7,8 +7,6 @@ if (process.env.NODE_ENV !== 'production' && process.env.NODE_ENV !== 'testing')
   require('dotenv').config();
 }
 
-const { GITHUB_API_KEY } = process.env;
-
 describe('Appcontext to return product details', () => {
   test('Product to have correct information', () => {
     const dummyComponenet = () => {
