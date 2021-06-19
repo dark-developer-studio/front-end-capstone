@@ -122,11 +122,11 @@ const RatingsAndReviews = () => {
             </Grid>
 
             <Grid container direction="row" justify="space-evenly" className={classes.midGrid}>
-              <Grid item xs={6} className={classes.leftPanel}>
+              <Grid item md={6} sm={12} className={classes.leftPanel}>
                 <MetaData />
               </Grid>
 
-              <Grid item xs={6} className={classes.rightPanel}>
+              <Grid item md={6} sm={12} className={classes.rightPanel}>
                 <Grid item xs={12} className={classes.ReviewTileViewPort}>
                   <ReviewTile />
                 </Grid>

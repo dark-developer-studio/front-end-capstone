@@ -81,7 +81,6 @@ const ProductReviewSlider = withStyles({
       backgroundColor: 'rgba(38, 166, 91, 1)',
       border: '2px solid black',
       marginTop: -5,
-      marginLeft: 0,
       '&:focus, &:hover, &$active': {
         boxShadow: 'inherit'
       }
@@ -104,7 +103,7 @@ const ProductReviewChart = () => {
     charKeys.forEach((key) => {
       const charNumVal = revsMetaData.characteristics[key].value;
 
-      const charArr = [key, Number(charNumVal).toFixed(1), getMarks(), getCharLowHighVals(key)];
+      const charArr = [key, Number(charNumVal).toFixed(2), getMarks(), getCharLowHighVals(key)];
       resultArr.unshift(charArr);
     });
     setCharValPairs(resultArr);

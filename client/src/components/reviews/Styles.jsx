@@ -44,7 +44,6 @@ const useStyles = makeStyles(() => ({
     alignContent: 'center'
   },
   ReviewTileViewPort: {
-    // boxShadow: '0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 10px 0 rgba(0, 0, 0, 0.19)',
     border: '1.5px solid #ccc',
     borderRadius: '4px',
     padding: '3px',
@@ -63,7 +62,8 @@ const useStyles = makeStyles(() => ({
     marginTop: '10px',
     marginBottom: '10px',
     padding: '10px',
-    margin: '5px'
+    margin: '5px',
+    backgroundColor: '#fefcfb'
   },
   reviewTile: {
     boxShadow: '0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 10px 0 rgba(0, 0, 0, 0.19)',
