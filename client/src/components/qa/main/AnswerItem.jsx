@@ -30,7 +30,7 @@ export default function AnswerItem({ answer }) {
 
   return (
     <Container className={classes.answerContainer}>
-      <Typography className="text">{answer.body}</Typography>
+      <Typography className={classes.answerBody}>{answer.body}</Typography>
       <Grid container>
         {answer.photos.map((photo) => <ImageModal key={photo.id} url={photo.url} />)}
       </Grid>

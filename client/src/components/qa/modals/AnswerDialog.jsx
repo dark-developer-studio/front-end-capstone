@@ -75,7 +75,7 @@ export default function AnswerDialog({ question }) {
 
   const validateBody = () => {
     const validator = {};
-    if (body.match(/[^a-zA-Z0-9!?.,():;"\-/ ]/) !== null) {
+    if (body.match(/[^a-zA-Z0-9!?.,():;"\n\-/ ]/) !== null) {
       validator.body = 'Invalid charaters used. Special characters available: (!?.,():;"-/)';
       validator.bodyError = true;
     } else if (body.length < 3) {

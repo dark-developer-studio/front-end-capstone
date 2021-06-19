@@ -31,6 +31,31 @@ export default makeStyles(() => ({
     padding: 3,
     boxShadow: '0 4px 8px 0 rgba(0, 0, 0, 0.05), 0 6px 5px 0 rgba(0, 0, 0, 0.04)',
     margin: '0px 3px 10px',
-    borderRadius: 2
+    borderRadius: 2,
+    backgroundColor: '#fbf9f8'
+  },
+  qaContainer: {
+    padding: '50px 0px 60px',
+    borderRadius: 4
+  },
+  questionListContainer: {
+    margin: 3,
+    padding: 5,
+    overflow: 'auto',
+    border: '1px solid #ccc',
+    borderRadius: 3,
+    maxHeight: '85vh',
+    width: 'unset',
+    backgroundColor: '#f3efed',
+    boxShadow: 'inset 0 0 5px 0 rgba(0, 0, 0, 0.1)'
+  },
+  buttonsContainer: {
+    padding: 3
+  },
+  offWhite: {
+    backgroundColor: '#fefcfb'
+  },
+  answerBody: {
+    whiteSpace: 'pre-line'
   }
 }));

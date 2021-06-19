@@ -14,6 +14,7 @@ import CloseIcon from '@material-ui/icons/Close';
 import QuestionDialogBody from './QuestionDialogBody.jsx';
 import { createQuestion } from '../helpers/qaRequests';
 import { AppContext } from '../../../helpers/context';
+import useStyles from '../muiStyles';
 
 const styles = (theme) => ({
   root: {
@@ -63,6 +64,8 @@ export default function QuestionDialog() {
     email: 'For authentication reasons, you will not be emailed',
     emailError: false
   });
+
+  const classes = useStyles();
 
   const handleOpen = () => {
     setOpen(true);
@@ -150,7 +153,11 @@ export default function QuestionDialog() {
 
   return (
     <>
-      <Button variant="outlined" onClick={handleOpen}>
+      <Button
+        variant="outlined"
+        onClick={handleOpen}
+        className={classes.offWhite}
+      >
         Add a Question
       </Button>
 

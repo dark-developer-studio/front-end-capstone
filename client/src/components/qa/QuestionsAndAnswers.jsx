@@ -8,6 +8,7 @@ import QuestionDialog from './modals/QuestionDialog.jsx';
 
 import { AppContext } from '../../helpers/context';
 import { getQuestions } from './helpers/qaRequests';
+import useStyles from './muiStyles';
 
 const QuestionsAndAnswers = () => {
   const { product } = useContext(AppContext);
@@ -16,6 +17,8 @@ const QuestionsAndAnswers = () => {
   const [page, setPage] = useState(1);
   const [displayCount, setDisplayCount] = useState(0);
   const [questions, setQuestions] = useState([]);
+
+  const classes = useStyles();
 
   // Make a request for more questions if we want to display more questions
   const retrieveMoreQuestions = () => {
@@ -45,12 +48,7 @@ const QuestionsAndAnswers = () => {
 
   return (
     <Container
-      className="qaContainer"
-      style={{
-        margin: '10px 0px 10px 0px',
-        padding: 3,
-        border: '1px solid #ddd'
-      }}
+      className={classes.qaContainer}
     >
       <QuestionSearchBar setSearchValue={setSearchValue} />
       <QuestionList
@@ -58,13 +56,14 @@ const QuestionsAndAnswers = () => {
         displayCount={displayCount}
         questions={questions}
       />
-      <Container style={{ padding: 0 }}>
+      <Container className={classes.buttonsContainer}>
         {
           displayCount < questions.length && searchValue.length < 3
             ? (
               <Button
                 type="button"
                 variant="outlined"
+                className={classes.offWhite}
                 onClick={() => setDisplayCount(displayCount + 2)}
               >
                 MORE ANSWERED QUESTIONS
