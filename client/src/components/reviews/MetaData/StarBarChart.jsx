@@ -32,8 +32,9 @@ const StarBarChart = () => {
     labels: ['5 Stars', '4 Stars', '3 Stars', '2 Stars', '1 Star'],
     datasets: [
       {
-        label: '',
+        label: 'newLabel',
         data: starDataPercentages,
+        data2: starData,
         backgroundColor: [
           emerald
         ],
@@ -69,18 +70,16 @@ const StarBarChart = () => {
         padding: 8,
         // USE CALLBACK TO CREATE CUSTOM TEXT IN TOOLTIP WINDOW!
         callbacks: {
-          //   label: function(context) {
-          //       var label = context.dataset.label || '';
-
-          //       if (label) {
-          //           label += ': ';
-          //       }
-          //       if (context.parsed.y !== null) {
-          //           //label += `${starData[0].toString()} reviews`;
-          //           //label += `%`;
-          //       }
-          //       return label;
-          //   }
+          label() {
+            const label = [
+              `5 Stars \n ${starDataPercentages[0]} % \n ${starData[0]} reviews`,
+              `4 Stars \n ${starDataPercentages[1]} % \n ${starData[1]} reviews`,
+              `3 Stars \n ${starDataPercentages[2]} % \n ${starData[3]} reviews`,
+              `2 Stars \n ${starDataPercentages[3]} % \n ${starData[2]} reviews`,
+              `1 Stars \n ${starDataPercentages[4]} % \n ${starData[4]} reviews`
+            ];
+            return label;
+          }
         }
       }
     },

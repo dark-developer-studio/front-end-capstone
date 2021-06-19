@@ -1,7 +1,6 @@
 import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 
-// import { makeStyles } from '@material-ui/core/styles';
 import {
   Typography,
   TextField,
@@ -9,11 +8,14 @@ import {
 } from '@material-ui/core';
 
 import { AppContext } from '../../../helpers/context';
+import useStyles from '../muiStyles';
 
 export default function QuestionDialogBody({
   setBody, setNickname, setEmail, validation
 }) {
   const { product } = useContext(AppContext);
+
+  const classes = useStyles();
 
   return (
     <DialogContent dividers>
@@ -26,7 +28,7 @@ export default function QuestionDialogBody({
           variant="outlined"
           helperText={validation.body}
           error={validation.bodyError}
-          className="question"
+          className={classes.formField}
           onChange={(e) => setBody(e.target.value)}
         />
 
@@ -36,7 +38,7 @@ export default function QuestionDialogBody({
           placeholder="Example: jackson11!"
           helperText={validation.nickname}
           error={validation.nicknameError}
-          className="nickname"
+          className={classes.formField}
           onChange={(e) => setNickname(e.target.value)}
         />
 
@@ -47,7 +49,7 @@ export default function QuestionDialogBody({
           helperText={validation.email}
           error={validation.emailError}
           type="email"
-          className="email"
+          className={classes.formField}
           onChange={(e) => setEmail(e.target.value)}
         />
       </form>
