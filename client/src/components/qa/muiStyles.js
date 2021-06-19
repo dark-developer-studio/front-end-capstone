@@ -54,5 +54,8 @@ export default makeStyles(() => ({
   },
   offWhite: {
     backgroundColor: '#fefcfb'
+  },
+  answerBody: {
+    whiteSpace: 'pre-line'
   }
 }));
