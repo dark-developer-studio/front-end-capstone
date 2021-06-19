@@ -123,6 +123,9 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: '#ffcccb',
     border: '2px solid red',
     borderRadius: '6px'
+  },
+  linkToReviews: {
+    color: 'rgb(117 117 117)'
   }
 }));
 

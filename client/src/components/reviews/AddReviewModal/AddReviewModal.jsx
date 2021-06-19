@@ -1,10 +1,6 @@
 import React, { useContext, useState } from 'react';
 import axios from 'axios';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
-// import {
-//   Button, TextField, Input, Dialog, MuiDialogTitle,
-//   MuiDialogContent, MuiDialogActions, IconButton, CloseIcon, Typography,
-//   Container } from '@material-ui/core';
 import {
   Container, Button, TextField, Dialog, Typography, IconButton
 } from '@material-ui/core';
@@ -91,8 +87,6 @@ export default function ReviewDialog() {
   const [recommend, setRecommend] = useState(false);
   const [characteristics, setCharacteristics] = useState({});
   const [validation, setValidation] = useState({
-    // rating: 0,
-    // ratingError: false,
     summary: '',
     summaryError: false,
     body: '',
@@ -104,19 +98,21 @@ export default function ReviewDialog() {
   });
   const [networkError, setNetworkError] = useState(null);
 
-  const postReview = (rev) => {
-    axios.post('/api/reviews/revs', {
-      rating: rev.rating,
-      summary: rev.summary,
-      body: rev.body,
-      recommend: rev.recommend,
-      name: rev.name,
-      email: rev.email,
-      photos: rev.photos,
-      characteristics: rev.characteristics,
-      product_id: rev.product_id
-    }).then((response) => response.data);
-  };
+  // Still Need for checking Validation
+  // console.log('CHAR', characteristics);
+  // console.log('rating', rating);
+
+  const postReview = (rev) => axios.post('/api/reviews/revs', {
+    rating: rev.rating,
+    summary: rev.summary,
+    body: rev.body,
+    recommend: rev.recommend,
+    name: rev.name,
+    email: rev.email,
+    photos: rev.photos,
+    characteristics: rev.characteristics,
+    product_id: rev.product_id
+  }).then((response) => response.data);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -142,17 +138,6 @@ export default function ReviewDialog() {
     }
     return validator;
   };
-
-  // const validateRating = () => {
-  //   const validator = {};
-  //   if (rating === 0) {
-  //     validator.ratingError = true;
-  //   } else {
-  //     validator.rating = 0;
-  //     validator.ratingError = false;
-  //   }
-  //   return validator;
-  // };
 
   const validateSummary = () => {
     const validator = {};
@@ -214,13 +199,11 @@ export default function ReviewDialog() {
     const nameValidator = validateName();
     const emailValidator = validateEmail();
     const summaryValidator = validateSummary();
-    // const ratingValidator = validateRating();
     const newValidator = {
+      ...summaryValidator,
       ...bodyValidator,
       ...nameValidator,
-      ...emailValidator,
-      ...summaryValidator
-      // ...ratingValidator
+      ...emailValidator
     };
 
     if (
@@ -228,7 +211,6 @@ export default function ReviewDialog() {
       && !newValidator.nameError
       && !newValidator.emailError
       && !newValidator.summaryError
-      && !newValidator.ratingError
     ) {
       const revObj = {
         rating,
@@ -243,6 +225,7 @@ export default function ReviewDialog() {
       };
       postReview(revObj)
         .then(() => handleClose())
+        .then(console.log('rev submit works'))
         .catch();
     } else {
       setValidation(newValidator);
@@ -296,7 +279,6 @@ export default function ReviewDialog() {
                 readOnly={false}
                 size="large"
                 defaultValue={0}
-                error={validation.ratingError}
                 onChange={(event) => setRating(Number(event.target.value))}
                 emptyIcon={<StarBorderIcon fontSize="inherit" />}
               />
@@ -313,11 +295,13 @@ export default function ReviewDialog() {
 
               <Typography className="inputText">Add a summary:</Typography>
               <TextField
+                multiline
+                rows={2}
                 variant="outlined"
                 placeholder="Example: Best purchase ever!"
                 className="reviewSummary"
                 helperText={validation.summary}
-                error={validation.summmaryError}
+                error={validation.summaryError}
                 onChange={(event) => setSummary(event.target.value)}
               />
 
@@ -360,7 +344,6 @@ export default function ReviewDialog() {
                 label="Nickname"
                 placeholder="Example: jackson11!"
                 className="nickname"
-                helperText={validation.name}
                 error={validation.nameError}
                 onChange={(event) => setName(event.target.value)}
               />
@@ -383,7 +366,11 @@ export default function ReviewDialog() {
           </DialogContent>
 
           <DialogActions>
-            <Button autoFocus onClick={validateReview} color="primary">
+            <Button
+              autoFocus
+              onClick={validateReview}
+              color="primary"
+            >
               Submit Review
             </Button>
           </DialogActions>
