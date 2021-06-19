@@ -3,11 +3,14 @@ import PropTypes from 'prop-types';
 
 import { Container } from '@material-ui/core';
 import QuestionItem from './QuestionItem.jsx';
+import useStyles from '../muiStyles';
 
 export default function QuestionList({
   searchValue, displayCount, questions
 }) {
   const [displayQuestions, setDisplayQuestions] = useState([]);
+
+  const classes = useStyles();
 
   const updateQuestions = () => {
     if (searchValue.length < 3) {
@@ -55,12 +58,7 @@ export default function QuestionList({
 
   return (
     <Container
-      className="questionlist"
-      style={{
-        padding: 3,
-        maxHeight: window.innerHeight - 175,
-        overflow: 'auto'
-      }}
+      className={classes.questionListContainer}
     >
       {
         // eslint-disable-next-line arrow-body-style
