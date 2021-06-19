@@ -46,30 +46,36 @@ export function calcStarRating(avgRate) {
   return wholeNum + decimal;
 }
 
-export function getCharLowHighVals(char) {
+export function getMarks() {
   const marksArr = [
     {
-      value: 1,
+      value: 1
+    },
+    {
+      value: 5
+    },
+    {
+      value: 2
+    },
+    {
+      value: 3
+    },
+    {
+      value: 4
+    }
+  ];
+  return marksArr;
+}
+
+export function getCharLowHighVals(char) {
+  const lowHighArr = [
+    {
       label: ''
     },
     {
-      value: 5,
-      label: ''
-    },
-    {
-      value: 2,
-      label: ''
-    },
-    {
-      value: 3,
-      label: ''
-    },
-    {
-      value: 4,
       label: ''
     }
   ];
-
   const charLowHighValsObj = {
     Size: {
       low: 'Too small',
@@ -97,9 +103,10 @@ export function getCharLowHighVals(char) {
     }
   };
 
-  marksArr[0].label = charLowHighValsObj[char].low;
-  marksArr[1].label = charLowHighValsObj[char].high;
-  return marksArr;
+  lowHighArr[0].label = charLowHighValsObj[char].low;
+  lowHighArr[1].label = charLowHighValsObj[char].high;
+
+  return lowHighArr;
 }
 
 export function dateFormatter(timeStamp) {

@@ -70,8 +70,8 @@ export default function AnswerList({ question }) {
 
   return (
     <Grid container justify="flex-start">
-      <Grid item style={{ margin: '0px 5px 0px 0px' }}>
-        <Typography className="answerList">A:</Typography>
+      <Grid item style={{ margin: '0px 2px 0px 0px' }}>
+        <Typography className="answerList" style={{ fontWeight: 500 }}>A:</Typography>
       </Grid>
       <Grid item xs={11}>
         {displayAnswers.map((answer) => <AnswerItem key={answer.answer_id} answer={answer} />)}

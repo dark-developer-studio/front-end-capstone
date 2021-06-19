@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect } from 'react';
-import { Card, Grid} from '@material-ui/core';
+import { Card, Grid } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import ImageModal from '../../global/ImageDialog.jsx';
 
@@ -7,7 +7,6 @@ import { ReviewsContext } from '../../../helpers/context';
 
 const useStyles = makeStyles((theme) => ({
   parentContainer: {
-    // border: "2px solid black",
     padding: '10px',
     margin: '15px',
     boxShadow: '0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 10px 0 rgba(0, 0, 0, 0.19)',
