@@ -1,11 +1,6 @@
 import Axios from 'axios';
-import React, { useContext } from 'react';
+import { useContext } from 'react';
 import { AppContext } from '../../../helpers/context';
-
-if (process.env.NODE_ENV !== 'production' && process.env.NODE_ENV !== 'testing') {
-  // eslint-disable-next-line global-require
-  require('dotenv').config();
-}
 
 describe('Appcontext to return product details', () => {
   test('Product to have correct information', () => {
