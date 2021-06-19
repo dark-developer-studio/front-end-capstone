@@ -14,6 +14,7 @@ import CloseIcon from '@material-ui/icons/Close';
 import QuestionDialogBody from './QuestionDialogBody.jsx';
 import { createQuestion } from '../helpers/qaRequests';
 import { AppContext } from '../../../helpers/context';
+import useStyles from '../muiStyles';
 
 const styles = (theme) => ({
   root: {
@@ -64,6 +65,8 @@ export default function QuestionDialog() {
     emailError: false
   });
 
+  const classes = useStyles();
+
   const handleOpen = () => {
     setOpen(true);
   };
@@ -72,6 +75,11 @@ export default function QuestionDialog() {
     setOpen(false);
   };
 
+  /**
+   * Validates the body string
+   * @return {{body: string, bodyError: boolean}} body: helper text to display for errors,
+   * bodyError: true if body is invalid and the form should display the error
+   */
   const validateBody = () => {
     const validator = {};
     if (body.match(/[^a-zA-Z0-9!?.,():;"\-/ ]/) !== null) {
@@ -90,6 +98,11 @@ export default function QuestionDialog() {
     return validator;
   };
 
+  /**
+   * Validates the nickname string
+   * @return {{nickname: string, nicknameError: boolean}} nickname: helper text to display for
+   * errors, nicknameError: true if nickname is invalid and the form should display the error
+   */
   const validateName = () => {
     const validator = {};
     if (nickname.match(/[^a-zA-Z0-9!?\-.]/) !== null) {
@@ -108,6 +121,11 @@ export default function QuestionDialog() {
     return validator;
   };
 
+  /**
+   * Validates the email string
+   * @return {{email: string, emailError: boolean}} email: helper text to display for errors,
+   * emailError: true if email is invalid and the form should display the error
+   */
   const validateEmail = () => {
     const validator = {};
     // eslint-disable-next-line no-control-regex
@@ -134,6 +152,7 @@ export default function QuestionDialog() {
     const newValidator = { ...bodyValidator, ...nameValidator, ...emailValidator };
 
     if (!newValidator.bodyError && !newValidator.nicknameError && !newValidator.emailError) {
+      // If the question is valid create it
       const question = {
         product_id: product.id,
         body,
@@ -144,13 +163,18 @@ export default function QuestionDialog() {
         .then(() => handleClose())
         .catch();
     } else {
+      // Update validation with errors that are present in the form
       setValidation(newValidator);
     }
   };
 
   return (
     <>
-      <Button variant="outlined" onClick={handleOpen}>
+      <Button
+        variant="outlined"
+        onClick={handleOpen}
+        className={classes.offWhite}
+      >
         Add a Question
       </Button>
 

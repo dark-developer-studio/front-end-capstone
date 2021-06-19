@@ -1,5 +1,4 @@
 import { makeStyles } from '@material-ui/core/styles';
-import ZoomInIcon from '@material-ui/icons/ZoomIn';
 
 const useStyles = makeStyles((theme) => ({
   avatarSmall: {
@@ -36,7 +35,7 @@ const useStyles = makeStyles((theme) => ({
   },
   media: {
     height: 0,
-    paddingTop: '56.25%' // 16:9
+    paddingTop: '56.25%'
   },
   img: {
     height: 550,
@@ -83,15 +82,33 @@ const useStyles = makeStyles((theme) => ({
   navButtonWrapper: {
     top: '250px'
   },
+  mainGrid: {
+    textAlign: 'center',
+    color: 'white',
+    maxWidth: '100%',
+    alignContent: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#b3c0d7',
+    borderRadius: '3px',
+    padding: '5px',
+    boxShadow: '0 4px 8px 0 rgb(0 0 0 / 5%), 0 6px 5px 0 rgb(0 0 0 / 4%)'
+  },
   grid: {
     textAlign: 'center',
     color: 'white',
     maxWidth: '100%',
     alignContent: 'center',
     justifyContent: 'center',
-    backgroundColor: '#ADD8E6',
-    borderRadius: '6px',
-    padding: '2px'
+    backgroundColor: '#b3c0d7',
+    borderRadius: '3px',
+    padding: '5px'
+  },
+  carouselGrid: {
+    color: 'white',
+    maxWidth: '100%',
+    backgroundColor: '#b3c0d7',
+    borderRadius: '3px',
+    padding: '5px'
   },
   mainImg: {
     maxWidth: '100%',
@@ -100,8 +117,8 @@ const useStyles = makeStyles((theme) => ({
     }
   },
   sideImg: {
-    height: '50px',
-    width: '50px',
+    maxHeight: '50px',
+    maxWidth: '50px',
     border: '2px solid black',
     '&:hover': {
       cursor: 'pointer'
@@ -123,6 +140,9 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: '#ffcccb',
     border: '2px solid red',
     borderRadius: '6px'
+  },
+  linkToReviews: {
+    color: 'rgb(117 117 117)'
   }
 }));
 

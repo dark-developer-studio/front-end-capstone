@@ -1,12 +1,8 @@
 import React, { useContext, useState } from 'react';
 import axios from 'axios';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
-// import {
-//   Button, TextField, Input, Dialog, MuiDialogTitle,
-//   MuiDialogContent, MuiDialogActions, IconButton, CloseIcon, Typography,
-//   Container } from '@material-ui/core';
 import {
-  Container, Button, TextField, Dialog, Typography, IconButton
+  Container, Button, TextField, Dialog, Typography, IconButton, FormLabel, FormControl
 } from '@material-ui/core';
 import MuiDialogTitle from '@material-ui/core/DialogTitle';
 import MuiDialogContent from '@material-ui/core/DialogContent';
@@ -25,6 +21,9 @@ import ImageModal from '../../global/ImageDialog.jsx';
 import { uploadPhoto } from '../../../helpers/globalRequest';
 
 const styles = (theme) => ({
+  parentContainer: {
+    Maxwidth: '100vw'
+  },
   root: {
     margin: 0,
     padding: theme.spacing(2)
@@ -91,8 +90,7 @@ export default function ReviewDialog() {
   const [recommend, setRecommend] = useState(false);
   const [characteristics, setCharacteristics] = useState({});
   const [validation, setValidation] = useState({
-    // rating: 0,
-    // ratingError: false,
+    rating: false,
     summary: '',
     summaryError: false,
     body: '',
@@ -104,19 +102,17 @@ export default function ReviewDialog() {
   });
   const [networkError, setNetworkError] = useState(null);
 
-  const postReview = (rev) => {
-    axios.post('/api/reviews/revs', {
-      rating: rev.rating,
-      summary: rev.summary,
-      body: rev.body,
-      recommend: rev.recommend,
-      name: rev.name,
-      email: rev.email,
-      photos: rev.photos,
-      characteristics: rev.characteristics,
-      product_id: rev.product_id
-    }).then((response) => response.data);
-  };
+  const postReview = (rev) => axios.post('/api/reviews/revs', {
+    rating: rev.rating,
+    summary: rev.summary,
+    body: rev.body,
+    recommend: rev.recommend,
+    name: rev.name,
+    email: rev.email,
+    photos: rev.photos,
+    characteristics: rev.characteristics,
+    product_id: rev.product_id
+  }).then((response) => response.data);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -127,7 +123,7 @@ export default function ReviewDialog() {
 
   const validateBody = () => {
     const validator = {};
-    if (body.match(/[^a-zA-Z0-9!?.,():;"\-/ ]/) !== null) {
+    if (body.match(/[^a-zA-Z0-9!?.,():;"\n\-/ ]/) !== null) {
       validator.body = 'Invalid charaters used. Special characters available: (!?.,():;"-/)';
       validator.bodyError = true;
     } else if (body.length < 50) {
@@ -142,17 +138,6 @@ export default function ReviewDialog() {
     }
     return validator;
   };
-
-  // const validateRating = () => {
-  //   const validator = {};
-  //   if (rating === 0) {
-  //     validator.ratingError = true;
-  //   } else {
-  //     validator.rating = 0;
-  //     validator.ratingError = false;
-  //   }
-  //   return validator;
-  // };
 
   const validateSummary = () => {
     const validator = {};
@@ -209,18 +194,28 @@ export default function ReviewDialog() {
     return validator;
   };
 
+  const validateRating = () => {
+    const validator = {};
+    if (rating < 1 || rating > 5) {
+      validator.rating = true;
+    } else {
+      validator.rating = false;
+    }
+    return validator;
+  };
+
   const validateReview = () => {
     const bodyValidator = validateBody();
     const nameValidator = validateName();
     const emailValidator = validateEmail();
     const summaryValidator = validateSummary();
-    // const ratingValidator = validateRating();
+    const ratingValidator = validateRating();
     const newValidator = {
+      ...ratingValidator,
+      ...summaryValidator,
       ...bodyValidator,
       ...nameValidator,
-      ...emailValidator,
-      ...summaryValidator
-      // ...ratingValidator
+      ...emailValidator
     };
 
     if (
@@ -243,6 +238,7 @@ export default function ReviewDialog() {
       };
       postReview(revObj)
         .then(() => handleClose())
+        .then(console.log('rev submit works'))
         .catch();
     } else {
       setValidation(newValidator);
@@ -262,12 +258,11 @@ export default function ReviewDialog() {
         setNetworkError(err);
       });
   };
-
   const classes = useStyles();
 
   return (
     <ReviewsContext.Provider value={{ setRecommend, setCharacteristics, characteristics }}>
-      <div>
+      <div className={classes.parentContainer}>
         <Button variant="outlined" color="primary" onClick={handleClickOpen}>
           Add Review
         </Button>
@@ -276,7 +271,7 @@ export default function ReviewDialog() {
           onClose={handleClose}
           aria-labelledby="customized-dialog-title"
           open={open}
-          fullWidth={true}
+          maxWidth="xl"
         >
           <DialogTitle onClose={handleClose}>Write Your Review</DialogTitle>
           <DialogContent dividers>
@@ -287,19 +282,18 @@ export default function ReviewDialog() {
 
             <form className="formContainer">
 
-              <Typography gutterBottom>
-                Rate this product:
-              </Typography>
-              <Rating
-                name="reviewStarRating"
-                className={classes.reviewStarRating}
-                readOnly={false}
-                size="large"
-                defaultValue={0}
-                error={validation.ratingError}
-                onChange={(event) => setRating(Number(event.target.value))}
-                emptyIcon={<StarBorderIcon fontSize="inherit" />}
-              />
+              <FormControl component="fieldset" error={validation.rating}>
+                <FormLabel component="legend">Rate this product:</FormLabel>
+                <Rating
+                  name="reviewStarRating"
+                  className={classes.reviewStarRating}
+                  readOnly={false}
+                  size="large"
+                  defaultValue={0}
+                  onChange={(event) => setRating(Number(event.target.value))}
+                  emptyIcon={<StarBorderIcon fontSize="inherit" />}
+                />
+              </FormControl>
 
               <Typography gutterBottom>
                 Do you recommend this product?
@@ -313,15 +307,17 @@ export default function ReviewDialog() {
 
               <Typography className="inputText">Add a summary:</Typography>
               <TextField
+                multiline
+                rows={2}
                 variant="outlined"
                 placeholder="Example: Best purchase ever!"
                 className="reviewSummary"
                 helperText={validation.summary}
-                error={validation.summmaryError}
+                error={validation.summaryError}
                 onChange={(event) => setSummary(event.target.value)}
               />
 
-              <Typography className="inputText">Add a review:</Typography>
+              <Typography className="inputBody" style={{ whiteSpace: 'pre-line' }}>Add a review:</Typography>
               <TextField
                 multiline
                 rows={6}
@@ -360,7 +356,6 @@ export default function ReviewDialog() {
                 label="Nickname"
                 placeholder="Example: jackson11!"
                 className="nickname"
-                helperText={validation.name}
                 error={validation.nameError}
                 onChange={(event) => setName(event.target.value)}
               />
@@ -383,7 +378,11 @@ export default function ReviewDialog() {
           </DialogContent>
 
           <DialogActions>
-            <Button autoFocus onClick={validateReview} color="primary">
+            <Button
+              autoFocus
+              onClick={validateReview}
+              color="primary"
+            >
               Submit Review
             </Button>
           </DialogActions>

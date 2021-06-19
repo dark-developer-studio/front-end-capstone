@@ -3,11 +3,14 @@ import PropTypes from 'prop-types';
 
 import { Container } from '@material-ui/core';
 import QuestionItem from './QuestionItem.jsx';
+import useStyles from '../muiStyles';
 
 export default function QuestionList({
   searchValue, displayCount, questions
 }) {
   const [displayQuestions, setDisplayQuestions] = useState([]);
+
+  const classes = useStyles();
 
   const updateQuestions = () => {
     if (searchValue.length < 3) {
@@ -55,18 +58,15 @@ export default function QuestionList({
 
   return (
     <Container
-      className="questionlist"
-      style={{
-        padding: 3,
-        maxHeight: window.innerHeight - 175,
-        overflow: 'auto'
-      }}
+      className={classes.questionListContainer}
     >
       {
-        // eslint-disable-next-line arrow-body-style
-        displayQuestions.map((question) => {
-          return (<QuestionItem key={question.question_id} question={question} />);
-        })
+        questions.length > 0
+          // eslint-disable-next-line arrow-body-style
+          ? displayQuestions.map((question) => {
+            return (<QuestionItem key={question.question_id} question={question} />);
+          })
+          : <p>There are currently no questions for this product...</p>
       }
     </Container>
   );

@@ -4,6 +4,7 @@ export function getProduct(id = 18078) {
   return axios.get(`/product/${id}`).then((response) => response.data);
 }
 
+// Validates if a file extension matches common image formats
 function validateFile(filename) {
   const allowedExtension = ['jpeg', 'jpg', 'png', 'gif'];
   const fileExtension = filename.split('.').pop().toLowerCase();
@@ -25,6 +26,12 @@ function validateFile(filename) {
   return { isValidFile, message };
 }
 
+/**
+ * Uploads a form data file to imgbb
+ * @param  {Object} file object containing file information
+ * @return {Promise} Promise that will resolve to an object
+ * containing remote image info
+ */
 export function uploadPhoto(file) {
   const result = validateFile(file.name);
 
@@ -42,4 +49,19 @@ export function uploadPhoto(file) {
     }).then((response) => response.data.data);
   }
   return Promise.reject(new Error(result.message));
+}
+
+/**
+ * @param  {number} productID
+ * @return {Promise} Promise that will resolve to an object
+ * containing review meta data
+ */
+export function getAllRevsMetaData(productID) {
+  return axios
+    .get('/api/reviews/meta', {
+      params: {
+        product_id: productID
+      }
+    })
+    .then((response) => response.data);
 }

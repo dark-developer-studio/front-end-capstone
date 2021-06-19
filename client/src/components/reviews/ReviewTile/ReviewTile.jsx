@@ -9,14 +9,14 @@ import ProductRecommend from './ProductRecommend.jsx';
 import TopContainer from './TopContainer.jsx';
 import ReviewBody from './ReviewBody.jsx';
 import ImageGallery from './ImageGallery.jsx';
+import Helpfulness from './Helpfulness.jsx';
 
 const ReviewTile = () => {
   const { reviewTileList } = useContext(ReviewsContext);
   const classes = useStyles();
-  // const [helpfulnessCount, setHelpfulnessCount] = useState(0);
 
   return (
-    <Grid item className={classes.reviewTile}>
+    <Grid item className={classes.reviewTileList}>
       { reviewTileList.map((revItem) => (
         <div key={revItem.review_id} className={classes.reviewTile}>
           <TopContainer
@@ -30,15 +30,7 @@ const ReviewTile = () => {
           <ImageGallery revPhotos={revItem.photos} />
 
           <div className="bottomRowReviewTile" style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-around' }}>
-            <div className="helpful" style={{ display: 'flex', flexDirection: 'row' }}>
-              <span>Helpful?&nbsp;&nbsp;</span>
-              <div href="#" style={{ cursor: 'pointer' }}>Yes&nbsp;</div>
-              <div>
-                (
-                {revItem.helpfulness}
-                )
-              </div>
-            </div>
+            <Helpfulness helpfulness={revItem.helpfulness} review_id={revItem.review_id} />
             <div href="#" style={{ cursor: 'pointer' }}>Report</div>
           </div>
         </div>

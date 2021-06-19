@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 
 // Material UI imports
-import { Grid } from '@material-ui/core';
+import { Grid, Card } from '@material-ui/core';
 import useStyles from './Styles.jsx';
 // Component imports
 import ReviewTile from './ReviewTile/ReviewTile.jsx';
@@ -82,65 +82,67 @@ const RatingsAndReviews = () => {
         setReviewTileList
       }}
       >
-        <Grid
-          container
-          className={classes.parentGrid}
-        >
+        <Card className={classes.parentCard}>
           <Grid
-            item
-            xs={12}
             container
-            direction="row"
-            alignItems="center"
-            justify="space-around"
-            className={classes.topGrid}
+            className={classes.parentGrid}
           >
+            <Grid
+              item
+              xs={12}
+              container
+              direction="row"
+              alignItems="center"
+              justify="space-around"
+              className={classes.topGrid}
+            >
 
-            <Grid item className={classes.componentTitle}>
-              Rating and Reviews
-            </Grid>
-
-            <Grid item className={classes.totalRev}>
-              <span>Total Reviews:&nbsp;</span>
-              <div>
-                <TotalReviewCount />
-              </div>
-            </Grid>
-
-            <Grid item className={classes.sortby}>
-              <span>Sort by: </span>
-              <select>
-                <option value="">choose a category</option>
-                <option value="">Helpful</option>
-                <option value="">Newest</option>
-                <option value="">Relevant</option>
-              </select>
-            </Grid>
-
-            {/* End of topGrid */}
-          </Grid>
-
-          <Grid container direction="row" justify="space-evenly" className={classes.midGrid}>
-            <Grid item xs={6} className={classes.leftPanel}>
-              <MetaData />
-            </Grid>
-
-            <Grid item xs={6} className={classes.rightPanel}>
-              <Grid item xs={12} className={classes.ReviewTileViewPort}>
-                <ReviewTile />
+              <Grid item className={classes.componentTitle}>
+                Rating and Reviews
               </Grid>
 
-              <div className={classes.buttonContainer}>
-                <ReviewDialog />
-                <MoreReviewsBtn />
-              </div>
+              <Grid item className={classes.totalRev}>
+                <span>Total Reviews:&nbsp;</span>
+                <div>
+                  <TotalReviewCount />
+                </div>
+              </Grid>
 
-              {/* End of right panel   */}
+              <Grid item className={classes.sortby}>
+                <span>Sort by: </span>
+                <select>
+                  <option value="">choose a category</option>
+                  <option value="">Helpful</option>
+                  <option value="">Newest</option>
+                  <option value="">Relevant</option>
+                </select>
+              </Grid>
+
+              {/* End of topGrid */}
             </Grid>
 
-            {/* End of midGrid   */}
+            <Grid container direction="row" justify="space-evenly" className={classes.midGrid}>
+              <Grid item md={6} sm={12} className={classes.leftPanel}>
+                <MetaData />
+              </Grid>
+
+              <Grid item md={6} sm={12} className={classes.rightPanel}>
+                <Grid item xs={12} className={classes.ReviewTileViewPort}>
+                  <ReviewTile />
+                </Grid>
+
+                <div className={classes.buttonContainer}>
+                  <ReviewDialog />
+                  <MoreReviewsBtn />
+                </div>
+
+                {/* End of right panel   */}
+              </Grid>
+
+              {/* End of midGrid   */}
+            </Grid>
           </Grid>
-        </Grid>
+        </Card>
       </ReviewsContext.Provider>
     </AppContext.Provider>
   );

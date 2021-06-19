@@ -1,9 +1,12 @@
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles(() => ({
+  parentCard: {
+    boxShadow: '0 2px 6px 0 rgba(0, 0, 0, 0.2), 0 2px 6px 0 rgba(0, 0, 0, 0.19)',
+    margin: '10px 10px'
+  },
   parentGrid: {
     display: 'flex',
-    border: '4px solid black',
     flexDirection: 'column',
     justify: 'center',
     alignContent: 'center'
@@ -41,7 +44,8 @@ const useStyles = makeStyles(() => ({
     alignContent: 'center'
   },
   ReviewTileViewPort: {
-    border: '1px solid black',
+    border: '1.5px solid #ccc',
+    borderRadius: '4px',
     padding: '3px',
     margin: '15px',
     display: 'flex',
@@ -51,8 +55,18 @@ const useStyles = makeStyles(() => ({
     maxHeight: '85vh',
     overflow: 'auto'
   },
+  reviewTileList: {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-around',
+    marginTop: '10px',
+    marginBottom: '10px',
+    padding: '10px',
+    margin: '5px',
+    backgroundColor: '#fefcfb'
+  },
   reviewTile: {
-    border: '1px solid black',
+    boxShadow: '0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 10px 0 rgba(0, 0, 0, 0.19)',
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'space-around',

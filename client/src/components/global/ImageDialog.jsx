@@ -1,5 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+// eslint-disable-next-line import/no-unresolved
+import { TransformWrapper, TransformComponent } from 'react-zoom-pan-pinch';
 
 import {
   Dialog, DialogTitle, Button, IconButton
@@ -29,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-export default function ImageDialog({ url, imageHeight }) {
+export default function ImageDialog({ url, imageHeight, zoomDisabled }) {
   const [open, setOpen] = React.useState(false);
   const classes = useStyles();
 
@@ -70,15 +72,20 @@ export default function ImageDialog({ url, imageHeight }) {
         </DialogTitle>
 
         <div style={{ overflow: 'hidden' }}>
-          <img
-            src={url}
-            alt="dialog"
-            style={{
-              padding: 5,
-              height: 'auto',
-              maxWidth: '99%'
-            }}
-          />
+          <TransformWrapper disabled={zoomDisabled}>
+            <TransformComponent>
+              <img
+                src={url}
+                alt="dialog"
+                style={{
+                  padding: 5,
+                  height: 'auto',
+                  maxWidth: '98%',
+                  maxHeight: '95vh'
+                }}
+              />
+            </TransformComponent>
+          </TransformWrapper>
         </div>
       </Dialog>
     </>
@@ -87,10 +94,12 @@ export default function ImageDialog({ url, imageHeight }) {
 
 ImageDialog.propTypes = {
   url: PropTypes.string,
-  imageHeight: PropTypes.number
+  imageHeight: PropTypes.number,
+  zoomDisabled: PropTypes.bool
 };
 
 ImageDialog.defaultProps = {
   url: '',
-  imageHeight: 100
+  imageHeight: 100,
+  zoomDisabled: true
 };
