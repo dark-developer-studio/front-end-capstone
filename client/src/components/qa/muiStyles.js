@@ -26,5 +26,11 @@ export default makeStyles(() => ({
   answerInfo: {
     color: '#888',
     marginLeft: 8
+  },
+  answerContainer: {
+    padding: 3,
+    boxShadow: '0 4px 8px 0 rgba(0, 0, 0, 0.05), 0 6px 5px 0 rgba(0, 0, 0, 0.04)',
+    margin: '0px 3px 10px',
+    borderRadius: 2
   }
 }));

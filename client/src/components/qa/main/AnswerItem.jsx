@@ -29,7 +29,7 @@ export default function AnswerItem({ answer }) {
   }
 
   return (
-    <Container style={{ padding: 0 }}>
+    <Container className={classes.answerContainer}>
       <Typography className="text">{answer.body}</Typography>
       <Grid container>
         {answer.photos.map((photo) => <ImageModal key={photo.id} url={photo.url} />)}

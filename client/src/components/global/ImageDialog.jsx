@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+// eslint-disable-next-line import/no-unresolved
 import { TransformWrapper, TransformComponent } from 'react-zoom-pan-pinch';
 
 import {
@@ -79,7 +80,8 @@ export default function ImageDialog({ url, imageHeight, zoomDisabled }) {
                 style={{
                   padding: 5,
                   height: 'auto',
-                  maxWidth: '99%'
+                  maxWidth: '98%',
+                  maxHeight: '95vh'
                 }}
               />
             </TransformComponent>
