@@ -19,6 +19,7 @@ export default function AnswerDialogBody({
 }) {
   const { product } = useContext(AppContext);
 
+  // Helps display errors related to the photo upload
   const [networkError, setNetworkError] = useState(null);
 
   const classes = useStyles();
