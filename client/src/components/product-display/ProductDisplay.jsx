@@ -95,6 +95,7 @@ const ProductDisplay = () => {
       Axios
         .get(`/api/display/products/${productId}/styles`)
         .then((response) => {
+          console.log(response.data)
           setProductStyles(response.data);
         })
         .catch((err) => {
@@ -136,8 +137,6 @@ const ProductDisplay = () => {
   useEffect(() => {
     getAvgRating();
   }, [revsMetaData]);
-
-  // console.log(productStyles.results);
 
   return (
     <SkusContext.Provider value={{
