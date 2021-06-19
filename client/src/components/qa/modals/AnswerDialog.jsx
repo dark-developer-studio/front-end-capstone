@@ -13,6 +13,7 @@ import CloseIcon from '@material-ui/icons/Close';
 
 import AnswerDialogBody from './AnswerDialogBody.jsx';
 import { createAnswer } from '../helpers/qaRequests';
+import useStyles from '../muiStyles';
 
 const styles = (theme) => ({
   root: {
@@ -61,6 +62,8 @@ export default function AnswerDialog({ question }) {
     email: 'For authentication reasons, you will not be emailed',
     emailError: false
   });
+
+  const classes = useStyles();
 
   const handleOpen = () => {
     setOpen(true);
@@ -149,7 +152,7 @@ export default function AnswerDialog({ question }) {
 
   return (
     <>
-      <Button onClick={handleOpen}>
+      <Button onClick={handleOpen} className={classes.linkButton}>
         Add Answer
       </Button>
 
