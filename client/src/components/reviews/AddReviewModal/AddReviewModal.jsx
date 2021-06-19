@@ -123,7 +123,7 @@ export default function ReviewDialog() {
 
   const validateBody = () => {
     const validator = {};
-    if (body.match(/[^a-zA-Z0-9!?.,():;"\-/ ]/) !== null) {
+    if (body.match(/[^a-zA-Z0-9!?.,():;"\n\-/ ]/) !== null) {
       validator.body = 'Invalid charaters used. Special characters available: (!?.,():;"-/)';
       validator.bodyError = true;
     } else if (body.length < 50) {
@@ -317,7 +317,7 @@ export default function ReviewDialog() {
                 onChange={(event) => setSummary(event.target.value)}
               />
 
-              <Typography className="inputText">Add a review:</Typography>
+              <Typography className="inputBody" style={{ whiteSpace: 'pre-line' }}>Add a review:</Typography>
               <TextField
                 multiline
                 rows={6}
