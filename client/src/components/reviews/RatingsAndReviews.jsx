@@ -10,6 +10,8 @@ import TotalReviewCount from './TotalReviewCount.jsx';
 import ReviewDialog from './AddReviewModal/AddReviewModal.jsx';
 import MetaData from './MetaData/MetaData.jsx';
 import MoreReviewsBtn from './MoreReviewsBtn.jsx';
+import SortSelector from './SortSelector.jsx';
+
 // Context import
 import { AppContext, ReviewsContext } from '../../helpers/context';
 
@@ -20,11 +22,13 @@ const RatingsAndReviews = () => {
   const [reviewResults, setReviewResults] = useState([]);
   const [reviewTileList, setReviewTileList] = useState([]);
   const [tileCount, setTileCount] = useState(2);
+  const [sortValue, setSortValue] = useState('');
+  const [totalRevsCount, setTotalRevsCount] = useState(0);
 
   const loadReviewTileList = (reviewsArr) => {
     if (reviewTileList.length < 2) {
       for (let i = 0; i < 2; i += 1) {
-        reviewTileList.unshift(reviewsArr[i]);
+        reviewTileList.push(reviewsArr[i]);
       }
     }
   };
@@ -35,7 +39,8 @@ const RatingsAndReviews = () => {
         params: {
           product_id: productID,
           page: pageState,
-          count: 100
+          count: 100,
+          sort: sortValue
         }
       })
       .then((response) => {
@@ -104,20 +109,26 @@ const RatingsAndReviews = () => {
               <Grid item className={classes.totalRev}>
                 <span>Total Reviews:&nbsp;</span>
                 <div>
-                  <TotalReviewCount />
+                  <TotalReviewCount
+                    totalRevsCount={totalRevsCount}
+                    setTotalRevsCount={setTotalRevsCount}
+                  />
                 </div>
               </Grid>
 
-              <Grid item className={classes.sortby}>
-                <span>Sort by: </span>
-                <select>
-                  <option value="">choose a category</option>
-                  <option value="">Helpful</option>
-                  <option value="">Newest</option>
-                  <option value="">Relevant</option>
-                </select>
-              </Grid>
-
+              <SortSelector
+                productID={product.id}
+                sortValue={sortValue}
+                setSortValue={setSortValue}
+                getAllReviews={getAllReviews}
+                setReviewResults={setReviewResults}
+                setReviewTileList={setReviewTileList}
+                setTotalRevsCount={setTotalRevsCount}
+                setReviews={setReviews}
+                setPageState={setPageState}
+                reviewResults={reviewResults}
+                setTileCount={setTileCount}
+              />
               {/* End of topGrid */}
             </Grid>
 
