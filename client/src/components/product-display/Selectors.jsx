@@ -1,4 +1,7 @@
-import React, { useState, useEffect, useContext, createRef } from 'react';
+import React, {
+  useState, useEffect, useContext, createRef
+} from 'react';
+import PropTypes from 'prop-types';
 import {
   Grid, Button, Popover, Typography
 } from '@material-ui/core';
@@ -8,9 +11,9 @@ import { SkusContext } from './ProductDisplay.jsx';
 import SizeDD from './DropDowns/SizeDD.jsx';
 import QuantityDD from './DropDowns/QuantityDD.jsx';
 
-const Selectors = (props) => {
+const Selectors = ({ addToBag }) => {
   const classes = useStyles();
-  const { skusState, photos } = useContext(SkusContext);
+  const { skusState } = useContext(SkusContext);
   const [selectSizeValue, setSelectSizeValue] = useState('');
   const [selectQuantityValue, setSelectQuantityValue] = useState('');
   const [sizeForQuantity, setSizeForQuantity] = useState('');
@@ -27,6 +30,7 @@ const Selectors = (props) => {
   const inputElQuantity = createRef();
   const inputElSize = createRef();
 
+  // Allows for users to leave DD with no crash
   const handleClickAway = () => {
     setOpen(false);
   };
@@ -65,6 +69,7 @@ const Selectors = (props) => {
     });
   };
 
+  // Used for generating Quantity DD
   const quantityArrayMaker = (maxNum) => {
     let count = 0;
     const resultArr = [];
@@ -75,6 +80,7 @@ const Selectors = (props) => {
     setQuantityArr(resultArr);
   };
 
+  // Used for creating quantity DD
   const getQuantityForSize = (size) => {
     let resultNum;
     if (sizeForQuantity !== '') {
@@ -136,7 +142,7 @@ const Selectors = (props) => {
               handlePopoverQuantityOpen(event);
             }
             if (sizeForQuantity !== '' && quantitiySelected !== '') {
-              props.addToBag(skusId);
+              addToBag(skusId);
             }
           }}
         >
@@ -187,6 +193,13 @@ const Selectors = (props) => {
       </Grid>
     </Grid>
   );
+};
+
+Selectors.propTypes = {
+  addToBag: PropTypes.func
+};
+Selectors.defaultProps = {
+  addToBag: () => {}
 };
 
 export default Selectors;
