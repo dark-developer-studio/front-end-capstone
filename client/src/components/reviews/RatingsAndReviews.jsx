@@ -17,7 +17,6 @@ import { AppContext, ReviewsContext } from '../../helpers/context';
 
 const RatingsAndReviews = () => {
   const { product } = useContext(AppContext);
-  const [reviews, setReviews] = useState([]);
   const [pageState, setPageState] = useState(1);
   const [reviewResults, setReviewResults] = useState([]);
   const [reviewTileList, setReviewTileList] = useState([]);
@@ -26,11 +25,13 @@ const RatingsAndReviews = () => {
   const [totalRevsCount, setTotalRevsCount] = useState(0);
 
   const loadReviewTileList = (reviewsArr) => {
+    const updateRevsList = reviewTileList;
     if (reviewTileList.length < 2) {
       for (let i = 0; i < 2; i += 1) {
-        reviewTileList.push(reviewsArr[i]);
+        updateRevsList.push(reviewsArr[i]);
       }
     }
+    setReviewTileList(updateRevsList);
   };
 
   const getAllReviews = (productID) => {
@@ -44,7 +45,6 @@ const RatingsAndReviews = () => {
         }
       })
       .then((response) => {
-        setReviews(response.data);
         if (response.data) {
           if (response.data.results) {
             if (response.data.results.length === 0 && pageState > 1) {
@@ -61,6 +61,24 @@ const RatingsAndReviews = () => {
         }
       });
   };
+
+  const getSortedResults = () => {
+    const promise = new Promise((resolve) => {
+      setReviewTileList([]);
+      setReviewResults([]);
+      setTileCount(2);
+      resolve();
+    });
+    promise
+      .then(() => {
+        // This will trigger getAllReviewResults
+        setPageState(1);
+      });
+  };
+
+  useEffect(() => {
+    getSortedResults();
+  }, [sortValue]);
 
   useEffect(() => {
     if (product.id > 0) {
@@ -79,7 +97,6 @@ const RatingsAndReviews = () => {
   return (
     <AppContext.Provider value={{ product }}>
       <ReviewsContext.Provider value={{
-        reviews,
         reviewResults,
         reviewTileList,
         tileCount,
@@ -117,18 +134,9 @@ const RatingsAndReviews = () => {
               </Grid>
 
               <SortSelector
-                productID={product.id}
-                sortValue={sortValue}
                 setSortValue={setSortValue}
-                getAllReviews={getAllReviews}
-                setReviewResults={setReviewResults}
-                setReviewTileList={setReviewTileList}
-                setTotalRevsCount={setTotalRevsCount}
-                setReviews={setReviews}
-                setPageState={setPageState}
-                reviewResults={reviewResults}
-                setTileCount={setTileCount}
               />
+
               {/* End of topGrid */}
             </Grid>
 

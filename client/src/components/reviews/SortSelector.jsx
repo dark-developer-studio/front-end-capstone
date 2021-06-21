@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
   Select, MenuItem, FormControl, InputLabel
 } from '@material-ui/core';
@@ -14,30 +14,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const SortSelector = ({
-  setSortValue, setReviewResults, setReviewTileList,
-  setReviews, setPageState, setTileCount }) => {
-  const [selectText, setSelectText] = useState('');
-
-  const handleChange = (event) => {
-    const promise = new Promise((resolve) => {
-      setSelectText(event.target.value);
-      resolve(selectText);
-    });
-    promise
-      .then(() => {
-        setSortValue(event.target.value);
-      }).then(() => {
-        setReviewTileList([]);
-        setReviews([]);
-        setReviewResults([]);
-        setTileCount(2);
-      }).then(() => {
-        // This will trigger getAllReviewResults
-        setPageState(1);
-      });
-  };
-
+const SortSelector = ({ setSortValue }) => {
   const classes = useStyles();
 
   return (
@@ -49,8 +26,7 @@ const SortSelector = ({
         className={classes.selectBox}
         labelId="sortSelect"
         id="sortSelect"
-        value={selectText}
-        onChange={handleChange}
+        onChange={(event) => setSortValue(event.target.value)}
       >
         <MenuItem value="" disabled>
           <em>Select a Category</em>
