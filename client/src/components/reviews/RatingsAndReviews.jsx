@@ -10,23 +10,28 @@ import TotalReviewCount from './TotalReviewCount.jsx';
 import ReviewDialog from './AddReviewModal/AddReviewModal.jsx';
 import MetaData from './MetaData/MetaData.jsx';
 import MoreReviewsBtn from './MoreReviewsBtn.jsx';
+import SortSelector from './SortSelector.jsx';
+
 // Context import
 import { AppContext, ReviewsContext } from '../../helpers/context';
 
 const RatingsAndReviews = () => {
   const { product } = useContext(AppContext);
-  const [reviews, setReviews] = useState([]);
   const [pageState, setPageState] = useState(1);
   const [reviewResults, setReviewResults] = useState([]);
   const [reviewTileList, setReviewTileList] = useState([]);
   const [tileCount, setTileCount] = useState(2);
+  const [sortValue, setSortValue] = useState('');
+  const [totalRevsCount, setTotalRevsCount] = useState(0);
 
   const loadReviewTileList = (reviewsArr) => {
+    const updateRevsList = reviewTileList;
     if (reviewTileList.length < 2) {
       for (let i = 0; i < 2; i += 1) {
-        reviewTileList.unshift(reviewsArr[i]);
+        updateRevsList.push(reviewsArr[i]);
       }
     }
+    setReviewTileList(updateRevsList);
   };
 
   const getAllReviews = (productID) => {
@@ -35,11 +40,11 @@ const RatingsAndReviews = () => {
         params: {
           product_id: productID,
           page: pageState,
-          count: 100
+          count: 100,
+          sort: sortValue
         }
       })
       .then((response) => {
-        setReviews(response.data);
         if (response.data) {
           if (response.data.results) {
             if (response.data.results.length === 0 && pageState > 1) {
@@ -56,6 +61,24 @@ const RatingsAndReviews = () => {
         }
       });
   };
+
+  const getSortedResults = () => {
+    const promise = new Promise((resolve) => {
+      setReviewTileList([]);
+      setReviewResults([]);
+      setTileCount(2);
+      resolve();
+    });
+    promise
+      .then(() => {
+        // This will trigger getAllReviewResults
+        setPageState(1);
+      });
+  };
+
+  useEffect(() => {
+    getSortedResults();
+  }, [sortValue]);
 
   useEffect(() => {
     if (product.id > 0) {
@@ -74,7 +97,6 @@ const RatingsAndReviews = () => {
   return (
     <AppContext.Provider value={{ product }}>
       <ReviewsContext.Provider value={{
-        reviews,
         reviewResults,
         reviewTileList,
         tileCount,
@@ -104,19 +126,16 @@ const RatingsAndReviews = () => {
               <Grid item className={classes.totalRev}>
                 <span>Total Reviews:&nbsp;</span>
                 <div>
-                  <TotalReviewCount />
+                  <TotalReviewCount
+                    totalRevsCount={totalRevsCount}
+                    setTotalRevsCount={setTotalRevsCount}
+                  />
                 </div>
               </Grid>
 
-              <Grid item className={classes.sortby}>
-                <span>Sort by: </span>
-                <select>
-                  <option value="">choose a category</option>
-                  <option value="">Helpful</option>
-                  <option value="">Newest</option>
-                  <option value="">Relevant</option>
-                </select>
-              </Grid>
+              <SortSelector
+                setSortValue={setSortValue}
+              />
 
               {/* End of topGrid */}
             </Grid>

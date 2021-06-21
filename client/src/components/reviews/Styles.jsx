@@ -3,7 +3,8 @@ import { makeStyles } from '@material-ui/core/styles';
 const useStyles = makeStyles(() => ({
   parentCard: {
     boxShadow: '0 2px 6px 0 rgba(0, 0, 0, 0.2), 0 2px 6px 0 rgba(0, 0, 0, 0.19)',
-    margin: '10px 10px'
+    margin: '10px 10px',
+    backgroundColor: '#f3efed'
   },
   parentGrid: {
     display: 'flex',

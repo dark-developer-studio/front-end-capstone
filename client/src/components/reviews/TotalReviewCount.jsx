@@ -1,13 +1,12 @@
 // import React from 'react';
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { ReviewsContext } from '../../helpers/context';
 
 // import helper functions
 import { getTotalReviews } from './helperFunctions.jsx';
 
-const TotalReviewCount = () => {
+const TotalReviewCount = ({ totalRevsCount, setTotalRevsCount }) => {
   const { reviewResults } = useContext(ReviewsContext);
-  const [totalRevsCount, setTotalRevsCount] = useState(0);
 
   useEffect(() => {
     const total = getTotalReviews(reviewResults);
