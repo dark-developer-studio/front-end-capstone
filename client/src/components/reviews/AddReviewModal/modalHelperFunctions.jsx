@@ -165,7 +165,6 @@ export function getAllCharVals(prodID) {
 export function buildCharRadios(charArr, setCharacteristics, characteristics) {
   const [radioError, setRadioError] = useState(false);
   const [count, setCount] = useState(0);
-  const [tot, setTot] = useState(count);
   const handleCharacteristics = (event) => {
     const resultObj = characteristics;
     if (event.target.value.length > 0) {

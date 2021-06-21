@@ -35,11 +35,11 @@ const MoreReviewsBtn = () => {
             arr.push(reviewResults[res2]);
             setTileCount(res2 + 1);
           }
-          setReviewTileList([...arr, ...reviewTileList]);
+          setReviewTileList([...reviewTileList, ...arr]);
         })
         .then(() => {
           if (lastVal === false) {
-            setReviewTileList([...arr, ...reviewTileList]);
+            setReviewTileList([...reviewTileList, ...arr]);
           }
         });
     }
