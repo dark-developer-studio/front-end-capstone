@@ -79,6 +79,7 @@ const DialogActions = withStyles((theme) => ({
 }))(MuiDialogActions);
 
 export default function ReviewDialog() {
+  const { revsMetaData } = useContext(ReviewsContext);
   const { product } = useContext(AppContext);
   const [open, setOpen] = useState(false);
   const [rating, setRating] = useState(0);
@@ -261,7 +262,7 @@ export default function ReviewDialog() {
   const classes = useStyles();
 
   return (
-    <ReviewsContext.Provider value={{ setRecommend, setCharacteristics, characteristics }}>
+    <ReviewsContext.Provider value={{ revsMetaData, setRecommend, setCharacteristics, characteristics }}>
       <div className={classes.parentContainer}>
         <Button variant="outlined" color="primary" onClick={handleClickOpen}>
           Add Review

@@ -1,7 +1,6 @@
-import React, { useContext, useState, useEffect } from 'react';
-import axios from 'axios';
+import React, { useContext } from 'react';
 
-import { AppContext, ReviewsContext } from '../../../helpers/context';
+import { ReviewsContext } from '../../../helpers/context';
 
 // Import components
 import ReviewPercentageAndStars from './ReviewPercentageAndStars.jsx';
@@ -10,24 +9,7 @@ import ProductReviewChart from './ProductReviewChart.jsx';
 import RecommendPercentage from './RecommendPercentage.jsx';
 
 const MetaData = () => {
-  const { product } = useContext(AppContext);
-  const [revsMetaData, setRevsMetaData] = useState({});
-
-  const getAllRevsMetaData = (productID) => {
-    axios
-      .get('/api/reviews/meta', {
-        params: {
-          product_id: productID
-        }
-      })
-      .then((response) => {
-        setRevsMetaData(response.data);
-      });
-  };
-
-  useEffect(() => {
-    getAllRevsMetaData(product.id);
-  }, [product]);
+  const { revsMetaData } = useContext(ReviewsContext);
 
   return (
     <ReviewsContext.Provider value={{ revsMetaData }}>

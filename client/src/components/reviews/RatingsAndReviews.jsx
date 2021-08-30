@@ -23,6 +23,19 @@ const RatingsAndReviews = () => {
   const [tileCount, setTileCount] = useState(2);
   const [sortValue, setSortValue] = useState('');
   const [totalRevsCount, setTotalRevsCount] = useState(0);
+  const [revsMetaData, setRevsMetaData] = useState({});
+
+  const getAllRevsMetaData = (productID) => {
+    axios
+      .get('/api/reviews/meta', {
+        params: {
+          product_id: productID
+        }
+      })
+      .then((response) => {
+        setRevsMetaData(response.data);
+      });
+  };
 
   const loadReviewTileList = (reviewsArr) => {
     const updateRevsList = reviewTileList;
@@ -83,6 +96,7 @@ const RatingsAndReviews = () => {
   useEffect(() => {
     if (product.id > 0) {
       getAllReviews(product.id);
+      getAllRevsMetaData(product.id);
     }
   }, [product]);
 
@@ -101,7 +115,9 @@ const RatingsAndReviews = () => {
         reviewTileList,
         tileCount,
         setTileCount,
-        setReviewTileList
+        setReviewTileList,
+        revsMetaData,
+        getAllRevsMetaData
       }}
       >
         <Card className={classes.parentCard}>

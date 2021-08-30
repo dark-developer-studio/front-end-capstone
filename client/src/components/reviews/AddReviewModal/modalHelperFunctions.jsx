@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import {
   Radio, RadioGroup,
   FormControlLabel, FormControl, FormLabel
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
+import { ReviewsContext } from '../../../helpers/context';
 
 const useStyles = makeStyles({
   radioTitle: {
@@ -32,133 +33,207 @@ const useStyles = makeStyles({
   }
 });
 
-export function getAllCharVals(prodID) {
+export function getAllCharVals(metaData) {
   const resultsArr = [];
-  if (prodID === 18078) {
-    resultsArr.push(['60618', 'Fit', [
+
+  let metaInfo = {
+    Fit: [
       [1, 'Runs Tight'],
       [2, 'Runs slightly tight'],
       [3, 'Perfect'],
       [4, 'Runs slightly Long'],
       [5, 'Runs Long']
-    ]]);
-    resultsArr.push(['60619', 'Length', [
+    ],
+    Length: [
       [1, 'Runs Short'],
       [2, 'Runs slightly short'],
       [3, 'Perfect'],
       [4, 'Runs slightly long'],
       [5, 'Runs Long']
-    ]]);
-    resultsArr.push(['60620', 'Comfort', [
-      [1, 'Uncomfortable'],
-      [2, 'Slightly uncomfortable'],
-      [3, 'Ok'],
-      [4, 'Comfortable'],
-      [5, 'Perfect']
-    ]]);
-    resultsArr.push(['60621', 'Quality', [
-      [1, 'Poor'],
-      [2, 'Below average'],
-      [3, 'What I expected'],
-      [4, 'Pretty great'],
-      [5, 'Perfect']
-    ]]);
-  } else if (prodID === 18079) {
-    resultsArr.push(['60622', 'Quality', [
-      [1, 'Poor'],
-      [2, 'Below average'],
-      [3, 'What I expected'],
-      [4, 'Pretty great'],
-      [5, 'Perfect']
-    ]]);
-  } else if (prodID === 18080) {
-    resultsArr.push(['60623', 'Fit', [
-      [1, 'Runs Tight'],
-      [2, 'Runs slightly tight'],
-      [3, 'Perfect'],
-      [4, 'Runs slightly Long'],
-      [5, 'Runs Long']
-    ]]);
-    resultsArr.push(['60624', 'Length', [
-      [1, 'Runs Short'],
-      [2, 'Runs slightly short'],
-      [3, 'Perfect'],
-      [4, 'Runs slightly long'],
-      [5, 'Runs Long']
-    ]]);
-    resultsArr.push(['60625', 'Comfort', [
-      [1, 'Uncomfortable'],
-      [2, 'Slightly uncomfortable'],
-      [3, 'Ok'],
-      [4, 'Comfortable'],
-      [5, 'Perfect']
-    ]]);
-    resultsArr.push(['60626', 'Quality', [
-      [1, 'Runs Short'],
-      [2, 'Runs slightly short'],
-      [3, 'Perfect'],
-      [4, 'Runs slightly long'],
-      [5, 'Runs Long']
-    ]]);
-  } else if (prodID === 18081) {
-    resultsArr.push(['60627', 'Fit', [
-      [1, 'Runs Tight'],
-      [2, 'Runs slightly tight'],
-      [3, 'Perfect'],
-      [4, 'Runs slightly Long'],
-      [5, 'Runs Long']
-    ]]);
-    resultsArr.push(['60628', 'Length', [
-      [1, 'Runs Short'],
-      [2, 'Runs slightly short'],
-      [3, 'Perfect'],
-      [4, 'Runs slightly long'],
-      [5, 'Runs Long']
-    ]]);
-    resultsArr.push(['60629', 'Comfort', [
-      [1, 'Uncomfortable'],
-      [2, 'Slightly uncomfortable'],
-      [3, 'Ok'],
-      [4, 'Comfortable'],
-      [5, 'Perfect']
-    ]]);
-    resultsArr.push(['60630', 'Quality', [
-      [1, 'Runs Short'],
-      [2, 'Runs slightly short'],
-      [3, 'Perfect'],
-      [4, 'Runs slightly long'],
-      [5, 'Runs Long']
-    ]]);
-  } else if (prodID === 18082) {
-    resultsArr.push(['60631', 'Size', [
-      [1, 'Too small'],
-      [2, '1/2 a size too small'],
-      [3, 'Perfect'],
-      [4, '1/2 a size too big'],
-      [5, 'Too Big']
-    ]]);
-    resultsArr.push(['60632', 'Width', [
+    ],
+    Width: [
       [1, 'Too Narrow'],
       [2, 'Slightly narrow'],
       [3, 'Perfect'],
       [4, 'Slightly wide'],
       [5, 'Too Wide']
-    ]]);
-    resultsArr.push(['60633', 'Comfort', [
+    ],
+    Size: [
+      [1, 'Too small'],
+      [2, '1/2 a size too small'],
+      [3, 'Perfect'],
+      [4, '1/2 a size too big'],
+      [5, 'Too Big']
+    ],
+    Quality: [
+      [1, 'Poor'],
+      [2, 'Below average'],
+      [3, 'What I expected'],
+      [4, 'Pretty great'],
+      [5, 'Perfect']
+    ],
+    Comfort: [
       [1, 'Uncomfortable'],
       [2, 'Slightly uncomfortable'],
       [3, 'Ok'],
       [4, 'Comfortable'],
       [5, 'Perfect']
-    ]]);
-    resultsArr.push(['60634', 'Quality', [
-      [1, 'Runs Short'],
-      [2, 'Runs slightly short'],
-      [3, 'Perfect'],
-      [4, 'Runs slightly long'],
-      [5, 'Runs Long']
-    ]]);
-  }
+    ]
+  };
+  //console.log('md', metaData);
+  console.log('md char', metaData.characteristics);
+  const metaDataKeys = Object.keys(metaData.characteristics);
+  const MetaInfoKeys = Object.keys(metaInfo);
+  metaDataKeys.map((metaKey) => {
+    if (metaKey === metaInfo.metaKey) {
+
+    // for (let i = 0; i < keys; i += 1) {
+       // if (keys[i] === metaObj.key) {
+       //   resultsArr.push([metaObj.id, metaObj.key, metaInfo[keys[i]]]);
+       // }
+       console.log('char key', metaKey);
+     }
+     // return resultsArr;
+   //});
+
+  // metaData.characteristics.forEach((metaObj) => {
+  //  // const keys = Object.keys(metaInfo);
+  //   const keys = Object.keys(metaData.characteristics);
+  //  // for (let i = 0; i < keys; i += 1) {
+  //     // if (keys[i] === metaObj.key) {
+  //     //   resultsArr.push([metaObj.id, metaObj.key, metaInfo[keys[i]]]);
+  //     // }
+  //     console.log('char keys', keys);
+  //   }
+  //   // return resultsArr;
+  // //});
+
+  // const resultsArr = [];
+  // if (prodID === 18078) {
+  //   resultsArr.push(['60618', 'Fit', [
+  //     [1, 'Runs Tight'],
+  //     [2, 'Runs slightly tight'],
+  //     [3, 'Perfect'],
+  //     [4, 'Runs slightly Long'],
+  //     [5, 'Runs Long']
+  //   ]]);
+  //   resultsArr.push(['60619', 'Length', [
+  //     [1, 'Runs Short'],
+  //     [2, 'Runs slightly short'],
+  //     [3, 'Perfect'],
+  //     [4, 'Runs slightly long'],
+  //     [5, 'Runs Long']
+  //   ]]);
+  //   resultsArr.push(['60620', 'Comfort', [
+  //     [1, 'Uncomfortable'],
+  //     [2, 'Slightly uncomfortable'],
+  //     [3, 'Ok'],
+  //     [4, 'Comfortable'],
+  //     [5, 'Perfect']
+  //   ]]);
+  //   resultsArr.push(['60621', 'Quality', [
+  //     [1, 'Poor'],
+  //     [2, 'Below average'],
+  //     [3, 'What I expected'],
+  //     [4, 'Pretty great'],
+  //     [5, 'Perfect']
+  //   ]]);
+  // } else if (prodID === 18079) {
+  //   resultsArr.push(['60622', 'Quality', [
+  //     [1, 'Poor'],
+  //     [2, 'Below average'],
+  //     [3, 'What I expected'],
+  //     [4, 'Pretty great'],
+  //     [5, 'Perfect']
+  //   ]]);
+  // } else if (prodID === 18080) {
+  //   resultsArr.push(['60623', 'Fit', [
+  //     [1, 'Runs Tight'],
+  //     [2, 'Runs slightly tight'],
+  //     [3, 'Perfect'],
+  //     [4, 'Runs slightly Long'],
+  //     [5, 'Runs Long']
+  //   ]]);
+  //   resultsArr.push(['60624', 'Length', [
+  //     [1, 'Runs Short'],
+  //     [2, 'Runs slightly short'],
+  //     [3, 'Perfect'],
+  //     [4, 'Runs slightly long'],
+  //     [5, 'Runs Long']
+  //   ]]);
+  //   resultsArr.push(['60625', 'Comfort', [
+  //     [1, 'Uncomfortable'],
+  //     [2, 'Slightly uncomfortable'],
+  //     [3, 'Ok'],
+  //     [4, 'Comfortable'],
+  //     [5, 'Perfect']
+  //   ]]);
+  //   resultsArr.push(['60626', 'Quality', [
+  //     [1, 'Poor'],
+  //     [2, 'Below average'],
+  //     [3, 'What I expected'],
+  //     [4, 'Pretty great'],
+  //     [5, 'Perfect']
+  //   ]]);
+  // } else if (prodID === 18081) {
+  //   resultsArr.push(['60627', 'Fit', [
+  //     [1, 'Runs Tight'],
+  //     [2, 'Runs slightly tight'],
+  //     [3, 'Perfect'],
+  //     [4, 'Runs slightly Long'],
+  //     [5, 'Runs Long']
+  //   ]]);
+  //   resultsArr.push(['60628', 'Length', [
+  //     [1, 'Runs Short'],
+  //     [2, 'Runs slightly short'],
+  //     [3, 'Perfect'],
+  //     [4, 'Runs slightly long'],
+  //     [5, 'Runs Long']
+  //   ]]);
+  //   resultsArr.push(['60629', 'Comfort', [
+  //     [1, 'Uncomfortable'],
+  //     [2, 'Slightly uncomfortable'],
+  //     [3, 'Ok'],
+  //     [4, 'Comfortable'],
+  //     [5, 'Perfect']
+  //   ]]);
+  //   resultsArr.push(['60630', 'Quality', [
+  //     [1, 'Poor'],
+  //     [2, 'Below average'],
+  //     [3, 'What I expected'],
+  //     [4, 'Pretty great'],
+  //     [5, 'Perfect']
+  //   ]]);
+  // } else if (prodID === 18082) {
+  //   resultsArr.push(['60631', 'Size', [
+  //     [1, 'Too small'],
+  //     [2, '1/2 a size too small'],
+  //     [3, 'Perfect'],
+  //     [4, '1/2 a size too big'],
+  //     [5, 'Too Big']
+  //   ]]);
+  //   resultsArr.push(['60632', 'Width', [
+  //     [1, 'Too Narrow'],
+  //     [2, 'Slightly narrow'],
+  //     [3, 'Perfect'],
+  //     [4, 'Slightly wide'],
+  //     [5, 'Too Wide']
+  //   ]]);
+  //   resultsArr.push(['60633', 'Comfort', [
+  //     [1, 'Uncomfortable'],
+  //     [2, 'Slightly uncomfortable'],
+  //     [3, 'Ok'],
+  //     [4, 'Comfortable'],
+  //     [5, 'Perfect']
+  //   ]]);
+  //   resultsArr.push(['60634', 'Quality', [
+  //     [1, 'Poor'],
+  //     [2, 'Below average'],
+  //     [3, 'What I expected'],
+  //     [4, 'Pretty great'],
+  //     [5, 'Perfect']
+  //   ]]);
+  // }
   return resultsArr;
 }
 

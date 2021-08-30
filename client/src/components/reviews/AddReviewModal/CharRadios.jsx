@@ -7,8 +7,8 @@ import { AppContext, ReviewsContext } from '../../../helpers/context';
 
 export default function CharRadios() {
   const { product } = useContext(AppContext);
-  const { setCharacteristics, characteristics } = useContext(ReviewsContext);
-  const charArr = getAllCharVals(product.id);
+  const { setCharacteristics, characteristics, revsMetaData } = useContext(ReviewsContext);
+  const charArr = getAllCharVals(revsMetaData);
   return (
     <div>
       {buildCharRadios(charArr, setCharacteristics, characteristics)}
